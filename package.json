@@ -1,0 +1,33 @@
+{
+  "name": "test-setup",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "prepare": "husky",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{json,js,ts,jsx,tsx,html,astro}": [
+      "prettier --write --ignore-unknown"
+    ]
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.5.6",
+    "astro": "^4.4.6",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "^7.1.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-astro": "^0.31.4",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
+    "prettier-plugin-astro": "^0.13.0"
+  }
+}
