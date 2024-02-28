@@ -13,7 +13,7 @@
   },
   "lint-staged": {
     "*.{json,js,ts,jsx,tsx,html,astro}": [
-      "prettier --write --ignore-unknown"
+      "prettier --write"
     ]
   },
   "dependencies": {
