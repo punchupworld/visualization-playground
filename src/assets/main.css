@@ -41,7 +41,7 @@
 }
 
 /* Font family */
-.typo-kondolar {
+/* .typo-kondolar {
   font-family: "Kondolar Thai", ui-serif, Georgia, Cambria, "Times New Roman",
     Times, serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
     "Noto Color Emoji";
@@ -64,10 +64,10 @@
     "Segoe UI Emoji",
     "Segoe UI Symbol",
     "Noto Color Emoji";
-}
+} */
 
 /* Font weight */
-.typo-bold {
+/* .typo-bold {
   @apply font-bold;
 }
 .typo-semibold {
@@ -75,7 +75,7 @@
 }
 .typo-black {
   @apply font-black;
-}
+} */
 
 /* Heading size */
 .typo-h1 {

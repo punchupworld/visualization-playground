@@ -13,7 +13,7 @@
     "commitlint": "commitlint --edit"
   },
   "lint-staged": {
-    "*.{js, jsx,ts,tsx,astro,vue}": [
+    "*.{js,jsx,ts,tsx,astro,vue}": [
       "eslint --quiet --fix"
     ],
     "*.*": [
@@ -22,9 +22,14 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.5.6",
+    "@astrojs/react": "^3.0.10",
     "@astrojs/tailwind": "^5.1.0",
     "@astrojs/vue": "^4.0.8",
+    "@types/react": "^18.2.60",
+    "@types/react-dom": "^18.2.19",
     "astro": "^4.4.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3",
     "vue": "^3.4.21"
@@ -36,6 +41,7 @@
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-astro": "^0.31.4",
+    "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-vue": "^9.22.0",
     "git-format-staged": "^3.1.1",
     "husky": "^8.0.3",
