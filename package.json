@@ -37,7 +37,12 @@
   "devDependencies": {
     "@commitlint/cli": "^19.0.3",
     "@commitlint/config-conventional": "^19.0.3",
-    "@typescript-eslint/parser": "^7.1.0",
+    "@types/d3-dsv": "^3.0.7",
+    "@types/node": "^20.11.25",
+    "@typescript-eslint/eslint-plugin": "^7.1.1",
+    "@typescript-eslint/parser": "^7.1.1",
+    "d3-dsv": "^3.0.1",
+    "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-astro": "^0.31.4",
@@ -46,7 +51,9 @@
     "git-format-staged": "^3.1.1",
     "husky": "^8.0.3",
     "lint-staged": "^15.2.2",
+    "p-limit": "^5.0.0",
     "prettier": "^3.2.5",
-    "prettier-plugin-astro": "^0.13.0"
+    "prettier-plugin-astro": "^0.13.0",
+    "tsx": "^4.7.1"
   }
 }
