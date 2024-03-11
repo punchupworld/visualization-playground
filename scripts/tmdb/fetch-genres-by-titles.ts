@@ -3,17 +3,19 @@ import { csvParse, csvFormat } from "d3-dsv";
 import { readFileSync, writeFileSync } from "fs";
 import { argv, exit } from "process";
 import pLimit from "p-limit";
-import { fetchGenres, fetchMovieGenres } from "./tmdb";
+import { fetchGenres, searchAnimation } from "./tmdb";
 
 const OUTPUT = "movie-genres.csv";
-const MAX_CONCURRENT_REQUESTS = 5;
+const MAX_CONCURRENT_REQUESTS = 40;
 
 interface InputMovie {
   title: string;
+  year: string;
 }
 
 interface OutputMovie extends InputMovie {
-  genres: string[];
+  genres?: string[];
+  tmdbUrl?: string;
 }
 
 const inputCsv = argv[2];
@@ -32,24 +34,35 @@ try {
   );
 
   console.log(`Found ${genreMap.size} genre`);
-  console.log(`Fetching ${inputMovies.length} movies from ${inputCsv}...`);
+  console.log(`Fetching ${inputMovies.length} animations from ${inputCsv}...`);
 
   const concurrency = pLimit(MAX_CONCURRENT_REQUESTS);
 
-  const outputMovies: OutputMovie[] = await Promise.all(
-    inputMovies.map(({ title }) =>
-      concurrency(async () => ({
-        title,
-        genres: (await fetchMovieGenres(title))
-          ?.map((id) => genreMap.get(id))
-          .filter((genre) => genre) as string[],
-      })),
+  const movies: (OutputMovie | null)[] = await Promise.all(
+    inputMovies.map((input) =>
+      concurrency(async () => {
+        const movie = await searchAnimation(input.title, input.year);
+
+        if (!movie) return null;
+
+        return {
+          ...input,
+          genres: movie.genre_ids
+            .map((id) => genreMap.get(id))
+            .filter((genre) => genre) as string[],
+          tmdbUrl: `https://www.themoviedb.org/movie/${movie.id}`,
+        };
+      }),
     ),
   );
 
-  writeFileSync(OUTPUT, csvFormat(outputMovies));
+  const animationWithGenre = movies.filter((m) => m) as OutputMovie[];
 
-  console.log(`Succesfully write output to ${OUTPUT}`);
+  writeFileSync(OUTPUT, csvFormat(animationWithGenre));
+
+  console.log(
+    `Succesfully write ${animationWithGenre.length} animations to ${OUTPUT}`,
+  );
 } catch (e) {
   console.error(e);
   exit(1);

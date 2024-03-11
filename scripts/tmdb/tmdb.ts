@@ -1,13 +1,17 @@
 import { env } from "process";
 
+const ANIMATION_GENRE_ID = 16;
+
 interface Genre {
   id: number;
   name: string;
 }
 
 interface SearchResult {
+  id: number;
   title: string;
   genre_ids: number[];
+  release_date: string;
 }
 
 export async function fetchGenres() {
@@ -16,12 +20,17 @@ export async function fetchGenres() {
   return genres;
 }
 
-export async function fetchMovieGenres(title: string) {
+export async function searchAnimation(title: string, year: string) {
   const { results } = await fetchTmdb<{ results: SearchResult[] }>(
     `/search/movie?query=${title}`,
   );
 
-  return results.find((res) => res.title === title)?.genre_ids;
+  return results.find(
+    (res) =>
+      res.title === title &&
+      res.genre_ids.includes(ANIMATION_GENRE_ID) &&
+      res.release_date.includes(year),
+  );
 }
 
 async function fetchTmdb<T>(path: string): Promise<T> {
