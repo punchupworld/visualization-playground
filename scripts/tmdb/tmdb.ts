@@ -12,6 +12,8 @@ interface SearchResult {
   title: string;
   genre_ids: number[];
   release_date: string;
+  backdrop_path: string;
+  poster_path: string;
 }
 
 export async function fetchGenres() {
@@ -20,7 +22,7 @@ export async function fetchGenres() {
   return genres;
 }
 
-export async function searchAnimation(title: string, year: string) {
+export async function searchAnimation(title: string, release_date: string) {
   const { results } = await fetchTmdb<{ results: SearchResult[] }>(
     `/search/movie?query=${title}`,
   );
@@ -29,7 +31,7 @@ export async function searchAnimation(title: string, year: string) {
     (res) =>
       res.title === title &&
       res.genre_ids.includes(ANIMATION_GENRE_ID) &&
-      res.release_date.includes(year),
+      res.release_date.includes(release_date),
   );
 }
 

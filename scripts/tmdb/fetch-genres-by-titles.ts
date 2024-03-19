@@ -10,7 +10,7 @@ const MAX_CONCURRENT_REQUESTS = 40;
 
 interface InputMovie {
   title: string;
-  year: string;
+  release_date: string;
 }
 
 interface OutputMovie extends InputMovie {
@@ -41,7 +41,7 @@ try {
   const movies: (OutputMovie | null)[] = await Promise.all(
     inputMovies.map((input) =>
       concurrency(async () => {
-        const movie = await searchAnimation(input.title, input.year);
+        const movie = await searchAnimation(input.title, input.release_date);
 
         if (!movie) return null;
 
@@ -51,6 +51,8 @@ try {
             .map((id) => genreMap.get(id))
             .filter((genre) => genre) as string[],
           tmdbUrl: `https://www.themoviedb.org/movie/${movie.id}`,
+          backDrop: movie.backdrop_path,
+          poster: movie.poster_path,
         };
       }),
     ),
