@@ -345,7 +345,7 @@ const x2 = ref(0);
 const y1 = ref(0);
 const y2 = ref(0);
 
-const imgChartHeight = ref(0);
+const imgChartHeight = ref(30);
 const genreFilterElementWidth = ref(0);
 
 onMounted(async () => {
