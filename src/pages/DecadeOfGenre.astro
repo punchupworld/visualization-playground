@@ -1,0 +1,14 @@
+---
+import Layout from "../layouts/Layout.astro";
+import DecadeOfGenreComp from "../components/DecadeOfGenreComp.vue";
+---
+
+<Layout title="Welcome to Astro.">
+  <DecadeOfGenreComp client:only />
+</Layout>
+
+<style>
+  body {
+    background-color: #000000;
+  }
+</style>
