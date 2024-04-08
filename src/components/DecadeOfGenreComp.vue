@@ -7,6 +7,7 @@ import Information from "../components/icon/Information.vue";
 import MdiMovieCogOutline from "./icon/MdiMovieCogOutline.vue";
 import CloseIcon from "./icon/CloseIcon.vue";
 import HandPointing from "./icon/HandPointing.vue";
+import DropDownIcon from "../components/icon/DropDownIcon.vue";
 
 const animations = ref(null);
 const studioList = ref();
@@ -41,6 +42,7 @@ const colors = [
 const isHover = ref(false);
 const hoverObj = ref(null);
 const genresFocus = ref(null);
+
 const genresSet = ref([
   "family",
   "comedy",
@@ -56,7 +58,9 @@ const genresSet = ref([
   "thriller",
   "other",
 ]);
+
 const chartElementSize = ref(0);
+const isShowNote = ref(false);
 
 const groupByReleaseYear = (movieData) => {
   return movieData.reduce((acc, movie) => {
@@ -339,22 +343,30 @@ const filterAnimations = (year) => {
 };
 
 const k2 = ref(1);
-const k1 = ref(1);
 const x1 = ref(0);
 const x2 = ref(0);
 const y1 = ref(0);
 const y2 = ref(0);
 
-const imgChartHeight = ref(30);
+const imgChartHeight = ref(0);
 const genreFilterElementWidth = ref(0);
 
 onMounted(async () => {
   await setData();
-
   setStudioData();
   filterGenres();
+
+  const screenWidth = window.innerWidth;
+  if (screenWidth >= 1024) {
+    isShowNote.value = true;
+  }
   const chartImg = document.getElementsByClassName("chart-img")[0];
-  imgChartHeight.value = chartImg.clientHeight;
+
+  if (chartImg.clientHeight === 0) {
+    imgChartHeight.value = parseInt(15);
+  } else {
+    imgChartHeight.value = chartImg.clientHeight;
+  }
 
   const genreFilterElement = document.getElementById("genre-div");
   genreFilterElementWidth.value = genreFilterElement.clientWidth;
@@ -506,7 +518,7 @@ onMounted(async () => {
         </div>
         <div
           v-if="studioDetailYearSet && studioDetailSet"
-          class="flex flex-col items-center justify-center px-8 relative py-6 lg:py-0"
+          class="flex flex-col items-center justify-center px-4 lg:px-8 relative pt-4 pb-6 lg:py-0"
         >
           <p class="typo-b5 font-semibold py-3">
             Proportion of Film Genres Over Each Year
@@ -518,7 +530,7 @@ onMounted(async () => {
               class="group flex flex-col items-center gap-4 lg:h-[200px] h-[150px] cursor-pointer"
             >
               <div
-                class="absolute bg-white rounded-md border p-2 opacity-0 group-hover:opacity-100 -top-8 z-20 pointer-events-none"
+                class="absolute bg-white rounded-md border p-2 opacity-0 group-hover:opacity-100 top-8 z-20 pointer-events-none"
               >
                 <p class="font-semibold text-sm">Year: {{ year }}</p>
                 <div
@@ -604,23 +616,38 @@ onMounted(async () => {
         class="flex flex-col-reverse lg:flex-row w-full justify-start items-start h-full"
       >
         <div
-          class="lg:w-1/4 w-full bg-[#e7507d] flex flex-col self-end justify-ed lg:p-7 p-4 lg:h-full"
+          class="lg:w-1/2 xl:w-1/4 w-full bg-[#e7507d] flex flex-col self-end justify-ed lg:p-7 p-4 lg:h-full"
         >
           <div class="lg:border-b-[1px] lg:border-black">
             <p class="typo-b4 font-body font-semibold">Studio Animation</p>
-            <h1 class="typo-h4 font-head font-black">DECADE of</h1>
-            <h1 class="typo-h4 font-head font-black">GENRE DIVERSITY</h1>
-            <p class="typo-b4 font-body font-semibold hidden lg:block">
-              Retracing the 24-Year Journey of Animations: Comparative Analysis
-              of Genre Distribution in Animation Production
-            </p>
-            <p
-              class="typo-b6 p-2 font-body hidden lg:block opacity-70 lg:border-t-[1px] lg:border-black py-2 mt-3"
+            <h1 class="typo-h3 font-head font-black">DECADE of</h1>
+            <h1 class="typo-h3 font-head font-black">GENRE DIVERSITY</h1>
+            <div
+              class="flex flex-col md:pb-4 pb-2 lg:pb-0 md:max-w-[70vh] md:gap-2"
             >
-              * For movies featuring more than one genre, each will be
-              subdivided into smaller boxes. For movies with only one genre,
-              they will be displayed as individual posters.
-            </p>
+              <p class="typo-b4 font-body font-semibold lg:block">
+                Retracing the 24-Year Journey of Animations: Comparative
+                Analysis of Genre Distribution in Animation Production
+              </p>
+              <button
+                class="flex items-center opacity-70 lg:hidden"
+                @click="isShowNote = !isShowNote"
+              >
+                <p class="typo-b6">note*</p>
+                <DropDownIcon
+                  :class="isShowNote ? 'rotate-180' : ''"
+                  class="text-2xl"
+                />
+              </button>
+              <p
+                v-show="isShowNote"
+                class="typo-b6 p-2 font-body opacity-70 lg:block lg:border-t-[1px] lg:border-l-0 border-l-[2px] border-black py-2 md:py-0 md:pl-5 lg:pl-2 lg:py-2"
+              >
+                * For movies featuring more than one genre, each will be
+                subdivided into smaller boxes. For movies with only one genre,
+                they will be displayed as individual posters.
+              </p>
+            </div>
           </div>
 
           <div class="bg-white lg:my-5 mb-5 rounded-md p-3 shadow-lg">
@@ -673,7 +700,7 @@ onMounted(async () => {
 
         <div
           id="chart-div"
-          class="lg:w-3/4 w-full bg-black/90 text-white p-3 flex flex-col lg:flex-row gap-3 shadow-md typo-b7 font-head text-nowrap h-full justify-between"
+          class="w-full bg-black/90 text-white p-3 flex flex-col lg:flex-row gap-3 shadow-md typo-b7 font-head text-nowrap h-full justify-between"
         >
           <div class="flex lg:flex-col gap-1">
             <div
@@ -826,12 +853,14 @@ onMounted(async () => {
     </div>
 
     <div
-      class="absolute text-white lg:right-4 right-0 bottom-0 lg:p-10 p-3 lg:text-3xl text-xl lg:hover:text-[#e7507d] hover:text-black duration-200"
+      class="absolute lg:text-white lg:right-4 right-0 bottom-0 lg:p-10 p-3 lg:text-3xl text-xl lg:hover:text-[#e7507d] hover:text-black duration-200"
       @click="toggleStudioFilter"
     >
-      <MdiMovieCogOutline class="hover:text-[e7507d] cursor-pointer" />
+      <MdiMovieCogOutline
+        class="hover:text-[e7507d] cursor-pointer text-white/70"
+      />
       <div
-        class="absolute font-light right-12 top-[15px] lg:top-2 text-nowrap flex items-center gap-1 lg:text-zinc-500"
+        class="absolute font-light right-10 lg:right-12 top-[12px] lg:top-2 text-nowrap flex items-center gap-1 lg:text-white/70"
       >
         <p class="typo-b6 font-head">Click for open studio filter</p>
         <HandPointing class="lg:text-xl text-lg lg:rotate-180 rotate-90" />
