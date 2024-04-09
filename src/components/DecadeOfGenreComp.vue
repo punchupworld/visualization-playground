@@ -857,7 +857,7 @@ onMounted(async () => {
       @click="toggleStudioFilter"
     >
       <MdiMovieCogOutline
-        class="hover:text-[e7507d] cursor-pointer text-white/70"
+        class="hover:text-[e7507d] cursor-pointer lg:text-white/70"
       />
       <div
         class="absolute font-light right-10 lg:right-12 top-[12px] lg:top-2 text-nowrap flex items-center gap-1 lg:text-white/70"
