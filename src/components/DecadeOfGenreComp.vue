@@ -620,7 +620,7 @@ onMounted(async () => {
         >
           <div class="lg:border-b-[1px] lg:border-black">
             <p class="typo-b4 font-body font-semibold">Studio Animation</p>
-            <h1 class="typo-h3 font-head font-black">DECADE of</h1>
+            <h1 class="typo-h3 font-head font-black">A DECADE of</h1>
             <h1 class="typo-h3 font-head font-black">GENRE DIVERSITY</h1>
             <div
               class="flex flex-col md:pb-4 pb-2 lg:pb-0 md:max-w-[70vh] md:gap-2"
