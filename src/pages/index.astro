@@ -1,9 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import LandingPage from "../components/LandingPage.vue";
 ---
 
 <Layout title="Visualization Playground">
-  <a href="/a-decade-of-genre">A DECADE of GENRE DIVERSITY</a>
+  <LandingPage client:only />
 </Layout>
 
 <style></style>
