@@ -3,11 +3,11 @@
 import { ref, onMounted } from "vue";
 import * as d3 from "d3";
 import { computePosition, shift, flip, offset } from "@floating-ui/dom";
-import Information from "../components/icon/Information.vue";
+import Information from "./icon/Information.vue";
 import MdiMovieCogOutline from "./icon/MdiMovieCogOutline.vue";
 import CloseIcon from "./icon/CloseIcon.vue";
 import HandPointing from "./icon/HandPointing.vue";
-import DropDownIcon from "../components/icon/DropDownIcon.vue";
+import DropDownIcon from "./icon/DropDownIcon.vue";
 
 const animations = ref(null);
 const studioList = ref();
