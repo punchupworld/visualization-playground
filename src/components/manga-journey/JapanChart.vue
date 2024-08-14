@@ -165,7 +165,7 @@ export default {
         root,
         {
           radius: 5,
-          fill: "#e94e58",
+          fill: "#D7707E",
           fillOpacity: 1,
           tooltipHTML: `<div class='tooltip-box flex gap-2 text-[14px]'>          
                 <img src="{img}" class="lg:w-20 w-12"/>
@@ -209,7 +209,7 @@ export default {
 
     // Generate random data
     var data = [];
-    const dataList = (await d3.csv("/filtered_animation_data_100.csv")).filter(
+    const dataList = (await d3.csv("/filtered_animation_data.csv")).filter(
       (x) => x.popularity <= 500 && x.original_language == "ja",
     );
 

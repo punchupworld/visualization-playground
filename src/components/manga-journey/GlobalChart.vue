@@ -10,42 +10,42 @@ const colorList = [
   {
     original_language: "en",
     fullname: "English",
-    color: "#E1FEFE",
+    color: "#00a0ae",
   },
   {
     original_language: "fr",
     fullname: "French",
-    color: "#E3EBFD",
+    color: "#e81416",
   },
   {
     original_language: "es",
     fullname: "Spanish",
-    color: "#E7DCFC",
+    color: "#ffa500",
   },
   {
     original_language: "zh",
     fullname: "Mandarin",
-    color: "#E0C7EE",
+    color: "#faeb36",
   },
   {
     original_language: "de",
     fullname: "German",
-    color: "#F8D5F8",
+    color: "#79c314",
   },
   {
     original_language: "ru",
     fullname: "Russian",
-    color: "#FFF5ED",
+    color: "#487de7",
   },
   {
     original_language: "da",
     fullname: "Danish",
-    color: "#FAE0D8",
+    color: "#4b369d",
   },
   {
     original_language: "it",
     fullname: "Italian",
-    color: "#F0F4BF",
+    color: "#70369d",
   },
   {
     original_language: "xx",
@@ -289,7 +289,7 @@ export default {
 
     // Generate random data
     var data = [];
-    const dataList = (await d3.csv("/filtered_animation_data_100.csv")).filter(
+    const dataList = (await d3.csv("/filtered_animation_data.csv")).filter(
       (x) => x.popularity <= 500 && x.original_language != "ja",
     );
 

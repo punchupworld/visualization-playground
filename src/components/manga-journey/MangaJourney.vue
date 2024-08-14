@@ -13,6 +13,32 @@ import GlobalChart from "../../components/manga-journey/GlobalChart.vue";
       </h1>
     </div>
 
+    <div class="flex flex-col absolute -left-20 md:-left-12 top-0 h-full">
+      <div class="film"></div>
+      <div class="film"></div>
+      <div class="film"></div>
+      <div class="film"></div>
+      <div class="film"></div>
+      <div class="film"></div>
+      <div class="film"></div>
+      <div class="film"></div>
+      <div class="film"></div>
+      <div class="film"></div>
+    </div>
+
+    <div class="flex flex-col absolute -right-20 md:-right-12 top-0 h-full">
+      <div class="film"></div>
+      <div class="film"></div>
+      <div class="film"></div>
+      <div class="film"></div>
+      <div class="film"></div>
+      <div class="film"></div>
+      <div class="film"></div>
+      <div class="film"></div>
+      <div class="film"></div>
+      <div class="film"></div>
+    </div>
+
     <div
       class="mt-10 relative z-10 max-w-2xl lg:max-w-6xl mx-auto border-4 border-white rounded-xl"
     >
@@ -86,13 +112,11 @@ import GlobalChart from "../../components/manga-journey/GlobalChart.vue";
   flex: 1;
   width: 100px;
   height: 100px;
-  margin: 28px 0;
+  margin: 10% 0;
   background: #fff;
 
   @media only screen and (max-width: 600px) {
-    width: 50px;
-    height: 50px;
-    margin: 10px 0;
+    margin: 10% 0;
   }
 }
 </style>
