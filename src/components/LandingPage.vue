@@ -16,10 +16,12 @@
         </a>
       </div>
       <div class="w-full lg:w-2/5">
-        <div class="comingsoon rounded-xl text-white typo-h6 font-bold mb-5">
-          Coming Soon..
-        </div>
-        <p class="typo-h8 font-bold uppercase">Manga Journey</p>
+        <a href="/manga-journey">
+          <div class="comingsoon rounded-xl text-white typo-h6 font-bold mb-5">
+            Coming Soon..
+          </div>
+          <p class="typo-h8 font-bold uppercase">TMDB Anime Popularity</p>
+        </a>
       </div>
       <div class="w-full lg:w-2/5">
         <div class="comingsoon rounded-xl text-white typo-h6 font-bold mb-5">
