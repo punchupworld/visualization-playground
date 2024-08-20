@@ -9,18 +9,20 @@
     >
       <div class="w-full lg:w-2/5">
         <a href="/a-decade-of-genre">
-          <div class="rounded-xl mb-5">
-            <img src="../assets/pui.png" alt="" class="rounded-xl" />
+          <div class="rounded-xl mb-5 aspect-video flex items-center">
+            <img src="../../../public/pui.png" alt="" class="rounded-xl" />
           </div>
           <p class="typo-h8 font-bold uppercase">A DECADE of GENRE DIVERSITY</p>
         </a>
       </div>
       <div class="w-full lg:w-2/5">
-        <a href="/manga-journey">
-          <div class="comingsoon rounded-xl text-white typo-h6 font-bold mb-5">
-            Coming Soon..
+        <a href="/how-anime-popular-in-the-world">
+          <div class="rounded-xl mb-5 aspect-video">
+            <img src="../../../public/poppap.png" alt="" class="rounded-xl" />
           </div>
-          <p class="typo-h8 font-bold uppercase">TMDB Anime Popularity</p>
+          <p class="typo-h8 font-bold uppercase">
+            how anime popular in the world
+          </p>
         </a>
       </div>
       <div class="w-full lg:w-2/5">

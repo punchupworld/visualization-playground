@@ -7,13 +7,91 @@ import * as d3 from "d3";
 var srcUrl = "https://media.themoviedb.org/t/p/w94_and_h141_bestv2";
 
 const colorList = [
-  "#ffffcc",
-  "#ffcc99",
-  "#ff99cc",
-  "#cc99ff",
-  "#99ccff",
-  "#ccffff",
-  "#99ffcc",
+  {
+    original_language: "en",
+    fullname: "English",
+    color: "#4269d0",
+  },
+  {
+    original_language: "fr",
+    fullname: "French",
+    color: "#efb118",
+  },
+  {
+    original_language: "es",
+    fullname: "Spanish",
+    color: "#ff725c",
+  },
+  {
+    original_language: "zh",
+    fullname: "Mandarin",
+    color: "#6cc5b0",
+  },
+  {
+    original_language: "de",
+    fullname: "German",
+    color: "#3ca951",
+  },
+  {
+    original_language: "ru",
+    fullname: "Russian",
+    color: "#ff8ab7",
+  },
+  {
+    original_language: "da",
+    fullname: "Danish",
+    color: "#a463f2",
+  },
+  {
+    original_language: "it",
+    fullname: "Italian",
+    color: "#97bbf5",
+  },
+  {
+    original_language: "xx",
+    fullname: "No Language",
+    color: "#9c6b4e",
+  },
+  {
+    original_language: "uk",
+    fullname: "Ukrainian",
+    color: "#9498a0",
+  },
+  {
+    original_language: "ko",
+    fullname: "Korean",
+    color: "#ECF8F8",
+  },
+  {
+    original_language: "hu",
+    fullname: "Hungarian",
+    color: "#EEE4E1",
+  },
+  {
+    original_language: "mo",
+    fullname: "Moldavian",
+    color: "#F6C6C7",
+  },
+  {
+    original_language: "tr",
+    fullname: "Turkish",
+    color: "#8BD2EC",
+  },
+  {
+    original_language: "pt",
+    fullname: "Portuguese",
+    color: "#FCEE9E",
+  },
+  {
+    original_language: "fi",
+    fullname: "Finnish",
+    color: "#80B7A2",
+  },
+  {
+    original_language: "he",
+    fullname: "Hebrew",
+    color: "#ADD495",
+  },
 ];
 
 let total = 0;
@@ -89,7 +167,7 @@ export default {
 
     // Create root element
     // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-    var root = am5.Root.new("chartdiv");
+    var root = am5.Root.new("chartdiv2");
     root._logo.dispose();
 
     // Set themes
@@ -100,11 +178,9 @@ export default {
     // https://www.amcharts.com/docs/v5/charts/xy-chart/
     var chart = root.container.children.push(
       am5xy.XYChart.new(root, {
-        panX: true,
-        panY: true,
-        wheelY: "zoomXY",
-        pinchZoomX: true,
-        pinchZoomY: true,
+        paddingRight: 0,
+        paddingLeft: 0,
+        layout: root.verticalLayout,
       }),
     );
 
@@ -122,8 +198,9 @@ export default {
     var yAxis = chart.yAxes.push(
       am5xy.ValueAxis.new(root, {
         renderer: am5xy.AxisRendererY.new(root, {}),
-        max: 22000,
         min: 0,
+        max: 10,
+        visible: false,
       }),
     );
 
@@ -160,15 +237,18 @@ export default {
     // https://www.amcharts.com/docs/v5/charts/xy-chart/series/#Bullets
     var circleTemplate = am5.Template.new({});
 
-    series.bullets.push(function () {
+    series.bullets.push(function (root, series, dataItem) {
       var bulletCircle = am5.Circle.new(
         root,
         {
-          radius: 5,
-          fill: "#D7707E",
+          radius: 4.5,
+          fill: colorList.filter(
+            (x) =>
+              x.original_language == dataItem.dataContext.original_language,
+          )[0].color,
           fillOpacity: 1,
-          tooltipHTML: `<div class='tooltip-box flex gap-2 text-[14px]'>          
-                <img src="{img}" class="lg:w-20 w-12"/>
+          tooltipHTML: `<div class='flex gap-2 text-[14px] overflow-hidden'>
+                <img src="{img}" class="w-20"/>
                 <div>
                   <div class="flex flex-col">
                     <p class="font-bold lg:text-[16px]">
@@ -177,8 +257,10 @@ export default {
                     <p><b>Date: </b>{date}</p>
                   </div>
                   <div>
-                    <p class="break-words"><b>Genres:</b> {genre}</p>
-                  <p class="break-words"><b>Vote:</b> {vote_count}</p>
+                    <p class="break-words"><b>Genres:</b> </p>
+                    <p >{genre}</p>
+              <p class="break-words"><b>Vote:</b> {vote_count}</p>
+              <p class="break-words"><b>Original Langauge:</b> {original_language_fullname}</p>
                 </div></div>`,
           tooltipY: 0,
         },
@@ -200,7 +282,7 @@ export default {
         min: 2,
         max: 9,
         dataField: "value",
-        key: "radius",
+        key: "fill",
       },
     ]);
 
@@ -210,20 +292,16 @@ export default {
     // Generate random data
     var data = [];
     const dataList = (await d3.csv("/filtered_animation_data.csv")).filter(
-      (x) => x.popularity <= 500 && x.original_language == "ja",
+      (x) => x.original_language != "ja",
     );
-
-    total = dataList.length;
-
-    // console.log(dataList);
 
     for (var i = 0; i < dataList.length; i++) {
       data.push({
-        y: am5.math.round(dataList[i].vote_count),
+        y: dataList[i].vote_average,
         x: 0,
-        fill: am5.Color.fromString(
-          "#" + Math.floor(Math.random() * 16777215).toString(16),
-        ),
+        fill: colorList.filter(
+          (x) => x.original_language == dataList[i].original_language,
+        )[0].color,
         value: dataList[i].vote_count,
         name: dataList[i].original_title,
         img: srcUrl + dataList[i].poster_path,
@@ -231,6 +309,10 @@ export default {
         genre: dataList[i].genres,
         vote_count: parseInt(dataList[i].vote_count).toLocaleString(),
         vote_average: dataList[i].vote_average,
+        original_language: dataList[i].original_language,
+        original_language_fullname: colorList.filter(
+          (x) => x.original_language == dataList[i].original_language,
+        )[0].fullname,
       });
     }
 
@@ -263,8 +345,7 @@ export default {
 </script>
 
 <template>
-  {{ total }}
-  <div class="hello" id="chartdiv" ref="chartdiv"></div>
+  <div class="hello" id="chartdiv2" ref="chartdiv2"></div>
 </template>
 
 <style scoped>
