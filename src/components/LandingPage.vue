@@ -10,7 +10,7 @@
       <div class="w-full lg:w-2/5">
         <a href="/a-decade-of-genre">
           <div class="rounded-xl mb-5 aspect-video flex items-center">
-            <img src="../../../public/pui.png" alt="" class="rounded-xl" />
+            <img src="/pui.png" alt="" class="rounded-xl" />
           </div>
           <p class="typo-h8 font-bold uppercase">A DECADE of GENRE DIVERSITY</p>
         </a>
@@ -18,7 +18,7 @@
       <div class="w-full lg:w-2/5">
         <a href="/how-anime-popular-in-the-world">
           <div class="rounded-xl mb-5 aspect-video">
-            <img src="../../../public/poppap.png" alt="" class="rounded-xl" />
+            <img src="/poppap.png" alt="" class="rounded-xl" />
           </div>
           <p class="typo-h8 font-bold uppercase">
             how anime popular in the world
