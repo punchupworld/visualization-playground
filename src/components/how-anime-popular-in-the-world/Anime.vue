@@ -1,6 +1,5 @@
+<!-- eslint-disable vue/no-use-v-if-with-v-for -->
 <script lang="ts" setup>
-import { ref } from "vue";
-
 import JapanChart from "../../components/how-anime-popular-in-the-world/JapanChart.vue";
 import GlobalChart from "../../components/how-anime-popular-in-the-world/GlobalChart.vue";
 
@@ -16,9 +15,9 @@ const colorList = [
     color: "#efb118",
   },
   {
-    original_language: "es",
-    fullname: "Spanish",
-    color: "#ff725c",
+    original_language: "he",
+    fullname: "Hebrew",
+    color: "#ADD495",
   },
   {
     original_language: "zh",
@@ -26,14 +25,14 @@ const colorList = [
     color: "#6cc5b0",
   },
   {
-    original_language: "uk",
-    fullname: "Ukrainian",
-    color: "#9498a0",
+    original_language: "es",
+    fullname: "Spanish",
+    color: "#9467bd",
   },
   {
-    original_language: "he",
-    fullname: "Hebrew",
-    color: "#ADD495",
+    original_language: "uk",
+    fullname: "Ukrainian",
+    color: "#17becf",
   },
 ];
 </script>
@@ -68,53 +67,84 @@ const colorList = [
       <div class="film" v-for="item in 20" :key="item"></div>
     </div>
 
-    <div class="overflow-auto relative">
+    <div class="overflow-x-auto relative overflow-y-hidden">
       <div
-        class="mt-5 relative z-10 w-[1000px] mx-auto border-4 border-white rounded-xl"
+        class="mt-5 relative z-20 w-[1000px] mx-auto border-4 border-white rounded-xl"
       >
         <div class="flex flex-row p-3">
-          <div class="w-2/5 rounded-2xl">
-            <p class="typo-b6 font-bold text-white">Vote Average</p>
-            <JapanChart client:only />
+          <div class="w-2/5 rounded-2xl relative">
+            <p class="typo-b6 font-bold text-white">User Score</p>
+            <JapanChart client:only class="relative z-[11]" />
+
             <div class="flex items-center gap-2 justify-center">
               <h1 class="text-center font-bold typo-h8 sm:ml-12 text-white">
                 Japan
               </h1>
               <img src="/japan.png" alt="" class="inline-block w-6" />
             </div>
-            <p class="text-center typo-b6 sm:ml-12 text-white">(65 records)</p>
+
+            <p class="text-center typo-b6 sm:ml-12 text-white">
+              (65 Animations)
+            </p>
+
+            <div
+              class="left-14 xl:left-10 inset-x-0 absolute top-[130px] m-auto text-white text-right typo-b5 pointer-events-none"
+            >
+              <p>7.5935</p>
+              <div class="h-[1px] border border-white border-dashed"></div>
+            </div>
           </div>
           <div class="w-3/5 rounded-2xl mt-5 relative">
-            <GlobalChart client:only />
+            <GlobalChart client:only class="relative z-[11]" />
+
             <div class="flex items-center gap-2 justify-center">
               <h1 class="text-center font-bold typo-h8 sm:ml-12 text-white">
                 Other Countries
               </h1>
               <img src="/global.png" alt="" class="inline-block w-6" />
             </div>
-            <p class="text-center typo-b6 sm:ml-12 text-white">(395 records)</p>
+
+            <p class="text-center typo-b6 sm:ml-12 text-white">
+              (395 Animations)
+            </p>
 
             <div
-              class="z-20 w-[90%] inset-x-0 absolute bottom-[55px] m-auto text-white text-right typo-b5 pointer-events-none"
+              class="left-14 xl:left-10 inset-x-0 absolute top-[125px] m-auto text-white text-right typo-b5 pointer-events-none"
             >
-              <div class="flex flex-wrap gap-2 justify-center">
-                <div class="flex gap-2" v-for="(item, i) in colorList" :key="i">
-                  <div
-                    :style="{ backgroundColor: item.color }"
-                    class="w-[10px] h-[10px] mt-1.5 rounded-full flex-1"
-                  ></div>
-                  <div class="flex-1">{{ item.fullname }}</div>
-                </div>
-              </div>
+              <p>7.007</p>
+              <div class="h-[1px] border border-white border-dashed"></div>
             </div>
           </div>
         </div>
       </div>
-      <div
-        class="w-[900px] left-14 xl:left-10 inset-x-0 absolute opacity-50 top-[185px] m-auto text-white text-right typo-b5 pointer-events-none"
-      >
-        <p>Avg. 7.05</p>
-        <div class="h-[1px] border border-white border-dashed"></div>
+
+      <div class="absolute top-7 inset-x-0 h-[600px] z-10 pointer-events-none">
+        <div
+          v-for="(item, i) in 11"
+          :key="i"
+          class="h-[1px] border border-white w-[920px] mx-auto my-[45px] opacity-10"
+        ></div>
+      </div>
+    </div>
+
+    <div class="text-white max-w-4xl mx-auto my-4 px-3">
+      <p class="typo-b4 font-bold">How to read</p>
+      <div class="flex gap-5 flex-col lg:flex-row">
+        <div class="text-white text-right typo-b5">
+          <div class="flex flex-wrap gap-2">
+            <div class="flex gap-2" v-for="(item, i) in colorList" :key="i">
+              <div
+                :style="{ backgroundColor: item.color }"
+                class="w-[10px] h-[10px] mt-1.5 rounded-full flex-1"
+              ></div>
+              <div class="flex-1">{{ item.fullname }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="flex gap-5 items-center lg:border-l lg:pl-5">
+          <div class="h-[1px] border border-white border-dashed w-40"></div>
+          <p class="typo-b5">Median line</p>
+        </div>
       </div>
     </div>
   </div>
@@ -123,33 +153,27 @@ const colorList = [
 <style scoped>
 .gradient-border {
   border-bottom: 10px solid hsl(0, 100%, 50%);
-  animation: rainbow 7s infinite alternate;
+  animation: rainbow 5s infinite alternate;
 }
 
 @keyframes rainbow {
   0% {
-    border-color: hsl(0, 100%, 50%);
+    border-color: hsl(224, 60%, 54%);
   }
-  14% {
-    border-color: hsl(30, 100%, 50%);
+  20% {
+    border-color: hsl(43, 87%, 52%);
   }
-  28% {
-    border-color: hsl(60, 100%, 50%);
+  40% {
+    border-color: hsl(97, 42%, 71%);
   }
-  42% {
-    border-color: hsl(120, 100%, 50%);
+  60% {
+    border-color: hsl(166, 43%, 60%);
   }
-  56% {
-    border-color: hsl(240, 100%, 50%);
-  }
-  70% {
-    border-color: hsl(280, 100%, 50%);
-  }
-  84% {
-    border-color: hsl(320, 100%, 50%);
+  080% {
+    border-color: hsl(271, 39%, 57%);
   }
   100% {
-    border-color: hsl(255, 100%, 50%);
+    border-color: hsl(186, 80%, 45%);
   }
 }
 

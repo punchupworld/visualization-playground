@@ -8,15 +8,17 @@ import * as d3 from "d3";
 
 var srcUrl = "https://media.themoviedb.org/t/p/w94_and_h141_bestv2";
 
-const colorList = [
-  "#ffffcc",
-  "#ffcc99",
-  "#ff99cc",
-  "#cc99ff",
-  "#99ccff",
-  "#ccffff",
-  "#99ffcc",
-];
+const sortGenre = (genre) => {
+  let data = genre.split(",").sort();
+  let text = "";
+
+  for (let i = 0; i < data.length; i++) {
+    text += data[i];
+    if (i < data.length - 1) text += ",";
+  }
+
+  return text;
+};
 
 onMounted(async () => {
   // Create D3 simulation and collision force
@@ -163,19 +165,20 @@ onMounted(async () => {
         radius: 5,
         fill: "#D7707E",
         fillOpacity: 1,
-        tooltipHTML: `<div class='flex gap-2 text-[14px] overflow-hidden'>     
+        tooltipHTML: `<div class='flex gap-2 text-[14px] overflow-hidden min-w-[350px]'>     
                 <img src="{img}" class="w-20"/>
                 <div>
                   <div class="flex flex-col">
-                    <p class="font-bold lg:text-[16px]">
+                    <p class="font-bold lg:text-[16px] free-text-wrapp">
                       {name}
                     </p>
                     <p><b>Date: </b>{date}</p>
                   </div>
                   <div>
-                    <p class="break-words"><b>Genres:</b></p>
-                    <p>{genre}</p>
+                    <p><b>Genres:</b></p>
+                    <p class="free-text-wrap">{genre}</p>
                   <p class="break-words"><b>Vote:</b> {vote_count}</p>
+                  <p class="break-words"><b>User score:</b> {vote_average}</p>
                 </div></div>`,
         tooltipY: 0,
       },
@@ -221,7 +224,7 @@ onMounted(async () => {
       name: dataList[i].original_title,
       img: srcUrl + dataList[i].poster_path,
       date: new Date(dataList[i].release_date).toLocaleDateString("en-GB"),
-      genre: dataList[i].genres,
+      genre: sortGenre(dataList[i].genres),
       vote_count: parseInt(dataList[i].vote_count).toLocaleString(),
       vote_average: dataList[i].vote_average,
     });
@@ -264,22 +267,8 @@ onMounted(async () => {
   height: 500px;
 }
 
-.tooltip-box {
-  font-family: "Kondolar Thai";
-}
-
-.tooltip-box::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-  background: #ededed;
-}
-
-.tooltip-box::-webkit-scrollbar-thumb {
-  background: #b4b4b4;
-  border-radius: 8px;
-}
-
-.tooltip-box p {
-  text-wrap: pretty !important;
+.free-text-wrap {
+  white-space: pre-line;
+  overflow-wrap: anywhere;
 }
 </style>

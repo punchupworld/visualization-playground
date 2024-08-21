@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-use-v-if-with-v-for -->
 <script>
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
@@ -20,7 +21,7 @@ const colorList = [
   {
     original_language: "es",
     fullname: "Spanish",
-    color: "#ff725c",
+    color: "#9467bd",
   },
   {
     original_language: "zh",
@@ -55,7 +56,7 @@ const colorList = [
   {
     original_language: "uk",
     fullname: "Ukrainian",
-    color: "#9498a0",
+    color: "#17becf",
   },
   {
     original_language: "ko",
@@ -94,7 +95,17 @@ const colorList = [
   },
 ];
 
-let total = 0;
+const sortGenre = (genre) => {
+  let data = genre.split(",").sort();
+  let text = "";
+
+  for (let i = 0; i < data.length; i++) {
+    text += data[i];
+    if (i < data.length - 1) text += ",";
+  }
+
+  return text;
+};
 
 export default {
   name: "HelloWorld",
@@ -258,9 +269,9 @@ export default {
                   </div>
                   <div>
                     <p class="break-words"><b>Genres:</b> </p>
-                    <p >{genre}</p>
+                     <p class="break-words">{genre}</p>
               <p class="break-words"><b>Vote:</b> {vote_count}</p>
-              <p class="break-words"><b>Original Langauge:</b> {original_language_fullname}</p>
+                  <p class="break-words"><b>User score:</b> {vote_average}</p>
                 </div></div>`,
           tooltipY: 0,
         },
@@ -306,7 +317,7 @@ export default {
         name: dataList[i].original_title,
         img: srcUrl + dataList[i].poster_path,
         date: new Date(dataList[i].release_date).toLocaleDateString("en-GB"),
-        genre: dataList[i].genres,
+        genre: sortGenre(dataList[i].genres),
         vote_count: parseInt(dataList[i].vote_count).toLocaleString(),
         vote_average: dataList[i].vote_average,
         original_language: dataList[i].original_language,
@@ -352,24 +363,5 @@ export default {
 .hello {
   width: 100%;
   height: 500px;
-}
-
-.tooltip-box {
-  font-family: "Kondolar Thai";
-}
-
-.tooltip-box::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-  background: #ededed;
-}
-
-.tooltip-box::-webkit-scrollbar-thumb {
-  background: #b4b4b4;
-  border-radius: 8px;
-}
-
-.tooltip-box p {
-  text-wrap: pretty !important;
 }
 </style>
