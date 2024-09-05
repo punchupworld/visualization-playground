@@ -4,6 +4,7 @@ export default {
   theme: {
     extend: {},
     fontFamily: {
+      kanit: ["Kanit"],
       body: [
         "IBM Plex Sans Thai",
         "ui-sans-serif",

@@ -26,10 +26,12 @@
         </a>
       </div>
       <div class="w-full lg:w-2/5">
-        <div class="comingsoon rounded-xl text-white typo-h6 font-bold mb-5">
-          Coming Soon..
-        </div>
-        <p class="typo-h8 font-bold uppercase">(P'Bas Work)</p>
+        <a href="/anime-trend">
+          <div class="comingsoon rounded-xl text-white typo-h6 font-bold mb-5">
+            Coming Soon..
+          </div>
+          <p class="typo-h8 font-bold uppercase">(P'Bas Work)</p>
+        </a>
       </div>
       <div class="w-full lg:w-2/5">
         <div class="comingsoon rounded-xl text-white typo-h6 font-bold mb-5">

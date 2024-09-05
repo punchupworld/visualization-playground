@@ -1,0 +1,15 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "@fontsource/kanit";
+import AnimeIndustryComp from "../components/anime-industry/AnimeIndustryComp";
+---
+
+<Layout title="Anime Industry">
+  <AnimeIndustryComp test="sss" client:only="react" />
+</Layout>
+
+<style>
+  body {
+    /* background-color: #000000; */
+  }
+</style>
