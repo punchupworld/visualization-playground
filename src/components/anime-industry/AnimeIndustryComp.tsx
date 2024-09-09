@@ -145,7 +145,7 @@ const AnimeIndustryComp = () => {
         mesh.castShadow = true; //default is false
         mesh.receiveShadow = true;
 
-        fontLoader.load("anime-industry/Kanit.json", (font) => {
+        fontLoader.load("/anime-industry/Kanit.json", (font) => {
           const textGeometry = new TextGeometry(
             allData[i].genre.toUpperCase(),
             {
