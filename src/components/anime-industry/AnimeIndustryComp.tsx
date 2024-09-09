@@ -178,7 +178,7 @@ const AnimeIndustryComp = () => {
         .range([0, meshBb.max.x]);
 
       for (let i = 0; i < summary.yearSeasonList.length; i++) {
-        fontLoader.load("anime-industry/Kanit.json", (font) => {
+        fontLoader.load("/anime-industry/Kanit.json", (font) => {
           const xTick = summary.yearSeasonList[i];
 
           const textGeometry = new TextGeometry(xTick.toString(), {
