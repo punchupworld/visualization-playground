@@ -25,13 +25,7 @@ import { unique } from "radash";
 
 // https://stackoverflow.com/questions/34370622/javascript-how-do-i-display-a-text-character-by-character
 
-type Props = {
-  test: string;
-};
-
-const AnimeIndustryComp = ({ test }: Props) => {
-  // const [chartData, setChartData] = useState<ChartData[]>([]);
-  console.log(test);
+const AnimeIndustryComp = () => {
   const scene = new THREE.Scene();
 
   const [selected, setSelected] = useState<{
@@ -73,8 +67,6 @@ const AnimeIndustryComp = ({ test }: Props) => {
     gui: GUI;
   } | null>(null);
 
-  // const [objectNameList, setObjectNameList] = useState<string[]>([]);
-
   const canvasRef = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
     const loadData = async () => {
@@ -95,10 +87,6 @@ const AnimeIndustryComp = ({ test }: Props) => {
     loadData();
   }, []);
 
-  // useEffect(()=>{
-
-  // },[summary.cleanData,selected.studio])
-
   useMemo(() => {
     if (summary.cleanData.length > 0 && selected.studio) {
       const data = filterDataByStudio(summary.cleanData, selected.studio.name);
@@ -111,7 +99,6 @@ const AnimeIndustryComp = ({ test }: Props) => {
         yearSeasonList,
         chartData: groupDataByGenre,
       }));
-      // cleanup
 
       select(".container").selectAll("svg").remove();
       groupDataByGenre.map((d) => renderAreaChart(d));
@@ -164,7 +151,7 @@ const AnimeIndustryComp = ({ test }: Props) => {
             {
               font: font,
               size: 0.15,
-              height: 0.04,
+              depth: 0.04,
             },
           );
 
@@ -182,8 +169,6 @@ const AnimeIndustryComp = ({ test }: Props) => {
         });
 
         scene.add(chartGroup);
-
-        // setObjectNameList(meshNameList);
       }
       const meshBb = new THREE.Box3();
       meshBb.setFromObject(chartGroup);
@@ -199,7 +184,7 @@ const AnimeIndustryComp = ({ test }: Props) => {
           const textGeometry = new TextGeometry(xTick.toString(), {
             font: font,
             size: 0.05,
-            height: 0.01,
+            depth: 0.01,
             curveSegments: 1,
           });
 
@@ -215,15 +200,6 @@ const AnimeIndustryComp = ({ test }: Props) => {
 
       const animate = () => {
         requestAnimationFrame(animate);
-        // const offset = new THREE.Vector3();
-        // const distance = 1;
-
-        // offset.x = distance * Math.sin(time * 0.001);
-        // offset.y = 2;
-        // offset.z = distance * Math.cos(time * 0.001);
-
-        // camera.position.copy(chartGroup.position).add(offset);
-
         controls.update();
         renderer.render(scene, camera);
       };

@@ -52,8 +52,6 @@ export interface StudioData {
 }
 
 export const cleanUpData = (rawData: RawAnimeData[]) => {
-  console.log(rawData);
-
   const cleanData = rawData.map((d) => ({
     title: d.title,
     tags: d.tags,
@@ -81,20 +79,12 @@ export const cleanUpData = (rawData: RawAnimeData[]) => {
       .sort((a, b) => b.count - a.count),
   ];
 
-  // console.log(
-  //   "count occurrence of genre all time data",
-  //   counting(flat(cleanData.map((d) => d.tags)), (d) => d),
-  // );
-
   // find unique all year list
   const yearSeasonList = unique(
     cleanData.map((d) => d.year_season),
     (d: string) => d,
   );
 
-  // // group data by year_season
-  // const groupYearSeason = groups(data, (d) => d.year_season);
-  // console.log("group data by year_season", groupYearSeason);
   return { cleanData, studioList, yearSeasonList };
 };
 
@@ -116,15 +106,6 @@ export const formatData = (res: AnimeData[]) => {
     unique(flat(res.map((d) => d.tags))),
     (d) => d,
   );
-  console.log("find unique genre and order in alphabetical order", genreList);
-
-  // const studioList = alphabetical(unique(res.map((d) => d.studios)), (d) => d.stud);
-  // console.log("find unique studio and order in alphabetical order", studioList);
-
-  console.log(
-    "count occurrence of genre all time data",
-    counting(flat(res.map((d) => d.tags)), (d) => d),
-  );
 
   const data = res.map((d) => ({
     ...d,
@@ -135,19 +116,15 @@ export const formatData = (res: AnimeData[]) => {
     data.map((d) => d.year_season),
     (d: string) => d,
   );
-  console.log("find unique all year list", yearSeasonList);
 
   // group data by year_season
   const groupYearSeason = groups(data, (d) => d.year_season);
-  console.log("group data by year_season", groupYearSeason);
   // groupYearSeason;
   const chartData: { [key: string]: { [key: string]: number }[] }[] = [];
   groupYearSeason.map((d) => {
     chartData[d[0]] = counting(flat(d[1].map((d) => d.tags)), (d) => d);
     // d[1]
   });
-
-  console.log("group data by year_season", chartData);
 
   const tagAndYearData: { tag: string; year_season: string }[] = [];
   data.map((d) =>
@@ -167,10 +144,6 @@ export const formatData = (res: AnimeData[]) => {
     genre: d[0],
     data: d[1].map((y) => ({ year: y[0], count: y[1].length })),
   }));
-  console.log(
-    "group by anime genre and count occurance of each genre in a year",
-    alphabetical(groupDataByGenre, (d) => d.genre),
-  );
 
   return { genreList, yearSeasonList, groupDataByGenre };
 };
