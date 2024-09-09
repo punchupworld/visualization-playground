@@ -26,7 +26,7 @@
         </a>
       </div>
       <div class="w-full lg:w-2/5">
-        <a href="/anime-trend">
+        <a href="/anime-industry">
           <div class="comingsoon rounded-xl text-white typo-h6 font-bold mb-5">
             Coming Soon..
           </div>
