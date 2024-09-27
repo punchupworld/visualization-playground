@@ -1,0 +1,139 @@
+---
+title: Movie Subtitles Analysis
+author: Lookkid
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r echo=FALSE, error=FALSE, warning=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo=FALSE)
+knitr::opts_chunk$set(error=FALSE)
+knitr::opts_chunk$set(warning=FALSE)
+knitr::opts_chunk$set(message=FALSE)
+knitr::opts_chunk$set(out.width="100%")
+
+library(tidyverse)
+library(jsonlite)
+```
+
+```{r}
+printTable <- function(table, amount = 10) {
+  knitr::kable(head(table, n = amount))
+}
+```
+
+# 1. Input data
+
+## 1.1 Subtitles
+
+```{r}
+subtitles <- read_csv('data/labelled_data.csv') |>
+  select(-text)
+printTable(subtitles)
+```
+
+## 1.2 Movies
+
+```{r}
+movies <- bind_rows(
+  read_json('data/apichatpong_weerasethakul_movies.json', simplifyVector=TRUE) |>
+    select(MovieImdbID, MovieName, MovieYear) |>
+    mutate(director = "Apichatpong Weerasethakul"),
+  read_json('data/christopher_nolan_movies.json', simplifyVector=TRUE) |>
+    select(MovieImdbID, MovieName, MovieYear) |>
+    mutate(director = "Christopher Nolan"),
+  read_json('data/hirokazu_koreeda_movies.json', simplifyVector=TRUE) |>
+    select(MovieImdbID, MovieName, MovieYear) |>
+    mutate(director = "Hirokazu Koreeda"),
+  read_json('data/rajkumar_hirani_movies.json', simplifyVector=TRUE) |>
+    select(MovieImdbID, MovieName, MovieYear) |>
+    mutate(director = "Rajkumar Hirani")
+) |>
+  tibble() |>
+  rename(id = MovieImdbID, name = MovieName, year = MovieYear) |>
+  mutate(id = as.numeric(id))
+
+printTable(movies)
+```
+
+# 2. Wrangling
+
+```{r}
+parseMinute <- function(timestamp) {
+  time <- strsplit(timestamp, ':', fixed=TRUE)
+  hour <- map_chr(time, 1) |> as.numeric()
+  minute <- map_chr(time, 2) |> as.numeric()
+
+  return(hour * 60 + minute)
+}
+```
+
+```{r}
+data <- right_join(
+  movies,
+  subtitles |>
+    mutate(minute = parseMinute(startAt)) |>
+    select(id, minute, wordCount, label) |>
+    group_by(id, minute, label) |>
+    summarise(wordCount = sum(wordCount))
+)
+
+printTable(data)
+```
+
+# 3. Analysis
+
+## 3.1 By director
+
+```{r}
+wordsByDirector <- data |>
+  group_by(director, name) |>
+  summarise(wordsPerMinute = sum(wordCount) / max(minute))
+
+printTable(wordsByDirector, length(row(wordsByDirector)))
+```
+
+```{r}
+ggplot(wordsByDirector, aes(x = director, y = wordsPerMinute, label = name)) +
+  geom_point() +
+  geom_text(hjust = 0, vjust = 0, size = 3) +
+  ggtitle('Average movie words per minutes of each director')
+```
+
+## 3.2 By movie
+
+```{r}
+plotMoviesWordPerMinute <- function(dir) {
+  data |>
+    filter(director == dir) |>
+    ggplot(aes(x = minute, y = wordCount, fill = label)) +
+      geom_bar(stat='identity') +
+      scale_fill_manual(values = c('#c04b4b', '#5d7fb2', '#34a134')) +
+    facet_wrap(~name, ncol = 2) +
+      ggtitle(str_glue('Words per minute by movie (', dir, ')'))
+}
+```
+
+### 3.2.1 Apichatpong Weerasethakul
+
+```{r}
+plotMoviesWordPerMinute('Apichatpong Weerasethakul')
+```
+
+### 3.2.2 Christopher Nolan
+
+```{r}
+plotMoviesWordPerMinute('Christopher Nolan')
+```
+
+### 3.2.3 Hirokazu Koreeda
+
+```{r}
+plotMoviesWordPerMinute('Hirokazu Koreeda')
+```
+
+### 3.2.4 Rajkumar Hirani
+
+```{r}
+plotMoviesWordPerMinute('Rajkumar Hirani')
+```
