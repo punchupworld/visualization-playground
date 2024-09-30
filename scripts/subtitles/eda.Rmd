@@ -18,6 +18,8 @@ library(jsonlite)
 
 ```{r}
 printTable <- function(table, amount = 10) {
+  print(str_glue('total ', length(row(table)), ' rows'))
+
   knitr::kable(head(table, n = amount))
 }
 ```
@@ -35,23 +37,34 @@ printTable(subtitles)
 ## 1.2 Movies
 
 ```{r}
+readDirectorJson <- function(dir, nat) {
+  read_json(
+    str_glue('data/', gsub(' ', '_', str_to_lower(dir), fixed = TRUE) , '_movies.json'),
+    simplifyVector = TRUE,
+    flatten = TRUE
+    ) |>
+  filter(SeriesEpisode == 0) |>
+  mutate(
+    id = as.numeric(MovieImdbID),
+    name = MovieName,
+    year = as.numeric(MovieYear),
+    director = dir,
+    nationality = nat,
+    opensubtitlePath = `IDSubtitle.@MovieLink`,
+    image = `MovieID.@MovieThumbURL`,
+    .keep = "none"
+  )
+}
+```
+
+```{r}
 movies <- bind_rows(
-  read_json('data/apichatpong_weerasethakul_movies.json', simplifyVector=TRUE) |>
-    select(MovieImdbID, MovieName, MovieYear) |>
-    mutate(director = "Apichatpong Weerasethakul"),
-  read_json('data/christopher_nolan_movies.json', simplifyVector=TRUE) |>
-    select(MovieImdbID, MovieName, MovieYear) |>
-    mutate(director = "Christopher Nolan"),
-  read_json('data/hirokazu_koreeda_movies.json', simplifyVector=TRUE) |>
-    select(MovieImdbID, MovieName, MovieYear) |>
-    mutate(director = "Hirokazu Koreeda"),
-  read_json('data/rajkumar_hirani_movies.json', simplifyVector=TRUE) |>
-    select(MovieImdbID, MovieName, MovieYear) |>
-    mutate(director = "Rajkumar Hirani")
+  readDirectorJson("Apichatpong Weerasethakul", "Thai"),
+  readDirectorJson("Christopher Nolan", "UK/US"),
+  readDirectorJson("Hirokazu Koreeda", "Japan"),
+  readDirectorJson("Rajkumar Hirani", "India")
 ) |>
-  tibble() |>
-  rename(id = MovieImdbID, name = MovieName, year = MovieYear) |>
-  mutate(id = as.numeric(id))
+  tibble()
 
 printTable(movies)
 ```
@@ -69,8 +82,9 @@ parseMinute <- function(timestamp) {
 ```
 
 ```{r}
-data <- right_join(
-  movies,
+data <- inner_join(
+  movies |>
+    select(-year, -nationality, -opensubtitlePath, -image),
   subtitles |>
     mutate(minute = parseMinute(startAt)) |>
     select(id, minute, wordCount, label) |>
@@ -136,4 +150,32 @@ plotMoviesWordPerMinute('Hirokazu Koreeda')
 
 ```{r}
 plotMoviesWordPerMinute('Rajkumar Hirani')
+```
+
+## 4. Write JSON output
+
+### 4.1 directors.json
+
+```{r}
+directorOutput <- wordsByDirector |>
+  right_join(movies) |>
+  group_by(director, nationality) |>
+  group_nest(.key = "movies") |>
+  rename(name = director)
+
+write_json(directorOutput, 'out/directors.json', pretty = TRUE)
+
+directorOutput
+```
+
+### 4.2 word-frequency.csv
+
+```{r}
+wordFrequencyOutput <- data |>
+  select(id, minute, label, wordCount) |>
+  pivot_wider(names_from = 'label', values_from = wordCount, values_fill = 0) |>
+  rename(movieId = id) |>
+  write_csv('out/word-frequency.csv')
+
+printTable(wordFrequencyOutput)
 ```
