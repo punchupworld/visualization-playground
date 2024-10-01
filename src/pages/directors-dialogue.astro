@@ -1,17 +1,58 @@
 ---
+import { parseCSVFromString } from "sheethuahua";
 import Layout from "../layouts/Layout.astro";
 import DirectorsAccordion from "../components/directors-dialogue/directors-accordion.svelte";
-import directors from "../../scripts/subtitles/out/directors.json";
+import rawDirectors from "../../scripts/subtitles/out/directors.json";
+import wordFrequencyCsv from "../../scripts/subtitles/out/word-frequency.csv?raw";
+import { wordFrequencyTable } from "../components/directors-dialogue/model";
+import type { Director, Movie } from "../components/directors-dialogue/model";
+
+const wordFrequency = await parseCSVFromString(
+  wordFrequencyCsv,
+  wordFrequencyTable,
+);
+
+const directors = rawDirectors.map<Director>(({ movies, ...rest }) => ({
+  ...rest,
+  movies: movies
+    .map((movie) => ({
+      ...movie,
+      wordFrequency: wordFrequency.reduce<Movie["wordFrequency"]>(
+        (arr, { movieId, ...rest }) => {
+          if (movieId === movie.id) {
+            arr.push(rest);
+          }
+          return arr;
+        },
+        [],
+      ),
+    }))
+    .sort((a, z) => a.wordsPerMinute - z.wordsPerMinute),
+}));
+
+const maxWordsPerMinute = Math.max(
+  ...directors.flatMap(({ movies }) => movies.map((m) => m.wordsPerMinute)),
+);
+const maxMinutes = Math.max(...wordFrequency.map((w) => w.minute));
+const maxFrequency = Math.max(
+  ...wordFrequency.map((w) => w.negative + w.neutral + w.positive),
+);
 ---
 
 <Layout title="Directors' Dialougue">
   <main
     class="flex bg-neutral-900 text-neutral-100 min-h-screen h-full justify-center"
   >
-    <div class="flex flex-col w-full max-w-screen-lg px-3 py-16 items-center">
+    <div class="flex flex-col w-full max-w-screen-xl px-3 py-16 items-center">
       <h1 class="typo-h3 font-head font-bold">Directors' Dialogue</h1>
       <p class="mt-2 mb-14">methodology here</p>
-      <DirectorsAccordion client:load {directors} />
+      <DirectorsAccordion
+        client:load
+        {directors}
+        {maxWordsPerMinute}
+        {maxMinutes}
+        {maxFrequency}
+      />
     </div>
   </main>
 </Layout>

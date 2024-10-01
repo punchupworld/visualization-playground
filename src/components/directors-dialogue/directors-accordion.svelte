@@ -5,18 +5,24 @@
   import Chevron from "./chevron.svelte";
   import DirectorMoviesPlot from "./director-movies-plot.svelte";
   import type { Director } from "./model";
+  import MoviesFrequency from "./movies-frequency.svelte";
 
   const WPM_AXIS_STEP = 25;
+  const MINUTE_AXIS_STEP = 15;
 
   export let directors: Director[];
+  export let maxWordsPerMinute: number;
+  export let maxMinutes: number;
+  export let maxFrequency: number;
 
   const wordsPerMinuteAxis = getAxisInformation(
-    directors.flatMap(({ movies }) => movies.map((m) => m.wordsPerMinute)),
+    maxWordsPerMinute,
     WPM_AXIS_STEP,
   );
+  const minutesAxis = getAxisInformation(maxMinutes, MINUTE_AXIS_STEP);
+  const frequencyAxis = getAxisInformation(maxFrequency, maxFrequency);
 
-  function getAxisInformation(values: number[], axisStep: number) {
-    const maxValue = Math.max(...values);
+  function getAxisInformation(maxValue: number, axisStep: number) {
     const upperBound = axisStep * Math.ceil(maxValue / axisStep);
     const axes = new Array(upperBound / axisStep + 1)
       .fill(null)
@@ -54,17 +60,19 @@
               {/if}
             </div>
           </div>
-          <div class="h-full flex-1">
-            <DirectorMoviesPlot
-              {movies}
-              x={wordsPerMinuteAxis.scale}
-              isTooltipDisabled={isOtherOpened}
-            />
-          </div>
+          <DirectorMoviesPlot
+            {movies}
+            x={wordsPerMinuteAxis.scale}
+            isTooltipDisabled={isOtherOpened}
+          />
         </button>
         {#if isOpened}
-          <div use:melt={$content(name)} transition:slide>
-            {JSON.stringify(movies)}
+          <div use:melt={$content(name)} transition:slide class="m-6">
+            <MoviesFrequency
+              {movies}
+              x={minutesAxis.scale}
+              y={frequencyAxis.scale}
+            />
           </div>
         {/if}
       </div>

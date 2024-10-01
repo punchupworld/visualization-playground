@@ -10,11 +10,11 @@
 </script>
 
 <div
-  class="w-full h-full relative {isTooltipDisabled
+  class="flex-1 w-full h-full relative {isTooltipDisabled
     ? 'pointer-events-none'
     : ''}"
 >
-  {#each movies.sort((a, z) => a.wordsPerMinute - z.wordsPerMinute) as movie (movie.id)}
+  {#each movies as movie (movie.id)}
     <div
       role="tooltip"
       class="size-3 bg-neutral-100 absolute rounded-full -translate-y-1/2 -translate-x-1/2 top-1/2 border border-neutral-400"
