@@ -4,11 +4,16 @@
 
   export let movies: Movie[];
   export let x: (value: number) => number;
+  export let isTooltipDisabled: boolean;
 
   let focusedMovie: Movie | null = null;
 </script>
 
-<div class="w-full h-full relative">
+<div
+  class="w-full h-full relative {isTooltipDisabled
+    ? 'pointer-events-none'
+    : ''}"
+>
   {#each movies.sort((a, z) => a.wordsPerMinute - z.wordsPerMinute) as movie (movie.id)}
     <div
       role="tooltip"
