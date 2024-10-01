@@ -51,6 +51,8 @@
   "devDependencies": {
     "@commitlint/cli": "^19.0.3",
     "@commitlint/config-conventional": "^19.0.3",
+    "@melt-ui/pp": "^0.3.2",
+    "@melt-ui/svelte": "^0.83.0",
     "@types/d3-dsv": "^3.0.7",
     "@types/node": "^20.11.25",
     "@types/three": "^0.168.0",
