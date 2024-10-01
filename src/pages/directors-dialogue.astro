@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import DirectorsAccordion from "../components/directors-dialogue/directors-accordion.svelte";
+import directors from "../../scripts/subtitles/out/directors.json";
 ---
 
 <Layout title="Directors' Dialougue">
@@ -10,7 +11,7 @@ import DirectorsAccordion from "../components/directors-dialogue/directors-accor
     <div class="flex flex-col w-full max-w-screen-lg px-3 py-16 items-center">
       <h1 class="typo-h3 font-head font-bold">Directors' Dialogue</h1>
       <p class="mt-2 mb-14">methodology here</p>
-      <DirectorsAccordion client:load />
+      <DirectorsAccordion client:load {directors} />
     </div>
   </main>
 </Layout>

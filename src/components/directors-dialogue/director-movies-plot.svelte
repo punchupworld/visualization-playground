@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fade } from "svelte/transition";
-  import type { Movie } from "./directors-accordion.svelte";
+  import type { Movie } from "./model";
 
   export let movies: Movie[];
   export let x: (value: number) => number;

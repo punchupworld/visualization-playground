@@ -1,28 +1,30 @@
-<script lang="ts" context="module">
-  import directors from "../../../scripts/subtitles/out/directors.json";
-
-  export type Movie = (typeof directors)[number]["movies"][number];
-</script>
-
 <script lang="ts">
   import { createAccordion, melt } from "@melt-ui/svelte";
   import { fade, slide } from "svelte/transition";
   import { scaleLinear } from "d3";
   import Chevron from "./chevron.svelte";
   import DirectorMoviesPlot from "./director-movies-plot.svelte";
+  import type { Director } from "./model";
 
-  const X_AXIS_STEP = 25;
+  const WPM_AXIS_STEP = 25;
 
-  const maxWordsPerMinute = Math.max(
-    ...directors.flatMap(({ movies }) => movies.map((m) => m.wordsPerMinute)),
+  export let directors: Director[];
+
+  const wordsPerMinuteAxis = getAxisInformation(
+    directors.flatMap(({ movies }) => movies.map((m) => m.wordsPerMinute)),
+    WPM_AXIS_STEP,
   );
 
-  const upperBoundX = X_AXIS_STEP * Math.ceil(maxWordsPerMinute / X_AXIS_STEP);
-  const xAxes = new Array(upperBoundX / X_AXIS_STEP + 1)
-    .fill(null)
-    .map((_, i) => i * X_AXIS_STEP);
+  function getAxisInformation(values: number[], axisStep: number) {
+    const maxValue = Math.max(...values);
+    const upperBound = axisStep * Math.ceil(maxValue / axisStep);
+    const axes = new Array(upperBound / axisStep + 1)
+      .fill(null)
+      .map((_, i) => i * axisStep);
+    const scale = scaleLinear([0, upperBound], [0, 100]);
 
-  const x = scaleLinear([0, upperBoundX], [0, 100]);
+    return { upperBound, axes, scale };
+  }
 
   const {
     states: { value },
@@ -55,7 +57,7 @@
           <div class="h-full flex-1">
             <DirectorMoviesPlot
               {movies}
-              {x}
+              x={wordsPerMinuteAxis.scale}
               isTooltipDisabled={isOtherOpened}
             />
           </div>
@@ -74,13 +76,14 @@
       transition:fade={{ duration: 200 }}
     >
       <p class="w-full text-center">Average Words Per Minute (WPM)</p>
-      {#each xAxes as axe}
+      {#each wordsPerMinuteAxis.axes as axe}
         <div
           class="absolute top-8 bottom-0 w-[1px] bg-neutral-800"
-          style="left: {x(axe)}%;"
+          style="left: {wordsPerMinuteAxis.scale(axe)}%;"
         >
           <span
-            class="text-neutral-600 absolute {axe === upperBoundX
+            class="text-neutral-600 absolute {axe ===
+            wordsPerMinuteAxis.upperBound
               ? 'right-1'
               : 'left-1'}">{axe}</span
           >
