@@ -96,20 +96,6 @@
         "year": 2006,
         "opensubtitlePath": "/en/search/sublanguageid-eng/idmovie-20699",
         "image": "https://static1.opensubtitles.org/gfx/thumbs/1/7/5/2/0482571.jpg"
-      },
-      {
-        "name": "The Dark Knight",
-        "id": 468569,
-        "year": 2008,
-        "opensubtitlePath": "/en/search/sublanguageid-eng/idmovie-31260",
-        "image": "https://static3.opensubtitles.org/gfx/thumbs/9/6/5/8/0468569.jpg"
-      },
-      {
-        "name": "The Dark Knight Rises",
-        "id": 1345836,
-        "year": 2012,
-        "opensubtitlePath": "/en/search/sublanguageid-eng/idmovie-68978",
-        "image": "https://static4.opensubtitles.org/gfx/thumbs/6/3/8/5/1345836.jpg"
       }
     ]
   },
