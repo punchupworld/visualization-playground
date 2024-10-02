@@ -45,6 +45,7 @@
     {#each directors as { name, nationality, movies } (name)}
       {@const isOpened = $isSelected(name)}
       {@const isOtherOpened = !!$value && !isOpened}
+      {@const [firstName, ...lastName] = name.split(" ")}
       <div use:melt={$item(name)} class="flex flex-col flex-1">
         <button
           use:melt={$trigger(name)}
@@ -52,10 +53,17 @@
             ? 'opacity-30'
             : 'opacity-100'}"
         >
-          <div class="flex flex-row items-start text-left w-64 py-3">
+          <div
+            class="flex flex-row items-start text-left w-72 py-3 pl-1 bg-contain bg-no-repeat bg-right"
+            style="background-image: url(/directors-dialogue/directors/{name
+              .toLowerCase()
+              .replaceAll(' ', '-')}.webp);"
+          >
             <Chevron {isOpened} />
             <div class="flex-1 flex flex-col">
-              <h2 class="font-kondolar font-semibold typo-h8">{name}</h2>
+              <h2 class="font-kondolar font-semibold typo-h8">
+                {firstName}<br />{lastName.join(" ")}
+              </h2>
               {#if !isOtherOpened}
                 <p transition:slide>{nationality}</p>
               {/if}
@@ -90,7 +98,7 @@
   </div>
   {#if !$value}
     <ChartBackground
-      class="left-64"
+      class="left-72"
       xAxisLabel="Average Words Per Minute (WPM)"
       {...wordsPerMinuteAxis}
     />
