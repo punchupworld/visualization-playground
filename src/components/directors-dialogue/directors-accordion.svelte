@@ -1,14 +1,15 @@
 <script lang="ts">
   import { createAccordion, melt } from "@melt-ui/svelte";
-  import { fade, slide } from "svelte/transition";
+  import { slide } from "svelte/transition";
   import { scaleLinear } from "d3";
   import Chevron from "./chevron.svelte";
   import DirectorMoviesPlot from "./director-movies-plot.svelte";
   import type { Director } from "./model";
   import MoviesFrequency from "./movies-frequency.svelte";
+  import ChartBackground from "./chart-background.svelte";
 
   const WPM_AXIS_STEP = 25;
-  const MINUTE_AXIS_STEP = 15;
+  const MINUTE_AXIS_STEP = 30;
 
   export let directors: Director[];
   export let maxWordsPerMinute: number;
@@ -67,11 +68,20 @@
           />
         </button>
         {#if isOpened}
-          <div use:melt={$content(name)} transition:slide class="m-6">
+          <div
+            use:melt={$content(name)}
+            transition:slide
+            class="m-6 pt-16 relative"
+          >
             <MoviesFrequency
               {movies}
               x={minutesAxis.scale}
               y={frequencyAxis.scale}
+            />
+            <ChartBackground
+              class="left-72"
+              xAxisLabel="Minutes"
+              {...minutesAxis}
             />
           </div>
         {/if}
@@ -79,24 +89,10 @@
     {/each}
   </div>
   {#if !$value}
-    <div
-      class="absolute inset-0 left-64 flex typo-b6"
-      transition:fade={{ duration: 200 }}
-    >
-      <p class="w-full text-center">Average Words Per Minute (WPM)</p>
-      {#each wordsPerMinuteAxis.axes as axe}
-        <div
-          class="absolute top-8 bottom-0 w-[1px] bg-neutral-800"
-          style="left: {wordsPerMinuteAxis.scale(axe)}%;"
-        >
-          <span
-            class="text-neutral-600 absolute {axe ===
-            wordsPerMinuteAxis.upperBound
-              ? 'right-1'
-              : 'left-1'}">{axe}</span
-          >
-        </div>
-      {/each}
-    </div>
+    <ChartBackground
+      class="left-64"
+      xAxisLabel="Average Words Per Minute (WPM)"
+      {...wordsPerMinuteAxis}
+    />
   {/if}
 </div>
