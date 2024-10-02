@@ -59,10 +59,10 @@ readDirectorJson <- function(dir, nat) {
 
 ```{r}
 movies <- bind_rows(
-  readDirectorJson("Apichatpong Weerasethakul", "Thai"),
-  readDirectorJson("Christopher Nolan", "UK/US"),
-  readDirectorJson("Hirokazu Koreeda", "Japan"),
-  readDirectorJson("Rajkumar Hirani", "India")
+  readDirectorJson("Apichatpong Weerasethakul", "🇹🇭"),
+  readDirectorJson("Christopher Nolan", "🇬🇧🇺🇸"),
+  readDirectorJson("Hirokazu Koreeda", "🇯🇵"),
+  readDirectorJson("Rajkumar Hirani", "🇮🇳")
 ) |>
   tibble()
 

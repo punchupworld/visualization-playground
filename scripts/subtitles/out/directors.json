@@ -1,7 +1,7 @@
 [
   {
     "name": "Apichatpong Weerasethakul",
-    "nationality": "Thai",
+    "nationality": "🇹🇭",
     "movies": [
       {
         "name": "Memoria",
@@ -23,7 +23,7 @@
   },
   {
     "name": "Christopher Nolan",
-    "nationality": "UK/US",
+    "nationality": "🇬🇧🇺🇸",
     "movies": [
       {
         "name": "Batman Begins",
@@ -101,7 +101,7 @@
   },
   {
     "name": "Hirokazu Koreeda",
-    "nationality": "Japan",
+    "nationality": "🇯🇵",
     "movies": [
       {
         "name": "After Life",
@@ -179,7 +179,7 @@
   },
   {
     "name": "Rajkumar Hirani",
-    "nationality": "India",
+    "nationality": "🇮🇳",
     "movies": [
       {
         "name": "3 Idiots",
