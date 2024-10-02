@@ -12,7 +12,13 @@
   {#each movies as { name, year, wordsPerMinute, image, wordFrequency }}
     <div class="flex flex-row">
       <div class="w-72 flex flex-row gap-2">
-        <img src={image} class="w-16" alt="" />
+        <img
+          src={image}
+          width="64"
+          height="95"
+          class="object-cover w-[64px] h-[95px]"
+          alt=""
+        />
         <div class="space-y-2">
           <h3><span class="font-bold">{name}</span> ({year})</h3>
           <p class="typo-b7">~{Math.round(wordsPerMinute)} WPM</p>
