@@ -48,7 +48,7 @@
       <div use:melt={$item(name)} class="flex flex-col flex-1">
         <button
           use:melt={$trigger(name)}
-          class="flex flex-row border border-neutral-500 rounded-sm transition-opacity {isOtherOpened
+          class="flex flex-row border border-neutral-500 rounded transition-opacity {isOtherOpened
             ? 'opacity-30'
             : 'opacity-100'}"
         >

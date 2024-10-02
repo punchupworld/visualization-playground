@@ -21,7 +21,8 @@
       style="left: {x(movie.wordsPerMinute)}%"
       on:mouseover={() => (focusedMovie = movie)}
       on:focus={() => (focusedMovie = movie)}
-      on:mouseleave={() => focusedMovie == movie && (focusedMovie = null)}
+      on:mouseleave={() =>
+        focusedMovie?.id === movie.id && (focusedMovie = null)}
     >
       {#if focusedMovie?.id === movie.id}
         <div
