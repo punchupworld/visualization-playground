@@ -26,7 +26,7 @@
         />
         <div class="space-y-2">
           <h3><span class="font-bold">{name}</span> ({year})</h3>
-          <p class="typo-b7">~{Math.round(wordsPerMinute)} WPM</p>
+          <p class="typo-b7">{wordsPerMinute} WPM</p>
         </div>
       </div>
       <div class="flex-1 relative z-20">

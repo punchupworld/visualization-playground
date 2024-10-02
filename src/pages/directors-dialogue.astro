@@ -12,24 +12,39 @@ const wordFrequency = await parseCSVFromString(
   wordFrequencyTable,
 );
 
-const directors = rawDirectors.map<Director>(({ movies, ...rest }) => ({
-  ...rest,
-  movies: movies
-    .map((movie) => ({
-      ...movie,
-      image: `/directors-dialogue/posters/${movie.image.split("/").at(-1)?.replace(".jpg", ".webp")}`,
-      wordFrequency: wordFrequency.reduce<Movie["wordFrequency"]>(
-        (arr, { movieId, ...rest }) => {
-          if (movieId === movie.id) {
-            arr.push(rest);
-          }
-          return arr;
-        },
-        [],
-      ),
-    }))
-    .sort((a, z) => a.wordsPerMinute - z.wordsPerMinute),
-}));
+const directors = rawDirectors
+  .map<Director>((director) => {
+    const movies = director.movies
+      .map((movie) => ({
+        ...movie,
+        image: `/directors-dialogue/posters/${movie.image.split("/").at(-1)?.replace(".jpg", ".webp")}`,
+        wordsPerMinute: Math.round(movie.wordsPerMinute),
+        wordFrequency: wordFrequency.reduce<Movie["wordFrequency"]>(
+          (arr, { movieId, ...rest }) => {
+            if (movieId === movie.id) {
+              arr.push(rest);
+            }
+            return arr;
+          },
+          [],
+        ),
+      }))
+      .sort((a, z) => a.wordsPerMinute - z.wordsPerMinute);
+
+    const averageWordsPerMinute =
+      Math.round(
+        (movies.reduce((sum, { wordsPerMinute }) => sum + wordsPerMinute, 0) /
+          movies.length) *
+          10,
+      ) / 10;
+
+    return {
+      ...director,
+      movies,
+      averageWordsPerMinute,
+    };
+  })
+  .sort((a, z) => a.averageWordsPerMinute - z.averageWordsPerMinute);
 
 const maxWordsPerMinute = Math.max(
   ...directors.flatMap(({ movies }) => movies.map((m) => m.wordsPerMinute)),

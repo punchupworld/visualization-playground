@@ -3,6 +3,7 @@ import type directors from "../../../scripts/subtitles/out/directors.json";
 
 type RawDirector = (typeof directors)[number];
 export interface Director extends RawDirector {
+  averageWordsPerMinute: number;
   movies: Movie[];
 }
 

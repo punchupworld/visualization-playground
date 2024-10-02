@@ -42,7 +42,7 @@
 
 <div class="relative flex flex-col w-full">
   <div class="flex flex-col gap-2 z-10 mt-14 mb-2" {...$root}>
-    {#each directors as { name, nationality, movies } (name)}
+    {#each directors as { name, nationality, movies, averageWordsPerMinute } (name)}
       {@const isOpened = $isSelected(name)}
       {@const isOtherOpened = !!$value && !isOpened}
       {@const [firstName, ...lastName] = name.split(" ")}
@@ -71,6 +71,7 @@
           </div>
           <DirectorMoviesPlot
             {movies}
+            {averageWordsPerMinute}
             x={wordsPerMinuteAxis.scale}
             isTooltipDisabled={isOtherOpened}
           />
@@ -99,7 +100,7 @@
   {#if !$value}
     <ChartBackground
       class="left-72"
-      xAxisLabel="Average Words Per Minute (WPM)"
+      xAxisLabel="Words Per Minute (WPM)"
       {...wordsPerMinuteAxis}
     />
   {/if}

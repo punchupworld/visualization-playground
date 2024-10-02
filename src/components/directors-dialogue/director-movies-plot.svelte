@@ -3,6 +3,7 @@
   import type { Movie } from "./model";
 
   export let movies: Movie[];
+  export let averageWordsPerMinute: number;
   export let x: (value: number) => number;
   export let isTooltipDisabled: boolean;
 
@@ -14,6 +15,12 @@
     ? 'pointer-events-none'
     : ''}"
 >
+  <div
+    class="absolute inset-y-1 border-l text-blue-500 border-blue-600 border-dashed p-1 typo-b7"
+    style="left: {x(averageWordsPerMinute)}%"
+  >
+    Average {averageWordsPerMinute}
+  </div>
   {#each movies as movie (movie.id)}
     <div
       role="tooltip"
