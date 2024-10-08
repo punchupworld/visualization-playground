@@ -13,23 +13,23 @@
     null;
 </script>
 
-<div class="flex flex-col gap-3">
+<div class="relative flex flex-col gap-3 z-10">
   {#each movies as { id, name, year, wordsPerMinute, image, wordFrequency }}
-    <div class="flex flex-row">
+    <div class="flex flex-col md:flex-row">
       <div class="w-72 flex flex-row gap-2">
         <img
           src={image}
           width="64"
           height="95"
-          class="object-cover w-[64px] h-[95px]"
+          class="object-cover w-[48px] md:w-[64px]"
           alt=""
         />
-        <div class="space-y-2">
-          <h3><span class="font-bold">{name}</span> ({year})</h3>
-          <p class="typo-b7">{wordsPerMinute} WPM</p>
+        <div class="space-y-2 flex flex-col items-start">
+          <h3><span class="font-bold bg-neutral-900">{name}</span> ({year})</h3>
+          <p class="typo-b7 bg-neutral-900">{wordsPerMinute} WPM</p>
         </div>
       </div>
-      <div class="flex-1 relative z-20">
+      <div class="flex-1 relative min-h-24">
         {#each wordFrequency as frequency}
           {@const { minute, positive, neutral, negative } = frequency}
           <div
@@ -57,7 +57,7 @@
     </div>
   {/each}
 
-  <div class="flex flex-row flex-wrap gap-4 typo-b7 justify-center ml-72">
+  <div class="flex flex-row flex-wrap gap-4 typo-b7 justify-center md:ml-72">
     <LegendItem class="bg-green-500">Positive</LegendItem>
     <LegendItem class="bg-neutral-300">Neutral</LegendItem>
     <LegendItem class="bg-red-500">Negative</LegendItem>

@@ -5,15 +5,15 @@
   export let movies: Movie[];
   export let averageWordsPerMinute: number;
   export let x: (value: number) => number;
-  export let isTooltipDisabled: boolean;
+  export let isOtherOpened: boolean;
 
   let focusedMovie: Movie | null = null;
 </script>
 
 <div
-  class="flex-1 w-full h-full relative {isTooltipDisabled
-    ? 'pointer-events-none'
-    : ''}"
+  class="md:flex-1 w-full md:h-full relative overflow-hidden transition-all duration-200 {isOtherOpened
+    ? 'pointer-events-none h-0'
+    : 'h-16'}"
 >
   <div
     class="absolute inset-y-1 border-l text-blue-500 border-blue-600 border-dashed p-1 typo-b7"

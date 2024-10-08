@@ -49,26 +49,28 @@
       <div use:melt={$item(name)} class="flex flex-col flex-1">
         <button
           use:melt={$trigger(name)}
-          class="flex flex-row border border-neutral-500 rounded transition-all hover:border-neutral-100 {isOtherOpened
+          class="flex flex-col md:flex-row border border-neutral-500 rounded transition-all hover:border-neutral-100 {isOtherOpened
             ? 'opacity-30 hover:opacity-100'
             : 'opacity-100'}"
         >
           <div
-            class="flex flex-row items-start text-left w-72 py-3 pl-1 bg-contain bg-no-repeat bg-right"
+            class="flex flex-row items-start text-left w-full md:w-72 py-3 pl-1 bg-contain bg-no-repeat bg-right"
             style="background-image: url(/directors-dialogue/directors/{name
               .toLowerCase()
               .replaceAll(' ', '-')}.webp);"
           >
             <Chevron {isOpened} />
-            <div class="flex-1 flex flex-col">
-              <h2 class="font-kondolar font-semibold typo-h9">
-                {firstName}<br />{lastName.join(" ")}
+            <div class="flex-1 flex flex-col items-start place-self-center">
+              <h2 class="font-kondolar font-semibold typo-h9 bg-neutral-900">
+                {firstName}&nbsp;<br class="hidden md:inline" />{lastName.join(
+                  " ",
+                )}
               </h2>
               {#if !isOtherOpened}
                 <p transition:slide>
                   {nationality}
                   <span class="mx-1 text-neutral-500">|</span>
-                  <span class="typo-b6 text-neutral-300">
+                  <span class="typo-b6 text-neutral-300 bg-neutral-900">
                     {movies.length} movies</span
                   >
                 </p>
@@ -79,14 +81,14 @@
             {movies}
             {averageWordsPerMinute}
             x={wordsPerMinuteAxis.scale}
-            isTooltipDisabled={isOtherOpened}
+            {isOtherOpened}
           />
         </button>
         {#if isOpened}
           <div
             use:melt={$content(name)}
             transition:slide
-            class="m-6 pt-16 relative"
+            class="m-3 md:m-6 pt-16 relative"
           >
             <MoviesFrequency
               {movies}
@@ -94,7 +96,7 @@
               y={frequencyAxis.scale}
             />
             <ChartBackground
-              class="left-72"
+              class="md:left-72"
               xAxisLabel="Minutes"
               {...minutesAxis}
             />
@@ -105,7 +107,7 @@
   </div>
   {#if !$value}
     <ChartBackground
-      class="left-72"
+      class="md:left-72"
       xAxisLabel="Words Per Minute (WPM)"
       {...wordsPerMinuteAxis}
     />
