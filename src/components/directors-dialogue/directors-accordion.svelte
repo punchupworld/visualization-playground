@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createAccordion, melt } from "@melt-ui/svelte";
-  import { slide } from "svelte/transition";
+  import { fade, slide } from "svelte/transition";
   import { scaleLinear } from "d3";
   import Chevron from "./chevron.svelte";
   import DirectorMoviesPlot from "./director-movies-plot.svelte";
@@ -49,8 +49,8 @@
       <div use:melt={$item(name)} class="flex flex-col flex-1">
         <button
           use:melt={$trigger(name)}
-          class="flex flex-row border border-neutral-500 rounded transition-opacity {isOtherOpened
-            ? 'opacity-30'
+          class="flex flex-row border border-neutral-500 rounded transition-all hover:border-neutral-100 {isOtherOpened
+            ? 'opacity-30 hover:opacity-100'
             : 'opacity-100'}"
         >
           <div
@@ -61,11 +61,17 @@
           >
             <Chevron {isOpened} />
             <div class="flex-1 flex flex-col">
-              <h2 class="font-kondolar font-semibold typo-h8">
+              <h2 class="font-kondolar font-semibold typo-h9">
                 {firstName}<br />{lastName.join(" ")}
               </h2>
               {#if !isOtherOpened}
-                <p transition:slide>{nationality}</p>
+                <p transition:slide>
+                  {nationality}
+                  <span class="mx-1 text-neutral-500">|</span>
+                  <span class="typo-b6 text-neutral-300">
+                    {movies.length} movies</span
+                  >
+                </p>
               {/if}
             </div>
           </div>
@@ -105,3 +111,12 @@
     />
   {/if}
 </div>
+
+{#if !$value}
+  <p class="typo-b6 mt-10 mx-auto" transition:fade={{ duration: 200 }}>
+    <span class="italic text-neutral-300"
+      >Click on the director to see their movies</span
+    >
+    👆
+  </p>
+{/if}
