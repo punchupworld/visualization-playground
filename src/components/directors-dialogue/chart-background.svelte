@@ -1,7 +1,10 @@
 <script lang="ts">
   import { fade } from "svelte/transition";
+  import HintTooltip from "./hint-tooltip.svelte";
+  import InfoIcon from "./info-icon.svelte";
 
   export let xAxisLabel: string;
+  export let xAxisHint: string = "";
   export let axes: number[];
   export let scale: (value: number) => number;
   export let upperBound: number;
@@ -11,7 +14,15 @@
   class="absolute inset-0 flex typo-b7 {$$restProps.class || ''}"
   transition:fade={{ duration: 200 }}
 >
-  <p class="w-full text-center">{xAxisLabel}</p>
+  {#if xAxisHint}
+    <HintTooltip class="mx-auto" text={xAxisHint}>
+      {xAxisLabel}
+      <InfoIcon />
+    </HintTooltip>
+  {:else}
+    <span class="mx-auto">{xAxisLabel}</span>
+  {/if}
+
   {#each axes as axe}
     <div
       class="absolute top-8 bottom-0 w-[1px] bg-neutral-800"

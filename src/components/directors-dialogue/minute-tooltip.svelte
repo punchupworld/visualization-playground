@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { fade } from "svelte/transition";
+  import TooltipContainer from "./tooltip-container.svelte";
 
   export let minute: number;
   export let positive: number;
@@ -8,11 +8,7 @@
   export let style = "";
 </script>
 
-<div
-  class="absolute rounded pt-1 px-2 border border-neutral-500 typo-b7 bg-neutral-900 shadow -translate-x-1/2 -translate-y-full -top-1"
-  {style}
-  transition:fade={{ duration: 100 }}
->
+<TooltipContainer class="-top-1" {style}>
   <span class="font-bold">{minute}'</span>
   <table>
     <tr>
@@ -32,7 +28,7 @@
       <td>{positive + neutral + negative}</td>
     </tr>
   </table>
-</div>
+</TooltipContainer>
 
 <style lang="postcss">
   table > tr > :nth-child(2) {

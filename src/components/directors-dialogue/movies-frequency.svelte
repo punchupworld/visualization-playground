@@ -2,6 +2,8 @@
   import LegendItem from "./legend-item.svelte";
   import MinuteTooltip from "./minute-tooltip.svelte";
   import type { Movie } from "./model";
+  import HintTooltip from "./hint-tooltip.svelte";
+  import InfoIcon from "./info-icon.svelte";
 
   export let movies: Movie[];
   export let x: (value: number) => number;
@@ -57,9 +59,12 @@
     </div>
   {/each}
 
-  <div class="flex flex-row flex-wrap gap-4 typo-b7 justify-center md:ml-72">
+  <HintTooltip
+    class="flex flex-row flex-wrap gap-4 typo-b7 justify-center md:ml-72 place-self-center"
+    text="Highlight number of words that contribute to the sentence sentiment."
+  >
     <LegendItem class="bg-green-500">Positive</LegendItem>
     <LegendItem class="bg-neutral-300">Neutral</LegendItem>
-    <LegendItem class="bg-red-500">Negative</LegendItem>
-  </div>
+    <LegendItem class="bg-red-500">Negative <InfoIcon /></LegendItem>
+  </HintTooltip>
 </div>

@@ -98,6 +98,7 @@
             <ChartBackground
               class="md:left-72"
               xAxisLabel="Minutes"
+              xAxisHint="Total number of words from subtitles started in each minute."
               {...minutesAxis}
             />
           </div>
@@ -109,6 +110,7 @@
     <ChartBackground
       class="md:left-72"
       xAxisLabel="Words Per Minute (WPM)"
+      xAxisHint="Total number of words in the movies divided by the last subtitle's minute."
       {...wordsPerMinuteAxis}
     />
   {/if}
