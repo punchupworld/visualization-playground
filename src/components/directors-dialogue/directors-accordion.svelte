@@ -2,11 +2,11 @@
   import { createAccordion, melt } from "@melt-ui/svelte";
   import { fade, slide } from "svelte/transition";
   import { scaleLinear } from "d3";
-  import Chevron from "./chevron.svelte";
   import DirectorMoviesPlot from "./director-movies-plot.svelte";
   import type { Director } from "./model";
   import MoviesFrequency from "./movies-frequency.svelte";
   import ChartBackground from "./chart-background.svelte";
+  import DirectorInfo from "./director-info.svelte";
 
   const WPM_AXIS_STEP = 25;
   const MINUTE_AXIS_STEP = 30;
@@ -45,7 +45,6 @@
     {#each directors as { name, nationality, movies, averageWordsPerMinute } (name)}
       {@const isOpened = $isSelected(name)}
       {@const isOtherOpened = !!$value && !isOpened}
-      {@const [firstName, ...lastName] = name.split(" ")}
       <div use:melt={$item(name)} class="flex flex-col flex-1">
         <button
           use:melt={$trigger(name)}
@@ -53,30 +52,13 @@
             ? 'opacity-30 hover:opacity-100'
             : 'opacity-100'}"
         >
-          <div
-            class="flex flex-row items-start text-left w-full md:w-72 py-3 pl-1 bg-contain bg-no-repeat bg-right"
-            style="background-image: url(/directors-dialogue/directors/{name
-              .toLowerCase()
-              .replaceAll(' ', '-')}.webp);"
-          >
-            <Chevron {isOpened} />
-            <div class="flex-1 flex flex-col items-start place-self-center">
-              <h2 class="font-kondolar font-semibold typo-h9 bg-neutral-900">
-                {firstName}&nbsp;<br class="hidden md:inline" />{lastName.join(
-                  " ",
-                )}
-              </h2>
-              {#if !isOtherOpened}
-                <p transition:slide>
-                  {nationality}
-                  <span class="mx-1 text-neutral-500">|</span>
-                  <span class="typo-b6 text-neutral-300 bg-neutral-900">
-                    {movies.length} movies</span
-                  >
-                </p>
-              {/if}
-            </div>
-          </div>
+          <DirectorInfo
+            {name}
+            {nationality}
+            {isOpened}
+            {isOtherOpened}
+            moviesCount={movies.length}
+          />
           <DirectorMoviesPlot
             {movies}
             {averageWordsPerMinute}
@@ -110,7 +92,7 @@
     <ChartBackground
       class="md:left-72"
       xAxisLabel="Words Per Minute (WPM)"
-      xAxisHint="Total number of words in the movies divided by the last subtitle's minute."
+      xAxisHint="Divide the total number of words in the movie by the last minute of the subtitle."
       {...wordsPerMinuteAxis}
     />
   {/if}

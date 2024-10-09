@@ -11,7 +11,7 @@
 </script>
 
 <div
-  class="absolute inset-0 flex typo-b7 {$$restProps.class || ''}"
+  class="absolute inset-0 flex flex-col typo-b7 {$$restProps.class || ''}"
   transition:fade={{ duration: 200 }}
 >
   {#if xAxisHint}
