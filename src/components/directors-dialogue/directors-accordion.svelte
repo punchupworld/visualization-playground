@@ -99,7 +99,7 @@
 </div>
 
 {#if !$value}
-  <p class="typo-b6 mt-10 mx-auto" transition:fade={{ duration: 200 }}>
+  <p class="typo-b6 mt-5 md:mt-10 mx-auto" transition:fade={{ duration: 200 }}>
     <span class="italic text-neutral-300"
       >Click on the director to see their movies</span
     >
