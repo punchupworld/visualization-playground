@@ -62,7 +62,9 @@ movies <- bind_rows(
   readDirectorJson("Apichatpong Weerasethakul", "🇹🇭"),
   readDirectorJson("Christopher Nolan", "🇬🇧🇺🇸"),
   readDirectorJson("Hirokazu Koreeda", "🇯🇵"),
-  readDirectorJson("Rajkumar Hirani", "🇮🇳")
+  readDirectorJson("Lee Chang-dong", "🇰🇷"),
+  readDirectorJson("Rajkumar Hirani", "🇮🇳"),
+  readDirectorJson("Wong Kar-wai", "🇭🇰")
 ) |>
   tibble()
 
