@@ -22,7 +22,8 @@
   >
     <LegendItem class="bg-green-500">Positive</LegendItem>
     <LegendItem class="bg-neutral-300">Neutral</LegendItem>
-    <LegendItem class="bg-red-500">Negative <InfoIcon /></LegendItem>
+    <LegendItem class="bg-red-500">Negative</LegendItem>
+    <InfoIcon />
   </HintTooltip>
   {#each movies as { id, name, year, wordsPerMinute, image, wordFrequency }}
     <div class="flex flex-col md:flex-row">
