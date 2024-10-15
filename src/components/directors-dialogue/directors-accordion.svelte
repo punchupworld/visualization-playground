@@ -42,7 +42,7 @@
 
 <div class="relative flex flex-col w-full">
   <div class="flex flex-col gap-2 z-10 mt-14 mb-2" {...$root}>
-    {#each directors as { name, nationality, movies, averageWordsPerMinute } (name)}
+    {#each directors as { name, nationality, movies, averageWordsPerMinute, info } (name)}
       {@const isOpened = $isSelected(name)}
       {@const isOtherOpened = !!$value && !isOpened}
       <div use:melt={$item(name)} class="flex flex-col flex-1">
@@ -70,19 +70,26 @@
           <div
             use:melt={$content(name)}
             transition:slide
-            class="m-3 md:m-6 pt-16 relative"
+            class="flex flex-col m-3 md:m-6 gap-4 items-center"
           >
-            <MoviesFrequency
-              {movies}
-              x={minutesAxis.scale}
-              y={frequencyAxis.scale}
-            />
-            <ChartBackground
-              class="md:left-72"
-              xAxisLabel="Minutes"
-              xAxisHint="Total number of words from subtitles started in each minute."
-              {...minutesAxis}
-            />
+            {#if info}
+              <p class="indent-12 max-w-screen-md">
+                {info}
+              </p>
+            {/if}
+            <div class="w-full pt-16 relative">
+              <MoviesFrequency
+                {movies}
+                x={minutesAxis.scale}
+                y={frequencyAxis.scale}
+              />
+              <ChartBackground
+                class="md:left-72"
+                xAxisLabel="Minutes"
+                xAxisHint="Total number of words from subtitles started in each minute."
+                {...minutesAxis}
+              />
+            </div>
           </div>
         {/if}
       </div>

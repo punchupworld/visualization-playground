@@ -18,7 +18,7 @@ const directors = rawDirectors
       .map((movie) => ({
         ...movie,
         image: `/directors-dialogue/posters/${movie.image.split("/").at(-1)?.replace(".jpg", ".webp")}`,
-        wordsPerMinute: Math.round(movie.wordsPerMinute),
+        wordsPerMinute: Math.round(movie.wordsPerMinute * 10) / 10,
         wordFrequency: wordFrequency.reduce<Movie["wordFrequency"]>(
           (arr, { movieId, ...rest }) => {
             if (movieId === movie.id) {

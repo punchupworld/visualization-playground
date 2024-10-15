@@ -37,7 +37,7 @@ printTable(subtitles)
 ## 1.2 Movies
 
 ```{r}
-readDirectorJson <- function(dir, nat) {
+readDirectorJson <- function(dir, nat, inf = '') {
   read_json(
     str_glue('data/', gsub(' ', '_', str_to_lower(dir), fixed = TRUE) , '_movies.json'),
     simplifyVector = TRUE,
@@ -52,6 +52,7 @@ readDirectorJson <- function(dir, nat) {
     nationality = nat,
     opensubtitlePath = `IDSubtitle.@MovieLink`,
     image = `MovieID.@MovieThumbURL`,
+    info = inf,
     .keep = "none"
   )
 }
@@ -59,16 +60,24 @@ readDirectorJson <- function(dir, nat) {
 
 ```{r}
 movies <- bind_rows(
-  readDirectorJson("Apichatpong Weerasethakul", "🇹🇭"),
-  readDirectorJson("Christopher Nolan", "🇬🇧🇺🇸"),
-  readDirectorJson("Hirokazu Koreeda", "🇯🇵"),
+  readDirectorJson("Apichatpong Weerasethakul", "🇹🇭",
+    "Apichatpong works are well-known as non-straightforward, slow-paced, heavy picture-narrated films.
+    Using only 27.1 average words per minute, the lowest number on the list."),
+  readDirectorJson("Christopher Nolan", "🇬🇧🇺🇸",
+    "Christopher Nolan, a father of complex Sci-fi movies, uses a lot of dialog to explain how theory in the film works.
+    Dunkirk is the only outlier movie about wars that mainly uses cinematography as a narrative."),
+  readDirectorJson("Hirokazu Koreeda", "🇯🇵",
+    "Koreeda is a Japanese director who loves making drama films with conversation-driven storytelling.
+    Dialog is used as a main medium to touch the audience's emotions."),
   readDirectorJson("Lee Chang-dong", "🇰🇷"),
-  readDirectorJson("Rajkumar Hirani", "🇮🇳"),
+  readDirectorJson("Rajkumar Hirani", "🇮🇳",
+    "Rajkumar Hirani shows an interesting character that might represent an Indian movie:
+    even though average words per minute are not the highest on the list, his films barely have a single minute without a dialog."),
   readDirectorJson("Wong Kar-wai", "🇭🇰")
 ) |>
   tibble()
 
-printTable(movies)
+printTable(movies |> select(-nationality, -info))
 ```
 
 # 2. Wrangling
@@ -86,7 +95,7 @@ parseMinute <- function(timestamp) {
 ```{r}
 data <- inner_join(
   movies |>
-    select(-year, -nationality, -opensubtitlePath, -image),
+    select(id, name, director),
   subtitles |>
     mutate(minute = parseMinute(startAt)) |>
     select(id, minute, wordCount, label) |>
@@ -161,7 +170,7 @@ plotMoviesWordPerMinute('Rajkumar Hirani')
 ```{r}
 directorOutput <- wordsByDirector |>
   right_join(movies) |>
-  group_by(director, nationality) |>
+  group_by(director, nationality, info) |>
   group_nest(.key = "movies") |>
   rename(name = director)
 

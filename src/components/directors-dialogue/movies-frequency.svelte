@@ -16,6 +16,14 @@
 </script>
 
 <div class="relative flex flex-col gap-3 z-10">
+  <HintTooltip
+    class="flex flex-row flex-wrap gap-4 typo-b7 justify-center md:ml-72 place-self-center my-1"
+    text="Highlight number of words that contribute to the sentence sentiment."
+  >
+    <LegendItem class="bg-green-500">Positive</LegendItem>
+    <LegendItem class="bg-neutral-300">Neutral</LegendItem>
+    <LegendItem class="bg-red-500">Negative <InfoIcon /></LegendItem>
+  </HintTooltip>
   {#each movies as { id, name, year, wordsPerMinute, image, wordFrequency }}
     <div class="flex flex-col md:flex-row">
       <div class="w-72 flex flex-row gap-2">
@@ -58,13 +66,4 @@
       </div>
     </div>
   {/each}
-
-  <HintTooltip
-    class="flex flex-row flex-wrap gap-4 typo-b7 justify-center md:ml-72 place-self-center"
-    text="Highlight number of words that contribute to the sentence sentiment."
-  >
-    <LegendItem class="bg-green-500">Positive</LegendItem>
-    <LegendItem class="bg-neutral-300">Neutral</LegendItem>
-    <LegendItem class="bg-red-500">Negative <InfoIcon /></LegendItem>
-  </HintTooltip>
 </div>
