@@ -37,6 +37,7 @@
     "@vueuse/components": "^10.9.0",
     "@vueuse/core": "^10.9.0",
     "astro": "^4.4.6",
+    "color.js": "^1.2.0",
     "d3": "^7.9.0",
     "lil-gui": "^0.19.2",
     "radash": "^12.1.0",

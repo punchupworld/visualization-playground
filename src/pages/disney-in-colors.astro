@@ -1,0 +1,10 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Main from "../components/disney-in-colors/Main.vue";
+---
+
+<Layout title="Disney in Colors">
+  <div>
+    <Main client:only />
+  </div>
+</Layout>
