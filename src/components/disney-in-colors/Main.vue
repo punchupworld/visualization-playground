@@ -3,10 +3,14 @@ import * as d3 from "d3";
 import { prominent } from "color.js";
 import { onMounted, ref } from "vue";
 import StackedBarChart from "./StackedBarChart.vue";
+import InfoDetailPopup from "./InfoDetailPopup.vue";
 
 const allYears = ref([]);
 const startYear = 1937;
 const endYear = 2024;
+const yearFocused = ref(0);
+const yearSelected = ref(0);
+const categorySelected = ref("");
 const colorsByYear = ref({});
 const viewSimplifiedColor = ref(true);
 
@@ -36,6 +40,9 @@ onMounted(async () => {
   for (let year = startYear; year <= endYear; year++) {
     allYears.value.push(year);
   }
+  allYears.value.sort(function (a, b) {
+    return b - a;
+  });
 });
 
 const formatData = async (data) => {
@@ -128,11 +135,35 @@ const rgbToHsl = (r, g, b) => {
     (100 * (2 * l - s)) / 2,
   ];
 };
+
+const isNoCharacters = (year) => {
+  return (
+    colorsByYear.value[`villain_${year}`] === undefined &&
+    colorsByYear.value[`hero_${year}`] === undefined
+  );
+};
+
+const hoverYear = (year) => {
+  yearFocused.value = year;
+};
+const unHoverYear = () => {
+  yearFocused.value = 0;
+};
+const selectYear = (year) => {
+  yearSelected.value = year;
+};
+const selectCategory = (category) => {
+  categorySelected.value = category;
+};
+
+const closePopup = () => {
+  yearSelected.value = 0;
+};
 </script>
 
 <template>
   <div
-    class="py-5"
+    class="py-5 min-h-screen"
     style="
       background-color: white;
       opacity: 1;
@@ -166,74 +197,119 @@ const rgbToHsl = (r, g, b) => {
         -0.6000000000000001px -0.6000000000000001px;
     "
   >
-    <div class="flex flex-col items-center">
-      <h1 class="typo-h2 font-bold text-center mb-3">Disney in Colors</h1>
-      <div
-        class="bg-white/80 flex justify-center px-5 py-3 rounded-[10px] w-[520px]"
-      >
-        <p class="typo-b5 text-center">
-          This project compiles visual data of Disney characters from 1937 to
-          2024 to analyze and compare the color schemes of hero and villain
-          characters. It aims to observe color trends and diversity over the
-          years, revealing which colors are associated with good and evil from
-          the perspective of Disney's creative storytellers.
-        </p>
-      </div>
-    </div>
-    <div class="bg-white m-10">
-      <div
-        class="sticky top-0 flex gap-3 items-baseline bg-white z-10 shadow-xl"
-      >
-        <div class="flex-1 flex justify-end pt-1">
-          <p class="typo-b1 font-bold">Villain</p>
-        </div>
-        <div class="w-[40px] typo-b5 text-center opacity-50"><p>year</p></div>
-        <div class="flex-1"><p class="typo-b1 font-bold">Hero</p></div>
+    <InfoDetailPopup
+      :year="yearSelected"
+      :categorySelected="categorySelected"
+      :closePopup="closePopup"
+      :heros="
+        colorsByYear[`hero_${yearSelected}`]
+          ? colorsByYear[`hero_${yearSelected}`]
+          : []
+      "
+      :villains="
+        colorsByYear[`villain_${yearSelected}`]
+          ? colorsByYear[`villain_${yearSelected}`]
+          : []
+      "
+      v-if="yearSelected !== 0"
+    />
+    <div :class="`transition duration-100 ${yearSelected !== 0 && 'blur-lg'}`">
+      <div class="flex flex-col items-center">
+        <h1 class="typo-h2 font-bold text-center mb-3">Disney in Colors</h1>
         <div
-          class="absolute top-1/2 right-5 -translate-y-1/2 flex justify-end gap-3 py-5"
+          class="bg-white/80 flex justify-center px-5 py-3 rounded-[10px] w-[520px]"
         >
-          <div
-            @click="viewSimplifiedColor = true"
-            :class="`bg-black text-white py-1 px-3 rounded-full cursor-pointer ${!viewSimplifiedColor && 'opacity-50'}`"
-          >
-            <p class="typo-b5">Simplified Color</p>
-          </div>
-          <div
-            @click="viewSimplifiedColor = false"
-            :class="`bg-black text-white py-1 px-3 rounded-full cursor-pointer ${viewSimplifiedColor && 'opacity-50'}`"
-          >
-            <p class="typo-b5">Precise Color</p>
-          </div>
+          <p class="typo-b5 text-center">
+            This project compiles visual data of Disney characters from 1937 to
+            2024 to analyze and compare the color schemes of hero and villain
+            characters. It aims to observe color trends and diversity over the
+            years, revealing which colors are associated with good and evil from
+            the perspective of Disney's creative storytellers.
+          </p>
         </div>
       </div>
-      <div class="flex flex-col gap-1 p-5">
+      <div class="bg-white m-10">
         <div
-          v-for="year in allYears"
-          :key="year"
-          class="flex gap-3 items-center"
+          class="sticky top-0 flex gap-3 items-baseline bg-white z-20 shadow-xl"
         >
-          <StackedBarChart
-            :isVillain="true"
-            :data="
-              colorsByYear[`villain_${year}`]
-                ? colorsByYear[`villain_${year}`]
-                : []
-            "
-            :viewSimplifiedColor="viewSimplifiedColor"
-          />
-          <div class="w-[40px] flex-none flex text-center">
-            <p
-              :class="`w-full ${colorsByYear[`villain_${year}`] || colorsByYear[`hero_${year}`] ? 'typo-b6' : 'text-[8px] opacity-20'} `"
+          <div class="flex-1 flex justify-end pt-1">
+            <p class="typo-b1 font-bold">Villain</p>
+          </div>
+          <div class="w-[40px] typo-b5 text-center opacity-50"><p>year</p></div>
+          <div class="flex-1"><p class="typo-b1 font-bold">Hero</p></div>
+          <div
+            class="absolute top-1/2 right-5 -translate-y-1/2 flex justify-end gap-3 py-5"
+          >
+            <div
+              @click="viewSimplifiedColor = true"
+              :class="`bg-black text-white py-1 px-3 rounded-full cursor-pointer ${!viewSimplifiedColor && 'opacity-50'}`"
             >
-              {{ year }}
-            </p>
+              <p class="typo-b5">Simplified Color</p>
+            </div>
+            <div
+              @click="viewSimplifiedColor = false"
+              :class="`bg-black text-white py-1 px-3 rounded-full cursor-pointer ${viewSimplifiedColor && 'opacity-50'}`"
+            >
+              <p class="typo-b5">Precise Color</p>
+            </div>
           </div>
-          <StackedBarChart
-            :data="
-              colorsByYear[`hero_${year}`] ? colorsByYear[`hero_${year}`] : []
-            "
-            :viewSimplifiedColor="viewSimplifiedColor"
-          />
+        </div>
+        <div class="flex flex-col gap-1 p-5">
+          <div
+            v-for="year in allYears"
+            :key="year"
+            :class="`flex gap-3 items-center cursor-pointer ${isNoCharacters(year) && 'pointer-events-none'} transition duration-300 ${yearFocused === year || yearFocused === 0 ? 'opacity-100' : 'opacity-30'}`"
+            @mouseover="hoverYear(year)"
+            @mouseout="unHoverYear()"
+          >
+            <StackedBarChart
+              @click="
+                () => {
+                  selectYear(year);
+                  selectCategory('villain');
+                }
+              "
+              :isVillain="true"
+              :data="
+                colorsByYear[`villain_${year}`]
+                  ? colorsByYear[`villain_${year}`]
+                  : []
+              "
+              :viewSimplifiedColor="viewSimplifiedColor"
+              :class="`transition duration-500 ${yearFocused === year && 'scale-y-150'} ${yearFocused !== year && yearFocused !== 0 && 'scale-y-75'}`"
+            />
+            <div
+              class="relative w-[40px] flex-none flex text-center"
+              @click="
+                () => {
+                  selectYear(year);
+                  selectCategory('hero');
+                }
+              "
+            >
+              <div
+                :class="`absolute inset-[-5px] rounded-full transition duration-300 ${yearFocused === year ? 'opacity-100 bg-black' : 'opacity-0 bg-white'}`"
+              ></div>
+              <p
+                :class="`z-10 w-full ${colorsByYear[`villain_${year}`] || colorsByYear[`hero_${year}`] ? 'typo-b6' : 'text-[8px] opacity-20'} transition duration-300 ${yearFocused === year ? 'text-white' : 'text-black'} `"
+              >
+                {{ year }}
+              </p>
+            </div>
+            <StackedBarChart
+              @click="
+                () => {
+                  selectYear(year);
+                  selectCategory('hero');
+                }
+              "
+              :data="
+                colorsByYear[`hero_${year}`] ? colorsByYear[`hero_${year}`] : []
+              "
+              :viewSimplifiedColor="viewSimplifiedColor"
+              :class="`transition duration-500 ${yearFocused === year && 'scale-y-150'} ${yearFocused !== year && yearFocused !== 0 && 'scale-y-75'}`"
+            />
+          </div>
         </div>
       </div>
     </div>
