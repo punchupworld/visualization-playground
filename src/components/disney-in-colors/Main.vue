@@ -1,6 +1,5 @@
 <script setup>
 import * as d3 from "d3";
-import { prominent } from "color.js";
 import { onMounted, ref } from "vue";
 import StackedBarChart from "./StackedBarChart.vue";
 import InfoDetailPopup from "./InfoDetailPopup.vue";
@@ -48,12 +47,21 @@ onMounted(async () => {
 const formatData = async (data) => {
   return await Promise.all(
     data.map(async (d) => {
-      d.imageLink = d.wikiImageLink.trim();
+      const colorsArray = d.palettes
+        .replace("[", "")
+        .replace("]", "")
+        .split("),");
+
+      d.year = d.filmReleasedYear;
       d.name = d.name.trim();
       d.featuredFilm = d.featuredFilm.replaceAll('"', "").trim();
-      d.palettes = await getPalettes(
-        d.wikiImageLink.replace("/revision/latest", ""),
-      );
+      d.palettes = colorsArray.map((c) => {
+        const [hue, sat, light] = c.replaceAll("'", "").split(",");
+        const h = hue.replace("(", "");
+        const s = sat.replace("(", "");
+        const l = light.replace("(", "").replace(")", "");
+        return [+h, +s, +l];
+      });
       return d;
     }),
   );
@@ -106,34 +114,6 @@ const checkColorTone = (hue, sat, light) => {
     colorTone = "white";
   }
   return colorTone;
-};
-
-const getPalettes = async (image) => {
-  const colors = await prominent(image, { amount: 3 });
-  return colors.map((color) => {
-    const [r, g, b] = color;
-    return rgbToHsl(r, g, b);
-  });
-};
-
-const rgbToHsl = (r, g, b) => {
-  r /= 255;
-  g /= 255;
-  b /= 255;
-  const l = Math.max(r, g, b);
-  const s = l - Math.min(r, g, b);
-  const h = s
-    ? l === r
-      ? (g - b) / s
-      : l === g
-        ? 2 + (b - r) / s
-        : 4 + (r - g) / s
-    : 0;
-  return [
-    60 * h < 0 ? 60 * h + 360 : 60 * h,
-    100 * (s ? (l <= 0.5 ? s / (2 * l - s) : s / (2 - (2 * l - s))) : 0),
-    (100 * (2 * l - s)) / 2,
-  ];
 };
 
 const isNoCharacters = (year) => {
