@@ -2,8 +2,10 @@ import { json, scaleLinear, select } from "d3";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   cleanUpData,
+  filterDataByGenre,
   filterDataByStudio,
   formatData,
+  groupDataByGenre,
   renderAreaChart,
   type AnimeData,
   type ChartData,
@@ -12,6 +14,7 @@ import {
 } from "./utils";
 
 import { GUI } from "lil-gui";
+import { unique } from "radash";
 import * as THREE from "three";
 import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 import { FontLoader } from "three/addons/loaders/FontLoader.js";
@@ -21,7 +24,6 @@ import { setup3dScene, setupLighting } from "./3d-utils";
 import Drawer from "./Drawer";
 import GenereSelector from "./GenreSelector";
 import StudioSelector from "./StudioSelector";
-import { unique } from "radash";
 
 // https://stackoverflow.com/questions/34370622/javascript-how-do-i-display-a-text-character-by-character
 
@@ -41,11 +43,13 @@ const AnimeIndustryComp = () => {
     filterData: AnimeData[];
     chartData: ChartData[];
     yearSeasonList: string[];
+    filteredGenreData: AnimeData[];
     genreList: string[];
     studioList: StudioData[];
   }>({
     cleanData: [],
     filterData: [],
+    filteredGenreData: [],
     chartData: [],
     genreList: [],
     studioList: [],
@@ -88,127 +92,148 @@ const AnimeIndustryComp = () => {
   }, []);
 
   useMemo(() => {
-    if (summary.cleanData.length > 0 && selected.studio) {
-      const data = filterDataByStudio(summary.cleanData, selected.studio.name);
+    const processData = async () => {
+      if (summary.cleanData.length > 0 && selected) {
+        let filterData,
+          filterStudioData = summary.cleanData;
+        if (selected.studio)
+          filterData = filterDataByStudio(
+            summary.cleanData,
+            selected.studio.name,
+          );
 
-      const { genreList, yearSeasonList, groupDataByGenre } = formatData(data);
-      setSummary((prev) => ({
-        ...prev,
-        filterData: data,
-        genreList,
-        yearSeasonList,
-        chartData: groupDataByGenre,
-      }));
+        const { genreList, yearSeasonList } = formatData(filterData);
+        if (selected.genre)
+          filterStudioData = filterDataByGenre(filterData, selected.genre);
 
-      select(".container").selectAll("svg").remove();
-      groupDataByGenre.map((d) => renderAreaChart(d));
-    }
-  }, [summary.cleanData, selected.studio]);
+        const groupData = groupDataByGenre(filterStudioData);
+        setSummary((prev) => ({
+          ...prev,
+          filterData,
+          filteredGenreData: filterStudioData,
+          genreList,
+          yearSeasonList,
+          chartData: groupData,
+        }));
+
+        select(".container").selectAll("svg").remove();
+        groupData.map((d) => renderAreaChart(d));
+      }
+    };
+    processData();
+  }, [summary.cleanData, selected]);
 
   useEffect(() => {
-    if (canvasRef.current && threeEnvironment && summary.chartData.length > 0) {
-      const allData = summary.chartData;
-      const { renderer, camera, controls, gui } = threeEnvironment;
-      const chartGroup = new THREE.Group();
+    const renderViz = async () => {
+      if (
+        canvasRef.current &&
+        threeEnvironment &&
+        summary.chartData.length > 0
+      ) {
+        const allData = summary.chartData;
+        const { renderer, camera, controls, gui } = threeEnvironment;
+        const chartGroup = new THREE.Group();
 
-      const svgList = document.querySelectorAll("svg");
-      const loader = new SVGLoader();
-      const fontLoader = new FontLoader();
-      const textMaterial = new THREE.MeshBasicMaterial({
-        color: 0x000000,
-      });
-
-      const meshNameList: string[] = [];
-      for (let i = 0; i < svgList.length; i++) {
-        const svgData = loader.parse(svgList[i].outerHTML);
-        const shape = svgData.paths[0].toShapes(true)[0];
-
-        const geometry2 = new THREE.ExtrudeGeometry(shape, {
-          steps: 0,
-          depth: 16,
+        const svgList = document.querySelectorAll("svg");
+        const loader = new SVGLoader();
+        const fontLoader = new FontLoader();
+        const textMaterial = new THREE.MeshBasicMaterial({
+          color: 0x000000,
         });
 
-        const cubeMaterial = new THREE.MeshStandardMaterial({
-          color: 0x049ef4,
-        });
+        const meshNameList: string[] = [];
+        for (let i = 0; i < svgList.length; i++) {
+          const svgData = loader.parse(svgList[i].outerHTML);
+          const shape = svgData.paths[0].toShapes(true)[0];
 
-        const mesh = new THREE.Mesh(geometry2, cubeMaterial);
-        const name = svgList[i].classList.toString() || "";
-        mesh.name = name;
-        meshNameList.push(name);
-
-        chartGroup.add(mesh);
-        mesh.scale.set(0.01, 0.01, 0.01);
-        mesh.rotation.set(0, Math.PI, Math.PI);
-        mesh.position.set(0, 15, -10 + i / 3);
-
-        mesh.castShadow = true; //default is false
-        mesh.receiveShadow = true;
-
-        fontLoader.load("/anime-industry/Kanit.json", (font) => {
-          const textGeometry = new TextGeometry(
-            allData[i].genre.toUpperCase(),
-            {
-              font: font,
-              size: 0.15,
-              depth: 0.04,
-            },
-          );
-
-          const textMesh = new THREE.Mesh(textGeometry, textMaterial);
-          textMesh.geometry.computeBoundingBox();
-          textMesh.geometry.translate(
-            -textMesh.geometry.boundingBox!.max.x,
-            0,
-            0,
-          );
-          textMesh.rotation.set(-Math.PI / 2, 0, 0);
-          textMesh.position.set(-0.2, 0.1, -10 + i / 3);
-
-          chartGroup.add(textMesh);
-        });
-
-        scene.add(chartGroup);
-      }
-      const meshBb = new THREE.Box3();
-      meshBb.setFromObject(chartGroup);
-
-      const xScale = scaleLinear()
-        .domain([0, summary.yearSeasonList.length])
-        .range([0, meshBb.max.x]);
-
-      for (let i = 0; i < summary.yearSeasonList.length; i++) {
-        fontLoader.load("/anime-industry/Kanit.json", (font) => {
-          const xTick = summary.yearSeasonList[i];
-
-          const textGeometry = new TextGeometry(xTick.toString(), {
-            font: font,
-            size: 0.05,
-            depth: 0.01,
-            curveSegments: 1,
+          const geometry2 = new THREE.ExtrudeGeometry(shape, {
+            steps: 0,
+            depth: 16,
           });
 
-          const textMesh = new THREE.Mesh(textGeometry, textMaterial);
-          textMesh.rotation.set(-Math.PI / 2, 0, -Math.PI / 3);
+          const cubeMaterial = new THREE.MeshStandardMaterial({
+            color: 0x049ef4,
+          });
 
-          textMesh.position.set(xScale(i) - 0.04, 0, meshBb.max.z + 0.1);
-          scene.add(textMesh);
-        });
+          const mesh = new THREE.Mesh(geometry2, cubeMaterial);
+          const name = svgList[i].classList.toString() || "";
+          mesh.name = name;
+          meshNameList.push(name);
+
+          chartGroup.add(mesh);
+          mesh.scale.set(0.01, 0.01, 0.01);
+          mesh.rotation.set(0, Math.PI, Math.PI);
+          mesh.position.set(0, 15, -10 + i / 3);
+
+          mesh.castShadow = true; //default is false
+          mesh.receiveShadow = true;
+
+          fontLoader.load("/anime-industry/Kanit.json", (font) => {
+            const textGeometry = new TextGeometry(
+              allData[i].genre.toUpperCase(),
+              {
+                font: font,
+                size: 0.15,
+                depth: 0.04,
+              },
+            );
+
+            const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+            textMesh.geometry.computeBoundingBox();
+            textMesh.geometry.translate(
+              -textMesh.geometry.boundingBox!.max.x,
+              0,
+              0,
+            );
+            textMesh.rotation.set(-Math.PI / 2, 0, 0);
+            textMesh.position.set(-0.2, 0.1, -10 + i / 3);
+
+            chartGroup.add(textMesh);
+          });
+
+          scene.add(chartGroup);
+        }
+        const meshBb = new THREE.Box3();
+        meshBb.setFromObject(chartGroup);
+
+        const xScale = scaleLinear()
+          .domain([0, summary.yearSeasonList.length])
+          .range([0, meshBb.max.x]);
+
+        for (let i = 0; i < summary.yearSeasonList.length; i++) {
+          fontLoader.load("/anime-industry/Kanit.json", (font) => {
+            const xTick = summary.yearSeasonList[i];
+
+            const textGeometry = new TextGeometry(xTick.toString(), {
+              font: font,
+              size: 0.05,
+              depth: 0.01,
+              curveSegments: 1,
+            });
+
+            const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+            textMesh.rotation.set(-Math.PI / 2, 0, -Math.PI / 3);
+
+            textMesh.position.set(xScale(i) - 0.04, 0, meshBb.max.z + 0.1);
+            scene.add(textMesh);
+          });
+        }
+
+        setupLighting(scene, renderer, gui);
+
+        const animate = () => {
+          requestAnimationFrame(animate);
+          controls.update();
+          renderer.render(scene, camera);
+        };
+
+        animate();
+        return () => {
+          if (threeEnvironment.gui) gui.destroy();
+        };
       }
-
-      setupLighting(scene, renderer, gui);
-
-      const animate = () => {
-        requestAnimationFrame(animate);
-        controls.update();
-        renderer.render(scene, camera);
-      };
-
-      animate();
-      return () => {
-        if (threeEnvironment.gui) gui.destroy();
-      };
-    }
+    };
+    renderViz();
   }, [canvasRef.current, threeEnvironment, summary.chartData]);
 
   useEffect(() => {
@@ -218,16 +243,22 @@ const AnimeIndustryComp = () => {
         scene,
         canvasRef.current,
       );
-      setThreeEnvironment({ renderer, camera, controls, gui });
+      controls.autoRotateSpeed = 0.432;
+      setThreeEnvironment({
+        renderer,
+        camera,
+        controls,
+        gui,
+      });
     }
   }, [canvasRef.current, threeEnvironment]);
 
   return (
-    <div className="bg-black font-kanit">
+    <div className="bg-white font-kanit">
       <div className="relative size-full w-screen h-screen text-white">
         <div className="absolute inset-0">
           <div className="flex flex-row justify-center flex-wrap">
-            {unique(summary.filterData.slice(-200), (d) => d.title).map(
+            {unique(summary.filteredGenreData.slice(-200), (d) => d.title).map(
               (d, i) => (
                 <div key={`${d.title}-${i}`} className="">
                   <img src={d.img} className="w-[175px] h-[250px]" />
@@ -257,7 +288,7 @@ const AnimeIndustryComp = () => {
             </button>
           </div>
         </div>
-        <div className="absolute">
+        <div className="absolute bg-black text-white">
           <div className="max-w-sm p-4">
             {selected.studio && (
               <>
@@ -271,22 +302,36 @@ const AnimeIndustryComp = () => {
                 </div>
               </>
             )}
-            <div className="flex flex-row flex-wrap gap-x-2 gap-y-1">
-              <div className="font-bold">Genre: </div>
-              {!selected.genre ? (
-                <div>All Genre</div>
-              ) : (
-                <>
-                  {selected.genre.map((d) => (
-                    <div key={`selected-genre-${d}`}>{d}</div>
-                  ))}
-                </>
-              )}
-            </div>
+            {selected.genre && (
+              <>
+                <div className="flex flex-row flex-wrap gap-x-2 gap-y-1">
+                  <div className="font-bold">Genre: </div>
+                  {!selected.genre ? (
+                    <div>All Genre</div>
+                  ) : (
+                    <div className="break-words">
+                      {selected.genre.map((d) => (
+                        <div key={`selected-genre-${d}`}>{d}</div>
+                      ))}
+                    </div>
+                  )}
+                  <div className="font-bold">Count: </div>
+                </div>
+                <div className="flex flex-row flex-wrap gap-x-2 gap-y-1">
+                  <div className="font-bold">Count: </div>
+                  <div>
+                    {
+                      unique(summary.filteredGenreData.map((d) => d.title))
+                        .length
+                    }
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
         <div className="absolute bottom-0 left-0">
-          <div className="p-4">
+          <div className="bg-black text-white p-4">
             <button
               onClick={() => {
                 if (threeEnvironment) {

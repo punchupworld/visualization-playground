@@ -1,6 +1,6 @@
-import { groups } from "d3";
-import { alphabetical, counting, flat, unique } from "radash";
 import * as d3 from "d3";
+import { groups } from "d3";
+import { alphabetical, counting, flat, intersects, unique } from "radash";
 
 export interface RawAnimeData {
   id: string;
@@ -96,6 +96,19 @@ export const filterDataByStudio = (
   else return rawData.filter((d) => d.studios.indexOf(selectedStudio) !== -1);
 };
 
+export const filterDataByGenre = (
+  rawData: AnimeData[],
+  selectedGenre: string[] | null | string,
+) => {
+  if (
+    selectedGenre === "All Genre" ||
+    !Array.isArray(selectedGenre) ||
+    !selectedGenre
+  )
+    return rawData;
+  else return rawData.filter((d) => intersects(d.tags, selectedGenre));
+};
+
 export const getGenreList = (rawData: AnimeData[]) => {
   // find unique genre and order in alphabetical order
   return alphabetical(unique(flat(rawData.map((d) => d.tags))), (d) => d);
@@ -117,6 +130,14 @@ export const formatData = (res: AnimeData[]) => {
     (d: string) => d,
   );
 
+  return { genreList, yearSeasonList };
+};
+
+export const groupDataByGenre = (res: AnimeData[]) => {
+  const data = res.map((d) => ({
+    ...d,
+    year_season: `${d.year}-${d.season}`,
+  }));
   // group data by year_season
   const groupYearSeason = groups(data, (d) => d.year_season);
   // groupYearSeason;
@@ -145,7 +166,7 @@ export const formatData = (res: AnimeData[]) => {
     data: d[1].map((y) => ({ year: y[0], count: y[1].length })),
   }));
 
-  return { genreList, yearSeasonList, groupDataByGenre };
+  return groupDataByGenre;
 };
 
 export const renderAreaChart = (data: ChartData) => {
