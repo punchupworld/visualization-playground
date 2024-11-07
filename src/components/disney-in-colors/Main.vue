@@ -230,7 +230,7 @@ const closePopup = () => {
               @click="viewSimplifiedColor = false"
               :class="`bg-black text-white py-1 px-3 rounded-full cursor-pointer ${viewSimplifiedColor && 'opacity-50'}`"
             >
-              <p class="typo-b5">Precise Color</p>
+              <p class="typo-b5">Original Color</p>
             </div>
           </div>
         </div>
