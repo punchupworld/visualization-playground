@@ -81,6 +81,7 @@ watchEffect(() => {
 const selectColor = (data) => {
   characterSelected.value = data.name;
   colorSelected.value = data.hslColor;
+  expandMovie.value = data.featuredFilm;
 };
 
 const clearColorSelected = () => {
