@@ -55,13 +55,16 @@ const formatData = async (data) => {
       d.year = d.filmReleasedYear;
       d.name = d.name.trim();
       d.featuredFilm = d.featuredFilm.replaceAll('"', "").trim();
-      d.palettes = colorsArray.map((c) => {
-        const [hue, sat, light] = c.replaceAll("'", "").split(",");
-        const h = hue.replace("(", "");
-        const s = sat.replace("(", "");
-        const l = light.replace("(", "").replace(")", "");
-        return [+h, +s, +l];
-      });
+      d.palettes = colorsArray
+        .map((c) => {
+          const [hue, sat, light] = c.replaceAll("'", "").split(",");
+          const h = hue.replace("(", "");
+          const s = sat.replace("(", "");
+          const l = light.replace("(", "").replace(")", "");
+          return [+h, +s, +l];
+        })
+        .slice(2);
+
       return d;
     }),
   );
