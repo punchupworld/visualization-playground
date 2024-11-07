@@ -1,6 +1,7 @@
 <script setup>
 import * as d3 from "d3";
 import { onMounted, ref, computed, watch, watchEffect } from "vue";
+import Clapperboard from "./Clapperboard.vue";
 
 const props = defineProps({
   year: Number,
@@ -318,40 +319,7 @@ watch(
               <div
                 class="flex items-baseline gap-3 pt-4 pb-1 sticky top-0 bg-white cursor-pointer px-10 z-20"
               >
-                <div class="relative -translate-y-[6px]">
-                  <div
-                    class="absolute z-10 -translate-x-1 translate-y-[2.25px] bg-[#26AAF6] border-[2px] border-black w-3 h-3 rounded-full"
-                  />
-                  <div
-                    :class="`relative overflow-hidden bg-black border-[2px] border-black w-10 h-2 rounded-sm flex items-center justify-center translate-y-[1px] transition duration-300 origin-bottom-left ${expandMovie === d.movie ? '-rotate-[15deg]' : 'rotate-0'} `"
-                  >
-                    <div class="flex absolute inset-[-5px]">
-                      <div
-                        v-for="i in 9"
-                        :key="i"
-                        :class="`flex-1 -rotate-45 ${i % 2 == 0 ? 'bg-black' : 'bg-white'}`"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="relative rounded-b-[5px] bg-white border-[2px] border-black w-10 h-[30px] rounded-sm flex justify-center items-center overflow-hidden"
-                  >
-                    <div
-                      class="absolute top-0 left-0 bg-black border-b-[2px] border-black w-10 h-[6px] flex overflow-hidden"
-                    >
-                      <div class="flex absolute inset-[-5px]">
-                        <div
-                          v-for="i in 9"
-                          :key="i"
-                          :class="`flex-1 rotate-45 ${i % 2 == 0 ? 'bg-black' : 'bg-white'}`"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      :class="`translate-y-[3px] translate-x-[1px] w-0 h-0 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[10px] border-black transition duration-300 ${expandMovie === d.movie ? 'rotate-[90deg]' : 'rotate-0'}`"
-                    />
-                  </div>
-                </div>
+                <Clapperboard :clapperboardIsOpened="expandMovie === d.movie" />
                 <div class="flex items-baseline gap-2">
                   <span class="typo-b2 font-bold">{{ d.movie }}</span>
                   <span class="typo-b5"
