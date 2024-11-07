@@ -378,11 +378,11 @@ watch(
                   </p>
                   <div class="flex gap-2">
                     <div
-                      class="w-[120px] h-[120px] rounded-[10px] overflow-hidden"
+                      class="w-[160px] h-[160px] rounded-[10px] overflow-hidden"
                     >
                       <img
                         class="w-full h-full object-cover"
-                        :src="char.imageLink"
+                        :src="`/disney-in-colors/images/${char.fileName}`"
                         alt=""
                         referrerpolicy="no-referrer"
                       />
