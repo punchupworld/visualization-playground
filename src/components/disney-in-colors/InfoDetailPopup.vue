@@ -168,7 +168,6 @@ watch(
         class="absolute top-0 right-0 z-30 rounded-md p-2 inline-flex items-center justify-center text-black"
         :style="{ color: getInvertedColor() }"
       >
-        <span class="sr-only">Close menu</span>
         <svg
           class="h-8 w-8"
           xmlns="http://www.w3.org/2000/svg"
@@ -387,11 +386,11 @@ watch(
                         referrerpolicy="no-referrer"
                       />
                     </div>
-                    <div class="flex gap-[1px] flex-col">
+                    <div class="flex flex-col justify-between">
                       <div
                         v-for="palette in char.palettes"
                         :key="palette"
-                        class="w-10 flex-1 rounded-[5px]"
+                        class="w-12 h-12 flex-none rounded-[5px]"
                         :style="{
                           background: `hsl(${palette[0]}, ${palette[1]}%, ${palette[2]}%)`,
                         }"
