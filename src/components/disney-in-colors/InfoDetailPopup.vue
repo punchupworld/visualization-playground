@@ -276,7 +276,7 @@ watch(
                   @click="selectColor(character)"
                   @mouseover="colorFocused = character.hslColor"
                   @mouseout="colorFocused = []"
-                  :class="`relative cursor-pointer h-full flex items-center transition duration-300 z-20 ${colorSelected === character.hslColor && 'scale-[150%] rotate-[8deg] z-40'}  hover:scale-[140%] hover:z-30 ${expandMovie === character.featuredFilm || expandMovie === '' ? 'opacity-100' : 'opacity-10 pointer-events-none'}`"
+                  :class="`relative cursor-pointer h-full flex items-center transition duration-300 z-20 ${colorSelected === character.hslColor && 'scale-[150%] rotate-[2deg] z-40'}  hover:scale-[140%] hover:z-30 ${expandMovie === character.featuredFilm || expandMovie === '' ? 'opacity-100' : 'opacity-10 pointer-events-none'}`"
                   :style="{
                     backgroundColor: character.isBlack
                       ? 'black'
@@ -321,7 +321,7 @@ watch(
                 class="flex items-baseline gap-3 pt-4 pb-1 sticky top-0 bg-white cursor-pointer px-10 z-20"
               >
                 <Clapperboard :clapperboardIsOpened="expandMovie === d.movie" />
-                <div class="flex items-baseline gap-2">
+                <div class="flex items-baseline gap-2 hover:text-[#26AAF6]">
                   <span class="typo-b2 font-bold">{{ d.movie }}</span>
                   <span class="typo-b5"
                     >({{ d.characters.length }} character{{
@@ -331,7 +331,7 @@ watch(
                 </div>
               </div>
               <div
-                :class="`h-full px-10 overflow-hidden grid grid-cols-4 gap-x-6 gap-y-4 ${expandMovie === d.movie ? 'max-h-[3000px] transition-all duration-500 pt-[9px] pb-6' : 'max-h-[0px] transition-all duration-200'}`"
+                :class="`h-full px-10 overflow-hidden grid grid-cols-4 gap-x-6 gap-y-4 ${expandMovie === d.movie ? 'max-h-[3000px] transition-all duration-500 pt-4 pb-6' : 'max-h-[0px] transition-all duration-200'}`"
               >
                 <div
                   v-for="char in d.characters"
