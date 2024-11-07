@@ -3,6 +3,7 @@ import * as d3 from "d3";
 import { onMounted, ref } from "vue";
 import StackedBarChart from "./StackedBarChart.vue";
 import InfoDetailPopup from "./InfoDetailPopup.vue";
+import Mickey from "./Mickey.vue";
 
 const allYears = ref([]);
 const startYear = 1937;
@@ -146,8 +147,9 @@ const closePopup = () => {
 
 <template>
   <div
-    class="py-5 min-h-screen"
+    class="relative pt-12 pb-6 min-h-screen"
     style="
+      background-attachment: fixed;
       background-color: white;
       opacity: 1;
       background-image: linear-gradient(
@@ -197,10 +199,69 @@ const closePopup = () => {
       v-if="yearSelected !== 0"
     />
     <div :class="`transition duration-100 ${yearSelected !== 0 && 'blur-lg'}`">
-      <div class="flex flex-col items-center">
-        <h1 class="typo-h2 font-bold text-center mb-3">Disney in Colors</h1>
+      <div class="fixed inset-0">
+        <!-- <Mickey class="top-[3%] left-1/2 -translate-x-1/2" /> -->
+
+        <Mickey class="rotate-12 top-[5%] left-[5%]" />
+        <Mickey class="-rotate-12 top-[5%] right-[5%]" />
+
+        <Mickey class="-rotate-12 top-[12.5%] left-[24%]" />
+        <Mickey class="rotate-12 top-[12.5%] right-[24%]" />
+
+        <Mickey class="rotate-3 top-[28%] left-[12%]" />
+        <Mickey class="-rotate-3 top-[28%] right-[12%]" />
+
+        <Mickey class="-rotate-6 top-[38%] left-[32%]" />
+        <Mickey class="rotate-6 top-[38%] right-[32%]" />
+
+        <Mickey class="-rotate-3 top-[60%] left-[5%]" />
+        <Mickey class="rotate-3 top-[60%] right-[5%]" />
+
+        <Mickey class="rotate-6 -bottom-[6%] left-[2%]" />
+        <Mickey class="-rotate-6 -bottom-[6%] right-[2%]" />
+
+        <Mickey class="-rotate-6 -bottom-[9%] left-[30%]" />
+        <Mickey class="rotate-6 -bottom-[9%] right-[30%]" />
+      </div>
+      <div class="relative flex flex-col items-center">
         <div
-          class="bg-white/80 flex justify-center px-5 py-3 rounded-[10px] w-[520px]"
+          class="bg-[#26aaf6] border-[2px] border-black rounded-full py-2 px-10 mb-7"
+        >
+          <h1
+            class="typo-h4 font-bold text-center text-black leading-none"
+            style="
+              text-shadow:
+                1px 1px 0 #fff,
+                -1px 1px 0 #fff,
+                1px -1px 0 #fff,
+                -1px -1px 0 #fff,
+                0px 1px 0 #fff,
+                0px -1px 0 #fff,
+                -1px 0px 0 #fff,
+                1px 0px 0 #fff,
+                2px 2px 0 #fff,
+                -2px 2px 0 #fff,
+                2px -2px 0 #fff,
+                -2px -2px 0 #fff,
+                0px 2px 0 #fff,
+                0px -2px 0 #fff,
+                -2px 0px 0 #fff,
+                2px 0px 0 #fff,
+                1px 2px 0 #fff,
+                -1px 2px 0 #fff,
+                1px -2px 0 #fff,
+                -1px -2px 0 #fff,
+                2px 1px 0 #fff,
+                -2px 1px 0 #fff,
+                2px -1px 0 #fff,
+                -2px -1px 0 #fff;
+            "
+          >
+            Disney in Colors
+          </h1>
+        </div>
+        <div
+          class="bg-white border-[2px] border-black flex justify-center px-5 py-4 rounded-[10px] w-[580px]"
         >
           <p class="typo-b5 text-center">
             This project compiles visual data of Disney characters from 1937 to
@@ -211,9 +272,11 @@ const closePopup = () => {
           </p>
         </div>
       </div>
-      <div class="bg-white m-10">
+      <div
+        class="relative bg-white my-10 w-[95%] max-w-[1600px] mx-auto border-[2px] border-black rounded-xl"
+      >
         <div
-          class="sticky top-0 flex gap-3 items-baseline bg-white z-20 shadow-xl"
+          class="sticky top-0 flex gap-3 items-baseline bg-white rounded-t-xl z-20 shadow-lg shadow-[#26aaf6]/50 border-b-[2px] border-black"
         >
           <div class="flex-1 flex justify-end pt-1">
             <p class="typo-b1 font-bold">Villain</p>
@@ -225,15 +288,15 @@ const closePopup = () => {
           >
             <div
               @click="viewSimplifiedColor = true"
-              :class="`bg-black text-white py-1 px-3 rounded-full cursor-pointer ${!viewSimplifiedColor && 'opacity-50'}`"
+              :class="`border-[2px] py-1 px-3 rounded-full cursor-pointer ${!viewSimplifiedColor ? 'bg-[#26aaf6]/50 border-black/0 text-black/50' : 'bg-[#26aaf6] border-black text-black'}`"
             >
-              <p class="typo-b5">Simplified Color</p>
+              <p class="typo-b5 font-bold">Simplified Color</p>
             </div>
             <div
               @click="viewSimplifiedColor = false"
-              :class="`bg-black text-white py-1 px-3 rounded-full cursor-pointer ${viewSimplifiedColor && 'opacity-50'}`"
+              :class="`border-[2px] py-1 px-3 rounded-full cursor-pointer ${viewSimplifiedColor ? 'bg-[#26aaf6]/50 border-black/0 text-black/50' : 'bg-[#26aaf6] border-black text-black'}`"
             >
-              <p class="typo-b5">Original Color</p>
+              <p class="typo-b5 font-bold">Original Color</p>
             </div>
           </div>
         </div>
@@ -259,7 +322,7 @@ const closePopup = () => {
                   : []
               "
               :viewSimplifiedColor="viewSimplifiedColor"
-              :class="`transition duration-500 ${yearFocused === year && 'scale-y-150'} ${yearFocused !== year && yearFocused !== 0 && 'scale-y-75'}`"
+              :class="`transition duration-500 ${yearFocused === year && 'scale-y-[1.6]'} ${yearFocused !== year && yearFocused !== 0 && 'scale-y-75'}`"
             />
             <div
               class="relative w-[40px] flex-none flex text-center"
@@ -290,7 +353,7 @@ const closePopup = () => {
                 colorsByYear[`hero_${year}`] ? colorsByYear[`hero_${year}`] : []
               "
               :viewSimplifiedColor="viewSimplifiedColor"
-              :class="`transition duration-500 ${yearFocused === year && 'scale-y-150'} ${yearFocused !== year && yearFocused !== 0 && 'scale-y-75'}`"
+              :class="`transition duration-500 ${yearFocused === year && 'scale-y-[1.6]'} ${yearFocused !== year && yearFocused !== 0 && 'scale-y-75'}`"
             />
           </div>
         </div>
