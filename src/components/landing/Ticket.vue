@@ -7,20 +7,14 @@ defineProps({
 
 <template>
   <div
-    class="bg-black overflow-hidden cursor-pointer transition-all duration-300 hover:rotate-[1deg]"
+    class="bg-black cursor-pointer transition-all duration-300 hover:rotate-[1deg]"
   >
     <div class="relative flex w-[1100px] bg-black">
       <div
         class="absolute z-10 top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full w-[80px] h-[80px] flex-none bg-black"
       />
       <div
-        class="absolute z-10 top-0 right-0 translate-x-1/2 -translate-y-1/2 rounded-full w-[80px] h-[80px] flex-none bg-black"
-      />
-      <div
         class="absolute z-10 bottom-0 left-0 -translate-x-1/2 translate-y-1/2 rounded-full w-[80px] h-[80px] flex-none bg-black"
-      />
-      <div
-        class="absolute z-10 bottom-0 right-0 translate-x-1/2 translate-y-1/2 rounded-full w-[80px] h-[80px] flex-none bg-black"
       />
 
       <div
@@ -30,15 +24,14 @@ defineProps({
           <div class="rounded-full w-[35px] h-[35px] flex-none bg-black" />
         </div>
       </div>
-      <div
-        class="absolute top-0 right-0 translate-x-1/2 z-20 flex flex-col justify-between h-full py-[60px]"
-      >
-        <div v-for="i in 10" :key="i">
-          <div class="rounded-full w-[35px] h-[35px] flex-none bg-black" />
-        </div>
-      </div>
 
       <div class="relative w-[75%] bg-[#FFF8D5] py-[30px] px-[80px]">
+        <div
+          class="absolute z-10 top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full w-[80px] h-[80px] flex-none bg-black"
+        />
+        <div
+          class="absolute z-10 bottom-0 left-0 -translate-x-1/2 translate-y-1/2 rounded-full w-[80px] h-[80px] flex-none bg-black"
+        />
         <div
           class="absolute z-20 top-0 right-0 w-[10px] h-full border-r-[2px] border-dashed border-black"
         ></div>
@@ -58,9 +51,9 @@ defineProps({
           <div
             class="bg-[#FFFC71] border-dashed border-t-[1px] border-b-[1px] border-black/50 absolute z-10 w-full left-0 right-0 h-[55px]"
           >
-            <div
+            <!-- <div
               class="bg-[#FFFC71] border-dashed border-t-[1px] border-b-[1px] border-black/50 absolute top-1/2 -translate-y-1/2 right-0 translate-x-full w-full h-[55px]"
-            ></div>
+            ></div> -->
           </div>
         </div>
         <div class="relative z-20 py-[6px]">
@@ -73,11 +66,30 @@ defineProps({
         </p>
       </div>
       <div
-        class="relative w-[25%] bg-white px-5 pt-[50px] pb-[65px] flex flex-col justify-between"
+        :class="`relative w-[25%] bg-white px-5 overflow-hidden pt-[50px] pb-[65px] flex flex-col justify-between ${selectedProject === data.path && 'ticket-tearing'} z-10`"
       >
         <div
-          :class="`bg-black absolute top-0 left-0 w-full transition duration-300 z-20 ${selectedProject === data.path && 'tear-ani'}`"
-        ></div>
+          class="absolute z-10 top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full w-[80px] h-[80px] flex-none bg-black"
+        />
+        <div
+          class="absolute z-10 bottom-0 left-0 -translate-x-1/2 translate-y-1/2 rounded-full w-[80px] h-[80px] flex-none bg-black"
+        />
+
+        <div
+          class="absolute z-10 top-0 right-0 translate-x-1/2 -translate-y-1/2 rounded-full w-[80px] h-[80px] flex-none bg-black"
+        />
+        <div
+          class="absolute z-10 bottom-0 right-0 translate-x-1/2 translate-y-1/2 rounded-full w-[80px] h-[80px] flex-none bg-black"
+        />
+
+        <div
+          class="absolute top-0 right-0 translate-x-1/2 z-20 flex flex-col justify-between h-full py-[60px]"
+        >
+          <div v-for="i in 10" :key="i">
+            <div class="rounded-full w-[35px] h-[35px] flex-none bg-black" />
+          </div>
+        </div>
+
         <div>
           <div
             class="relative w-[100px] h-[100px] bg-white border-black border-[1px] rounded-full overflow-hidden"
@@ -124,15 +136,25 @@ defineProps({
     calc(50% * (1 - sin(0.4turn))) calc(50% * (1 - cos(0.4turn)))
   );
 }
-.tear-ani {
-  animation: tear 0.5s ease-out forwards;
+
+.ticket-tearing {
+  animation: tearoff 1.5s forwards;
+  transform-origin: 0 100%;
 }
-@keyframes tear {
-  from {
-    height: 0%;
+
+@keyframes tearoff {
+  50% {
+    right: 0;
   }
-  to {
-    height: 100%;
+  60% {
+    transform: rotate(5deg);
+  }
+  75% {
+    right: -25px;
+  }
+  100% {
+    transform: rotate(5deg);
+    right: -25px;
   }
 }
 </style>

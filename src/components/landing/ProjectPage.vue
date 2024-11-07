@@ -17,7 +17,7 @@ const goToProject = (path) => {
   selectedProject.value = path;
   setTimeout(() => {
     window.location.href = `/${path}`;
-  }, 450);
+  }, 1500);
 };
 </script>
 
