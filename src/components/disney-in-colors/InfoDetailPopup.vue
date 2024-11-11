@@ -78,10 +78,23 @@ watchEffect(() => {
   numberOfcharactersByCurrentCategory.value = count;
 });
 
+const scrollToElement = (id) => {
+  document
+    .getElementById(id)
+    .scrollIntoView({ behavior: "smooth", block: "center", inline: "start" });
+};
+
 const selectColor = (data) => {
   characterSelected.value = data.name;
   colorSelected.value = data.hslColor;
-  expandMovie.value = data.featuredFilm;
+  if (expandMovie.value === data.featuredFilm) {
+    scrollToElement(data.name.toLowerCase().replace(" ", ""));
+  } else {
+    expandMovie.value = data.featuredFilm;
+    setTimeout(() => {
+      scrollToElement(data.name.toLowerCase().replace(" ", ""));
+    }, 500);
+  }
 };
 
 const clearColorSelected = () => {
@@ -157,7 +170,7 @@ watch(
     @click="closePopup()"
   >
     <div
-      class="relative flex flex-col bg-white text-black rounded-2xl w-[85%] h-[80%] overflow-hidden border-[3px] border-black"
+      class="relative flex flex-col bg-white text-black rounded-2xl w-[80%] h-[80%] max-w-[1400px] max-h-[800px] overflow-hidden border-[3px] border-black"
       @click="
         (event) => {
           event.stopPropagation();
@@ -248,16 +261,16 @@ watch(
         @click="clearColorSelected"
       >
         <div class="z-20">
-          <p class="px-10 pt-5 pb-2">
+          <div class="relative flex items-baseline gap-2 px-10 pt-5 pb-2">
             <span class="font-bold typo-b2"
               >{{ getColors.length }} colors
             </span>
-            <span class="typo-b5"
+            <span class="typo-b5 -translate-y-[1px]"
               >({{ numberOfcharactersByCurrentCategory }} character{{
                 numberOfcharactersByCurrentCategory > 1 ? "s" : ""
               }})</span
             >
-          </p>
+          </div>
           <div class="relative flex flex-col gap-[1px] pb-5">
             <div
               class="flex w-full h-16 flex-none bg-white border-[1px] border-black"
@@ -302,7 +315,10 @@ watch(
             </div>
           </div>
         </div>
-        <div class="flex flex-1 flex-col overflow-y-auto pb-5">
+        <div
+          id="scrolling_div"
+          class="flex flex-1 flex-col overflow-y-auto pb-5"
+        >
           <div
             v-for="d in getCharactersByMovie"
             :key="d.movie"
