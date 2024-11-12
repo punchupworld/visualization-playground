@@ -3,7 +3,7 @@
 <template>
   <div class="absolute opacity-30">
     <div
-      class="w-[55px] h-[55px] w-[md:w-[95px] md:h-[95px] bg-[#26aaf6] rounded-full"
+      class="w-[55px] h-[55px] md:w-[95px] md:h-[95px] bg-[#26aaf6] rounded-full"
     >
       <div
         class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[55%] flex w-[160%] justify-between"
