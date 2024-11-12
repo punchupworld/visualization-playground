@@ -5,7 +5,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="relative -translate-y-[6px] scale-75 md:scale-1">
+  <div class="relative -translate-y-[6px] scale-75 md:scale-100">
     <div
       class="absolute z-10 -translate-x-1 translate-y-[2.25px] bg-[#26AAF6] border-[2px] border-black w-3 h-3 rounded-full"
     />
