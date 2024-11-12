@@ -144,7 +144,7 @@ const scrollToTop = () => {
             @click="showFlukeInterview = false"
           >
             <div
-              class="relative z-20 w-[60px] h-[60px] bg-white border-black border-[1px] rounded-full overflow-hidden"
+              class="relative z-20 w-[40px] h-[40px] md:w-[60px] md:h-[60px] bg-white border-black border-[1px] rounded-full overflow-hidden"
             >
               <img
                 class="w-full h-full object-cover"
@@ -153,13 +153,15 @@ const scrollToTop = () => {
               />
             </div>
             <div
-              :class="`absolute top-1/2 -translate-y-1/2 left-0 -translate-x-full flex flex-col items-end w-max px-4 py-1 border-dashed border-[1px] ${!showFlukeInterview ? 'bg-white rounded-[20px] border-black' : 'border-transparent'}`"
+              :class="`absolute top-1/2 -translate-y-1/2 left-0 -translate-x-full flex flex-col items-end w-max px-2 md:px-4 py-1 border-dashed border-[1px] ${!showFlukeInterview ? 'bg-white rounded-[20px] border-black' : 'border-transparent'}`"
             >
               <div class="flex gap-2">
-                <p class="typo-b4 font-bold leading-none whitespace-nowrap">
+                <p
+                  class="typo-b5 md:typo-b4 font-bold leading-none whitespace-nowrap"
+                >
                   {{ interviewData.devnick_th }}
                 </p>
-                <p class="typo-b4 leading-none whitespace-nowrap">
+                <p class="typo-b5 md:typo-b4 leading-none whitespace-nowrap">
                   {{ interviewData.devname_th }}
                 </p>
               </div>
@@ -174,7 +176,7 @@ const scrollToTop = () => {
             @click="showFlukeInterview = true"
           >
             <div
-              class="w-[60px] h-[60px] bg-white border-black border-[1px] rounded-full overflow-hidden"
+              class="w-[40px] h-[40px] md:w-[60px] md:h-[60px] bg-white border-black border-[1px] rounded-full overflow-hidden"
             >
               <img
                 class="w-full h-full object-cover"
@@ -183,14 +185,16 @@ const scrollToTop = () => {
               />
             </div>
             <div
-              :class="`absolute z-10 top-1/2 -translate-y-1/2 right-0 translate-x-full flex flex-col w-max px-4 py-1 border-dashed border-[1px] ${showFlukeInterview ? 'bg-white rounded-[20px] border-black' : 'border-transparent'}`"
+              :class="`absolute z-10 top-1/2 -translate-y-1/2 right-0 translate-x-full flex flex-col w-max px-2 md:px-4 py-1 border-dashed border-[1px] ${showFlukeInterview ? 'bg-white rounded-[20px] border-black' : 'border-transparent'}`"
             >
               <div class="flex gap-2">
-                <p class="typo-b4 font-bold leading-none whitespace-nowrap">
+                <p
+                  class="typo-b5 md:typo-b4 font-bold leading-none whitespace-nowrap"
+                >
                   {{ dataAnalystInterviewData.devnick_th }}
                 </p>
 
-                <p class="typo-b4 whitespace-nowrap">
+                <p class="typo-b5 md:typo-b4 whitespace-nowrap">
                   {{ dataAnalystInterviewData.devname_th }}
                 </p>
               </div>

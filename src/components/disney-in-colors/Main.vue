@@ -261,7 +261,7 @@ const closePopup = () => {
           </h1>
         </div>
         <div
-          class="bg-white border-[2px] border-black flex justify-center px-5 py-4 rounded-[10px] w-[580px]"
+          class="bg-white border-[2px] border-black flex justify-center px-5 py-4 rounded-[10px] w-[90%] md:w-[580px]"
         >
           <p class="typo-b5 text-center">
             This project compiles visual data of Disney characters from 1937 to
@@ -273,7 +273,7 @@ const closePopup = () => {
         </div>
       </div>
       <div
-        class="relative bg-white my-10 w-[95%] max-w-[1600px] mx-auto border-[2px] border-black rounded-xl"
+        class="relative bg-white mt-16 mb-5 md:my-10 w-[95%] max-w-[1600px] mx-auto border-[2px] border-black rounded-xl"
       >
         <div
           class="sticky top-0 flex gap-3 items-baseline bg-white rounded-t-xl z-20 shadow-lg shadow-[#26aaf6]/50 border-b-[2px] border-black"
@@ -284,7 +284,7 @@ const closePopup = () => {
           <div class="w-[40px] typo-b5 text-center opacity-50"><p>year</p></div>
           <div class="flex-1"><p class="typo-b1 font-bold">Hero</p></div>
           <div
-            class="absolute top-1/2 right-5 -translate-y-1/2 flex justify-end gap-3 py-5"
+            class="absolute top-0 md:top-1/2 right-0 md:right-5 -translate-y-full md:-translate-y-1/2 flex justify-end gap-3 py-1 md:py-5"
           >
             <div
               @click="viewSimplifiedColor = true"
@@ -304,7 +304,7 @@ const closePopup = () => {
           <div
             v-for="year in allYears"
             :key="year"
-            :class="`flex gap-3 items-center cursor-pointer ${isNoCharacters(year) && 'pointer-events-none'} transition duration-300 ${yearFocused === year || yearFocused === 0 ? 'opacity-100' : 'opacity-30'}`"
+            :class="`flex gap-1 md:gap-3 items-center cursor-pointer ${isNoCharacters(year) && 'pointer-events-none'} transition duration-300 ${yearFocused === year || yearFocused === 0 ? 'opacity-100' : 'opacity-30'}`"
             @mouseover="hoverYear(year)"
             @mouseout="unHoverYear()"
           >

@@ -19,6 +19,7 @@ const heroCategoryIsSelected = ref(true);
 const characterSelected = ref("");
 const colorSelected = ref([]);
 const colorFocused = ref([]);
+// const openTutorial = ref(false);
 
 onMounted(() => {
   herosByMovie.value = formatDataByMovie(props.heros);
@@ -79,6 +80,21 @@ watchEffect(() => {
 });
 
 const scrollToElement = (id) => {
+  // const myElement = document.getElementById(id);
+  // const topPos = myElement.offsetTop;
+  // let offsetTop = 30; //-75
+  // console.log("topPos + offsetTop", topPos, topPos + offsetTop);
+  // getCharactersByMovie.value.map((char, index) => {
+  //   if (char.movie === movie) {
+  //     offsetTop = offsetTop * index;
+  //     // console.log("index", index);
+  //   }
+  // });
+  // document.getElementById("scrolling_div").scrollTo({
+  //   top: topPos + offsetTop,
+  //   behavior: "smooth",
+  // });
+  // document.getElementById("scrolling_div").scrollTop = topPos;
   document
     .getElementById(id)
     .scrollIntoView({ behavior: "smooth", block: "center", inline: "start" });
@@ -88,11 +104,17 @@ const selectColor = (data) => {
   characterSelected.value = data.name;
   colorSelected.value = data.hslColor;
   if (expandMovie.value === data.featuredFilm) {
-    scrollToElement(data.name.toLowerCase().replace(" ", ""));
+    scrollToElement(
+      data.name.toLowerCase().replace(" ", ""),
+      data.featuredFilm,
+    );
   } else {
     expandMovie.value = data.featuredFilm;
     setTimeout(() => {
-      scrollToElement(data.name.toLowerCase().replace(" ", ""));
+      scrollToElement(
+        data.name.toLowerCase().replace(" ", ""),
+        data.featuredFilm,
+      );
     }, 500);
   }
 };
@@ -170,7 +192,7 @@ watch(
     @click="closePopup()"
   >
     <div
-      class="relative flex flex-col bg-white text-black rounded-2xl w-[80%] h-[80%] max-w-[1400px] max-h-[800px] overflow-hidden border-[3px] border-black"
+      class="relative flex flex-col bg-white text-black rounded-2xl w-[95%] h-[85%] md:w-[80%] md:h-[80%] max-w-[1400px] max-h-[800px] overflow-hidden border-[3px] border-black"
       @click="
         (event) => {
           event.stopPropagation();
@@ -200,7 +222,7 @@ watch(
         </svg>
       </button>
       <div
-        class="relative p-3 w-full flex flex-col items-center transition duration-300"
+        class="relative pt-2 pb-10 px-0 md:p-3 w-full flex flex-col items-center transition duration-300"
         :style="{
           background:
             colorFocused.length > 0
@@ -261,7 +283,9 @@ watch(
         @click="clearColorSelected"
       >
         <div class="z-20">
-          <div class="relative flex items-baseline gap-2 px-10 pt-5 pb-2">
+          <div
+            class="relative flex items-baseline gap-2 px-4 py-2 md:px-10 md:pt-5 md:pb-2"
+          >
             <span class="font-bold typo-b2"
               >{{ getColors.length }} colors
             </span>
@@ -270,8 +294,29 @@ watch(
                 numberOfcharactersByCurrentCategory > 1 ? "s" : ""
               }})</span
             >
+            <!-- <div
+              @click="openTutorial = !openTutorial"
+              class="cursor-pointer absolute bottom-0 right-2 -translate-y-[5px] w-6 h-6 bg-black border-[1px] border-black rounded-full flex items-center justify-center"
+            >
+              <div
+                class="flex flex-col gap-[2px] typo-b4 font-bold leading-none"
+              >
+                <div
+                  class="absolute bottom-0 left-0 w-0 h-0 border-l-[4px] border-l-solid border-l-transparent border-r-[4px] border-r-solid border-r-transparent border-t-[8px] border-t-solid border-t-black transition rotate-[55deg] origin-top-left"
+                ></div>
+                <div class="w-[3px] h-[3px] rounded-full bg-[white]" />
+                <div class="w-[3px] h-[8px] rounded-full bg-white" />
+              </div>
+              <div
+                v-if="openTutorial"
+                class="absolute bottom-0 -left-2 -translate-x-full w-[200px] z-20 bg-white p-3 border-[1px] border-black rounded-md"
+              >
+                <p class="typo-b6 font-bold">Simplified Color</p>
+                <p class="typo-b6 font-bold">Original Color</p>
+              </div>
+            </div> -->
           </div>
-          <div class="relative flex flex-col gap-[1px] pb-5">
+          <div class="relative flex flex-col gap-[1px] pb-4 md:pb-5">
             <div
               class="flex w-full h-16 flex-none bg-white border-[1px] border-black"
               @click="
@@ -280,6 +325,12 @@ watch(
                 }
               "
             >
+              <!-- <div class="absolute top-0 right-20 -translate-y-full">
+                <p class="typo-b6 font-bold opacity-30">Simplified Color</p>
+              </div>
+              <div class="absolute -bottom-1 right-20">
+                <p class="typo-b6 font-bold opacity-30">Original Color</p>
+              </div> -->
               <div
                 v-for="character in getColors"
                 :key="character.name"
@@ -334,11 +385,15 @@ watch(
           >
             <div class="relative">
               <div
-                class="flex items-baseline gap-3 pt-4 pb-1 sticky top-0 bg-white cursor-pointer px-10 z-20"
+                class="flex items-center gap-3 pt-2 md:pt-4 pb-1 sticky top-0 bg-white cursor-pointer px-3 md:px-10 z-20"
               >
                 <Clapperboard :clapperboardIsOpened="expandMovie === d.movie" />
-                <div class="flex items-baseline gap-2 hover:text-[#26AAF6]">
-                  <span class="typo-b2 font-bold">{{ d.movie }}</span>
+                <div
+                  class="flex flex-col md:flex-row items-baseline md:gap-2 hover:text-[#26AAF6]"
+                >
+                  <span class="typo-b3 md:typo-b2 font-bold">{{
+                    d.movie
+                  }}</span>
                   <span class="typo-b5"
                     >({{ d.characters.length }} character{{
                       d.characters.length > 1 ? "s" : ""
@@ -347,7 +402,7 @@ watch(
                 </div>
               </div>
               <div
-                :class="`h-full px-10 overflow-hidden grid grid-cols-4 gap-x-6 gap-y-4 ${expandMovie === d.movie ? 'max-h-[3000px] transition-all duration-500 pt-4 pb-6' : 'max-h-[0px] transition-all duration-200'}`"
+                :class="`h-full px-10 overflow-hidden grid grid-cols-1 md:grid-cols-4 gap-x-6 gap-y-4 ${expandMovie === d.movie ? 'max-h-[3000px] transition-all duration-500 pt-4 pb-6' : 'max-h-[0px] transition-all duration-200'}`"
               >
                 <div
                   v-for="char in d.characters"
@@ -362,7 +417,7 @@ watch(
                   </p>
                   <div class="flex gap-2">
                     <div
-                      class="w-[160px] h-[160px] rounded-[10px] overflow-hidden"
+                      class="w-[120px] h-[120px] md:w-[160px] md:h-[160px] rounded-[10px] overflow-hidden"
                     >
                       <img
                         class="w-full h-full object-cover"
@@ -375,7 +430,7 @@ watch(
                       <div
                         v-for="palette in char.palettes"
                         :key="palette"
-                        class="w-12 h-12 flex-none rounded-[5px]"
+                        class="w-9 h-9 md:w-12 md:h-12 flex-none rounded-[5px]"
                         :style="{
                           background: `hsl(${palette[0]}, ${palette[1]}%, ${palette[2]}%)`,
                         }"
