@@ -4,6 +4,7 @@ import InterviewCard from "./InterviewCard.vue";
 
 const props = defineProps({
   data: Object,
+  dataAnalystInterviewData: Object,
   selectedProject: String,
   goToProject: Function,
 });
@@ -31,6 +32,7 @@ const closeInterviewCard = () => {
     <InterviewCard
       v-if="interviewCardNo !== ''"
       :interviewData="data"
+      :dataAnalystInterviewData="dataAnalystInterviewData"
       :closeInterviewCard="closeInterviewCard"
     />
 

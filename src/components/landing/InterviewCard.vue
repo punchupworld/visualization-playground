@@ -1,8 +1,10 @@
 <script setup>
-import { ref } from "vue";
+import { computed, ref, watch } from "vue";
+import { marked } from "marked";
 
-defineProps({
+const props = defineProps({
   interviewData: Object,
+  dataAnalystInterviewData: Object,
   closeInterviewCard: Function,
 });
 
@@ -53,6 +55,33 @@ const questions = ref([
     id: "feeling",
   },
 ]);
+
+const showFlukeInterview = ref(false);
+
+const getInterview = computed(() => {
+  return showFlukeInterview.value
+    ? props.dataAnalystInterviewData
+    : props.interviewData;
+});
+
+const getConcepts = computed(() => {
+  return props.dataAnalystInterviewData["concept_by_project"].split(",");
+});
+
+const markdownToHtml = (value) => {
+  return marked(value);
+};
+
+watch(
+  () => showFlukeInterview.value,
+  () => {
+    scrollToTop();
+  },
+);
+
+const scrollToTop = () => {
+  document.getElementById("interview_card_scrolling_div").scrollTop = 0;
+};
 </script>
 
 <template>
@@ -61,7 +90,8 @@ const questions = ref([
     @click="closeInterviewCard()"
   >
     <div
-      class="relative bg-white w-[70%] h-[80%] max-w-[1000px] max-h-[750px] overflow-y-auto"
+      id="interview_card_scrolling_div"
+      class="relative bg-white w-[60%] h-[85%] max-w-[900px] max-h-[750px] overflow-y-auto"
       @click="
         (event) => {
           event.stopPropagation();
@@ -69,7 +99,7 @@ const questions = ref([
       "
     >
       <div
-        class="flex items-center gap-3 bg-[#FFF8D5] px-8 py-5 sticky top-0 z-30 shadow-md"
+        class="flex flex-col items-center justify-center gap-3 bg-[#FFF8D5] px-12 pt-2 pb-12 sticky top-0 z-30 shadow-md"
       >
         <button
           @click="closeInterviewCard()"
@@ -93,44 +123,87 @@ const questions = ref([
           </svg>
         </button>
 
-        <div
-          class="relative w-[60px] h-[60px] bg-white border-black border-[1px] rounded-full overflow-hidden"
-        >
-          <img
-            class="w-full h-full object-cover"
-            :src="`/${interviewData.devnick_en.toLowerCase()}_profile.webp`"
-            alt=""
-          />
+        <a :href="`/${interviewData.path}`">
           <div
-            class="star absolute top-0 right-0 translate-x-[70%] -translate-y-[70%]"
-          ></div>
-        </div>
-        <div class="flex flex-col gap-1">
-          <a :href="`/${interviewData.path}`">
+            class="top-0 left-0 bg-black text-[#FFFC71] px-2 py-[2px] flex w-fit items-center gap-[6px] cursor-pointer"
+          >
+            <p class="typo-b4 font-bold leading-none">
+              {{ interviewData.title }}
+            </p>
+            <img
+              class="w-4"
+              src="/landing/yellow_new_tab.svg"
+              alt="New Tab Icon"
+            />
+          </div>
+        </a>
+
+        <div class="relative">
+          <div
+            :class="`${!showFlukeInterview ? 'opacity-100' : 'opacity-50'} cursor-pointer`"
+            @click="showFlukeInterview = false"
+          >
             <div
-              class="bg-black text-[#FFFC71] px-2 py-[2px] flex w-fit items-center gap-[6px] cursor-pointer"
+              class="relative z-20 w-[60px] h-[60px] bg-white border-black border-[1px] rounded-full overflow-hidden"
             >
-              <p class="typo-b5 font-bold leading-none">
-                {{ interviewData.title }}
-              </p>
               <img
-                class="w-4"
-                src="/landing/yellow_new_tab.svg"
-                alt="New Tab Icon"
+                class="w-full h-full object-cover"
+                :src="`/${interviewData.devnick_en.toLowerCase()}_profile.webp`"
+                alt=""
               />
             </div>
-          </a>
-          <div class="flex items-center gap-2 px-2">
-            <p class="typo-b4 font-bold leading-none">
-              {{ interviewData.devnick_th }}
-            </p>
+            <div
+              :class="`absolute top-1/2 -translate-y-1/2 left-0 -translate-x-full flex flex-col items-end w-max px-4 py-1 border-dashed border-[1px] ${!showFlukeInterview ? 'bg-white rounded-[20px] border-black' : 'border-transparent'}`"
+            >
+              <div class="flex gap-2">
+                <p class="typo-b4 font-bold leading-none whitespace-nowrap">
+                  {{ interviewData.devnick_th }}
+                </p>
+                <p class="typo-b4 leading-none whitespace-nowrap">
+                  {{ interviewData.devname_th }}
+                </p>
+              </div>
+              <p class="typo-b6 leading-none whitespace-nowrap">
+                ({{ interviewData.position }})
+              </p>
+            </div>
+          </div>
 
-            <p class="typo-b4">{{ interviewData.devname_th }}</p>
+          <div
+            :class="`absolute -right-1/2 top-[60%] ${showFlukeInterview ? 'opacity-100' : 'opacity-50'} cursor-pointer`"
+            @click="showFlukeInterview = true"
+          >
+            <div
+              class="w-[60px] h-[60px] bg-white border-black border-[1px] rounded-full overflow-hidden"
+            >
+              <img
+                class="w-full h-full object-cover"
+                :src="`/${dataAnalystInterviewData.devnick_en.toLowerCase()}_profile.webp`"
+                alt=""
+              />
+            </div>
+            <div
+              :class="`absolute z-10 top-1/2 -translate-y-1/2 right-0 translate-x-full flex flex-col w-max px-4 py-1 border-dashed border-[1px] ${showFlukeInterview ? 'bg-white rounded-[20px] border-black' : 'border-transparent'}`"
+            >
+              <div class="flex gap-2">
+                <p class="typo-b4 font-bold leading-none whitespace-nowrap">
+                  {{ dataAnalystInterviewData.devnick_th }}
+                </p>
+
+                <p class="typo-b4 whitespace-nowrap">
+                  {{ dataAnalystInterviewData.devname_th }}
+                </p>
+              </div>
+
+              <p class="typo-b6 whitespace-nowrap">
+                ({{ dataAnalystInterviewData.position }})
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="px-8 py-5 flex flex-col gap-3">
+      <div class="px-12 py-5 flex flex-col gap-3">
         <div v-for="question in questions.slice(1)" :key="question.id">
           <div
             class="bg-[#FFFC71] px-4 py-1 w-fit rounded-[50px] border-[1px] border-dashed border-black"
@@ -140,9 +213,24 @@ const questions = ref([
             </p>
           </div>
 
-          <div class="px-4 py-3">
-            <p class="typo-b4">
-              {{ interviewData[`${question.id}_th`] }}
+          <div class="px-4 py-3 flex flex-col">
+            <div
+              v-if="question.id === 'concept' && showFlukeInterview"
+              class="flex flex-col gap-1"
+            >
+              <p class="typo-b6 mb-2">
+                (เนื่องจากฟลุ๊คทำหน้าที่ Data Analysis
+                เลยให้ลองยกตัวอย่างสิ่งที่ต้องทำในแต่ละงาน)
+              </p>
+              <p
+                v-for="concept in getConcepts"
+                :key="concept"
+                :class="`typo-b4 ${concept.includes(interviewData.title) ? 'bg-[#FFFC71]/50' : 'opacity-50'}`"
+                v-html="markdownToHtml(concept)"
+              ></p>
+            </div>
+            <p v-else class="typo-b4">
+              {{ getInterview[`${question.id}_th`] }}
             </p>
           </div>
         </div>
