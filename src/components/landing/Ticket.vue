@@ -36,40 +36,44 @@ const closeInterviewCard = () => {
       :closeInterviewCard="closeInterviewCard"
     />
 
-    <div class="relative flex w-[1100px] bg-black">
-      <div
-        class="absolute z-10 top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full w-[80px] h-[80px] flex-none bg-black"
-      />
-      <div
-        class="absolute z-10 bottom-0 left-0 -translate-x-1/2 translate-y-1/2 rounded-full w-[80px] h-[80px] flex-none bg-black"
-      />
+    <div
+      class="relative flex flex-col items-center md:items-stretch md:flex-row lg:w-[1100px] bg-black py-10 md:py-0"
+    >
+      <!-- <div
+        class="absolute z-10 top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full w-[40px] h-[40px] lg:w-[80px] lg:h-[80px] flex-none bg-black"
+      /> -->
+      <!-- <div
+        class="absolute z-10 bottom-0 left-0 -translate-x-1/2 translate-y-1/2 rounded-full w-[40px] h-[40px] lg:w-[80px] lg:h-[80px] flex-none bg-black"
+      /> -->
 
       <div
-        class="absolute top-0 left-0 -translate-x-1/2 z-20 flex flex-col justify-between h-full py-[60px]"
+        class="hidden md:flex absolute top-0 left-0 -translate-x-1/2 z-20 flex-col justify-between h-full py-[60px]"
       >
         <div v-for="i in 10" :key="i">
-          <div class="rounded-full w-[35px] h-[35px] flex-none bg-black" />
+          <div
+            class="rounded-full w-[15px] h-[15px] lg:w-[35px] lg:h-[35px] flex-none bg-black"
+          />
         </div>
       </div>
 
       <div
-        :class="`relative w-[75%] py-[30px] px-[80px] transition-all duration-300 ${ticketNoOnHover === data.ID ? 'bg-[#FFFC71]' : 'bg-[#FFF8D5]'}`"
+        :class="`relative w-[90%] py-3 px-8 md:w-[75%] md:py-5 md:px-10 lg:py-[30px] lg:px-[80px] transition-all duration-300 ${ticketNoOnHover === data.ID ? 'bg-[#FFFC71]' : 'bg-[#FFF8D5]'}`"
       >
         <div
-          class="absolute z-10 top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full w-[80px] h-[80px] flex-none bg-black"
+          class="absolute z-10 top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full w-[40px] h-[40px] lg:w-[80px] lg:h-[80px] flex-none bg-black"
         />
         <div
-          class="absolute z-10 bottom-0 left-0 -translate-x-1/2 translate-y-1/2 rounded-full w-[80px] h-[80px] flex-none bg-black"
+          class="absolute z-10 bottom-0 left-0 -translate-x-1/2 translate-y-1/2 rounded-full w-[40px] h-[40px] lg:w-[80px] lg:h-[80px] flex-none bg-black"
         />
         <div
-          class="absolute z-20 top-0 right-0 w-[10px] h-full border-r-[2px] border-dashed border-black"
+          class="absolute z-20 top-0 right-0 w-[10px] h-full md:border-r-[2px] border-dashed border-black"
         ></div>
 
         <div
-          class="absolute z-10 top-0 right-0 translate-x-1/2 -translate-y-1/2 rounded-full w-[80px] h-[80px] flex-none bg-black"
+          class="absolute z-10 top-0 right-0 translate-x-1/2 -translate-y-1/2 rounded-full w-[40px] h-[40px] lg:w-[80px] lg:h-[80px] flex-none bg-black"
         />
         <div
-          class="absolute z-10 bottom-0 right-0 translate-x-1/2 translate-y-1/2 rounded-full w-[80px] h-[80px] flex-none bg-black"
+          class="absolute z-10 bottom-0 right-0 translate-x-1/2 translate-y-1/2 rounded-full w-[40px] h-[40px] lg:w-[80px] lg:h-[80px] flex-none bg-black"
         />
         <div class="w-full max-w-[650px]">
           <img
@@ -78,7 +82,7 @@ const closeInterviewCard = () => {
             alt=""
           />
           <div
-            :class="`transition-all duration-300 ${ticketNoOnHover === data.ID ? 'bg-[#FFF8D5]' : 'bg-[#FFFC71] '} border-dashed border-t-[1px] border-b-[1px] border-black/50 absolute z-10 w-full left-0 right-0 h-[55px]`"
+            :class="`hidden md:block transition-all duration-300 ${ticketNoOnHover === data.ID ? 'bg-[#FFF8D5]' : 'bg-[#FFFC71]'} border-dashed border-t-[1px] border-b-[1px] border-black/50 absolute z-10 w-full left-0 right-0 h-[55px]`"
           >
             <!-- <div
               class="bg-[#FFFC71] border-dashed border-t-[1px] border-b-[1px] border-black/50 absolute top-1/2 -translate-y-1/2 right-0 translate-x-full w-full h-[55px]"
@@ -91,43 +95,49 @@ const closeInterviewCard = () => {
           @mouseover="hoverTicket(data)"
           @mouseout="unHoverTicket()"
         >
-          <p class="typo-h5 font-bold leading-none">
+          <p class="typo-h6 md:typo-h5 font-bold leading-none">
             {{ data.title }}
           </p>
-          <img class="w-8" src="/landing/new_tab.svg" alt="New Tab Icon" />
+          <img
+            class="w-6 md:w-8"
+            src="/landing/new_tab.svg"
+            alt="New Tab Icon"
+          />
         </div>
-        <p class="typo-b3 pt-2 h-[170px]">
+        <p class="typo-b5 md:typo-b3 md:pt-2 h-fit lg:h-[170px]">
           {{ data.desc_en }}
         </p>
       </div>
       <div
-        :class="`relative w-[25%] bg-white px-5 overflow-hidden pt-[50px] pb-[65px] flex flex-col justify-between ${selectedProject === data.path && 'ticket-tearing'} z-10`"
+        :class="`relative w-[90%] md:w-[25%] bg-white px-8 md:px-5 overflow-hidden py-3 lg:pt-[50px] lg:pb-[65px] flex flex-col justify-between ${selectedProject === data.path && 'ticket-tearing'} z-10`"
       >
         <div
-          class="absolute z-10 top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full w-[80px] h-[80px] flex-none bg-black"
+          class="absolute z-10 top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full w-[40px] h-[40px] lg:w-[80px] lg:h-[80px] flex-none bg-black"
         />
         <div
-          class="absolute z-10 bottom-0 left-0 -translate-x-1/2 translate-y-1/2 rounded-full w-[80px] h-[80px] flex-none bg-black"
-        />
-
-        <div
-          class="absolute z-10 top-0 right-0 translate-x-1/2 -translate-y-1/2 rounded-full w-[80px] h-[80px] flex-none bg-black"
-        />
-        <div
-          class="absolute z-10 bottom-0 right-0 translate-x-1/2 translate-y-1/2 rounded-full w-[80px] h-[80px] flex-none bg-black"
+          class="absolute z-10 bottom-0 left-0 -translate-x-1/2 translate-y-1/2 rounded-full w-[40px] h-[40px] lg:w-[80px] lg:h-[80px] flex-none bg-black"
         />
 
         <div
-          class="absolute top-0 right-0 translate-x-1/2 z-20 flex flex-col justify-between h-full py-[60px]"
+          class="absolute z-10 top-0 right-0 translate-x-1/2 -translate-y-1/2 rounded-full w-[40px] h-[40px] lg:w-[80px] lg:h-[80px] flex-none bg-black"
+        />
+        <div
+          class="absolute z-10 bottom-0 right-0 translate-x-1/2 translate-y-1/2 rounded-full w-[40px] h-[40px] lg:w-[80px] lg:h-[80px] flex-none bg-black"
+        />
+
+        <div
+          class="hidden md:flex absolute top-0 right-0 translate-x-1/2 z-20 flex-col justify-between h-full py-[60px]"
         >
           <div v-for="i in 10" :key="i">
-            <div class="rounded-full w-[35px] h-[35px] flex-none bg-black" />
+            <div
+              class="rounded-full w-[15px] h-[15px] lg:w-[35px] lg:h-[35px] flex-none bg-black"
+            />
           </div>
         </div>
 
         <div>
           <div
-            class="relative w-[100px] h-[100px] bg-white border-black border-[1px] rounded-full overflow-hidden"
+            class="relative w-[60px] h-[60px] lg:w-[100px] lg:h-[100px] bg-white border-black border-[1px] rounded-full overflow-hidden"
           >
             <img
               class="w-full h-full object-cover"
@@ -144,17 +154,17 @@ const closeInterviewCard = () => {
           </div>
           <button
             @click="openInterviewCard"
-            class="flex items-center gap-2 mt-4 bg-[#FFF8D5] hover:bg-[#FFFC71] rounded-[20px] px-4 py-2 border-[1px] border-black"
+            class="flex items-center gap-2 my-2 md:mt-4 md:mb-0 bg-[#FFF8D5] hover:bg-[#FFFC71] rounded-[20px] px-4 py-2 border-[1px] border-black"
           >
             <img class="w-5" src="/landing/microphone.svg" alt="Microphone" />
             Interview
           </button>
         </div>
-        <div class="">
+        <div class="flex gap-2 md:flex-col md:gap-0">
           <p
             v-for="hashtag in data.hashtags"
             :key="hashtag"
-            class="typo-b2 font-bold"
+            class="typo-b4 md:typo-b2 font-bold"
           >
             {{ hashtag }}
           </p>
@@ -181,6 +191,9 @@ const closeInterviewCard = () => {
 .ticket-tearing {
   animation: tearoff 1.5s forwards;
   transform-origin: 0 100%;
+  @media only screen and (max-width: 600px) {
+    animation: test 1.5s forwards;
+  }
 }
 
 @keyframes tearoff {

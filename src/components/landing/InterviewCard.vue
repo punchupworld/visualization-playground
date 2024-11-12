@@ -91,7 +91,7 @@ const scrollToTop = () => {
   >
     <div
       id="interview_card_scrolling_div"
-      class="relative bg-white w-[60%] h-[85%] max-w-[900px] max-h-[750px] overflow-y-auto"
+      class="relative bg-white w-[95%] md:w-[60%] h-[85%] max-w-[900px] max-h-[750px] overflow-y-auto"
       @click="
         (event) => {
           event.stopPropagation();
@@ -203,7 +203,7 @@ const scrollToTop = () => {
         </div>
       </div>
 
-      <div class="px-12 py-5 flex flex-col gap-3">
+      <div class="px-2 py-3 md:px-12 md:py-5 flex flex-col gap-3">
         <div v-for="question in questions.slice(1)" :key="question.id">
           <div
             class="bg-[#FFFC71] px-4 py-1 w-fit rounded-[50px] border-[1px] border-dashed border-black"
