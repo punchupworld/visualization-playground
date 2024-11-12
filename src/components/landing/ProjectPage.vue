@@ -29,7 +29,7 @@ const goToProject = (path) => {
           <Ticket
             :data="project"
             :selectedProject="selectedProject"
-            @click="goToProject(project.path)"
+            :goToProject="goToProject"
           />
         </div>
       </div>

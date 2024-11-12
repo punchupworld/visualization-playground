@@ -1,14 +1,39 @@
 <script setup>
-defineProps({
+import { ref } from "vue";
+import InterviewCard from "./InterviewCard.vue";
+
+const props = defineProps({
   data: Object,
   selectedProject: String,
+  goToProject: Function,
 });
+
+const ticketNoOnHover = ref("");
+const interviewCardNo = ref("");
+
+const hoverTicket = (data) => {
+  ticketNoOnHover.value = data.ID;
+};
+const unHoverTicket = () => {
+  ticketNoOnHover.value = "";
+};
+
+const openInterviewCard = () => {
+  interviewCardNo.value = props.data.ID;
+};
+const closeInterviewCard = () => {
+  interviewCardNo.value = "";
+};
 </script>
 
 <template>
-  <div
-    class="bg-black cursor-pointer transition-all duration-300 hover:rotate-[1deg]"
-  >
+  <div class="bg-black transition-all duration-300">
+    <InterviewCard
+      v-if="interviewCardNo !== ''"
+      :interviewData="data"
+      :closeInterviewCard="closeInterviewCard"
+    />
+
     <div class="relative flex w-[1100px] bg-black">
       <div
         class="absolute z-10 top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full w-[80px] h-[80px] flex-none bg-black"
@@ -25,7 +50,9 @@ defineProps({
         </div>
       </div>
 
-      <div class="relative w-[75%] bg-[#FFF8D5] py-[30px] px-[80px]">
+      <div
+        :class="`relative w-[75%] py-[30px] px-[80px] transition-all duration-300 ${ticketNoOnHover === data.ID ? 'bg-[#FFFC71]' : 'bg-[#FFF8D5]'}`"
+      >
         <div
           class="absolute z-10 top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full w-[80px] h-[80px] flex-none bg-black"
         />
@@ -49,17 +76,23 @@ defineProps({
             alt=""
           />
           <div
-            class="bg-[#FFFC71] border-dashed border-t-[1px] border-b-[1px] border-black/50 absolute z-10 w-full left-0 right-0 h-[55px]"
+            :class="`transition-all duration-300 ${ticketNoOnHover === data.ID ? 'bg-[#FFF8D5]' : 'bg-[#FFFC71] '} border-dashed border-t-[1px] border-b-[1px] border-black/50 absolute z-10 w-full left-0 right-0 h-[55px]`"
           >
             <!-- <div
               class="bg-[#FFFC71] border-dashed border-t-[1px] border-b-[1px] border-black/50 absolute top-1/2 -translate-y-1/2 right-0 translate-x-full w-full h-[55px]"
             ></div> -->
           </div>
         </div>
-        <div class="relative z-20 py-[6px]">
+        <div
+          class="cursor-pointer relative z-20 py-[6px] flex items-center gap-3"
+          @click="goToProject(data.path)"
+          @mouseover="hoverTicket(data)"
+          @mouseout="unHoverTicket()"
+        >
           <p class="typo-h5 font-bold leading-none">
             {{ data.title }}
           </p>
+          <img class="w-8" src="/landing/new_tab.svg" alt="New Tab Icon" />
         </div>
         <p class="typo-b3 pt-2 h-[170px]">
           {{ data.desc_en }}
@@ -104,10 +137,16 @@ defineProps({
             ></div>
           </div>
           <div class="pt-3">
-            <!-- <p class="typo-b6 opacity-50">developer</p> -->
             <p class="typo-b3 font-bold leading-none">{{ data.devnick_en }}</p>
             <p class="typo-b6">{{ data.devname_en }}</p>
           </div>
+          <button
+            @click="openInterviewCard"
+            class="flex items-center gap-2 mt-4 bg-[#FFF8D5] hover:bg-[#FFFC71] rounded-[20px] px-4 py-2 border-[1px] border-black"
+          >
+            <img class="w-5" src="/landing/microphone.svg" alt="Microphone" />
+            Interview
+          </button>
         </div>
         <div class="">
           <p
