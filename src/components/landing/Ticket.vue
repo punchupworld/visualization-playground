@@ -59,7 +59,10 @@ const closeInterviewCard = () => {
       </div>
 
       <div
-        :class="`relative w-[90%] py-3 px-8 md:w-[75%] md:py-5 md:px-10 lg:py-[30px] lg:px-[80px] transition-all duration-300 ${ticketNoOnHover === data.ID ? 'bg-[#FFFC71]' : 'bg-[#FFF8D5]'}`"
+        @click="goToProject(data.path)"
+        @mouseover="hoverTicket(data)"
+        @mouseout="unHoverTicket()"
+        :class="`cursor-pointer relative w-[90%] py-3 px-8 md:w-[75%] md:py-5 md:px-10 lg:py-[30px] lg:px-[80px] transition-all duration-300 ${ticketNoOnHover === data.ID ? 'bg-[#FFFC71]' : 'bg-[#FFF8D5]'}`"
       >
         <div
           class="absolute z-10 top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full w-[40px] h-[40px] lg:w-[80px] lg:h-[80px] flex-none bg-black"
@@ -91,12 +94,7 @@ const closeInterviewCard = () => {
             ></div> -->
           </div>
         </div>
-        <div
-          class="cursor-pointer relative z-20 py-[6px] flex items-center gap-3"
-          @click="goToProject(data.path)"
-          @mouseover="hoverTicket(data)"
-          @mouseout="unHoverTicket()"
-        >
+        <div class="relative z-20 py-[6px] flex items-center gap-3">
           <p class="typo-h6 md:typo-h5 font-bold leading-none">
             {{ data.title }}
           </p>
