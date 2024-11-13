@@ -106,7 +106,7 @@ const closeInterviewCard = () => {
             alt="New Tab Icon"
           />
         </div>
-        <p class="typo-b5 md:typo-b3 md:pt-2 h-fit lg:h-[170px]">
+        <p class="typo-b4 md:pt-3 h-fit lg:h-[170px]">
           {{ data[`desc_${activeLang}`] }}
         </p>
       </div>
