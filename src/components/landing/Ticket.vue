@@ -3,6 +3,7 @@ import { ref } from "vue";
 import InterviewCard from "./InterviewCard.vue";
 
 const props = defineProps({
+  activeLang: String,
   data: Object,
   dataAnalystInterviewData: Object,
   selectedProject: String,
@@ -31,6 +32,7 @@ const closeInterviewCard = () => {
   <div class="bg-black transition-all duration-300">
     <InterviewCard
       v-if="interviewCardNo !== ''"
+      :activeLang="activeLang"
       :interviewData="data"
       :dataAnalystInterviewData="dataAnalystInterviewData"
       :closeInterviewCard="closeInterviewCard"
@@ -105,7 +107,7 @@ const closeInterviewCard = () => {
           />
         </div>
         <p class="typo-b5 md:typo-b3 md:pt-2 h-fit lg:h-[170px]">
-          {{ data.desc_en }}
+          {{ data[`desc_${activeLang}`] }}
         </p>
       </div>
       <div
@@ -149,15 +151,17 @@ const closeInterviewCard = () => {
             ></div>
           </div>
           <div class="pt-3">
-            <p class="typo-b3 font-bold leading-none">{{ data.devnick_en }}</p>
-            <p class="typo-b6">{{ data.devname_en }}</p>
+            <p class="typo-b3 font-bold leading-none">
+              {{ data[`devnick_${activeLang}`] }}
+            </p>
+            <p class="typo-b6">{{ data[`devname_${activeLang}`] }}</p>
           </div>
           <button
             @click="openInterviewCard"
             class="flex items-center gap-2 my-2 md:mt-4 md:mb-0 bg-[#FFF8D5] hover:bg-[#FFFC71] rounded-[20px] px-4 py-2 border-[1px] border-black"
           >
             <img class="w-5" src="/landing/microphone.svg" alt="Microphone" />
-            Interview
+            {{ activeLang === "th" ? "บทสัมภาษณ์" : "Interview" }}
           </button>
         </div>
         <div class="flex gap-2 md:flex-col md:gap-0">

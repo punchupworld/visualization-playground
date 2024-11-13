@@ -3,6 +3,10 @@ import { ref, onMounted } from "vue";
 import * as d3 from "d3";
 import Ticket from "./Ticket.vue";
 
+defineProps({
+  activeLang: String,
+});
+
 const projects = ref();
 const dataAnalystInterviewData = ref();
 const selectedProject = ref("");
@@ -31,6 +35,7 @@ const goToProject = (path) => {
       <div class="bg-black">
         <div class="min-h-screen flex justify-center items-center">
           <Ticket
+            :activeLang="activeLang.toLowerCase()"
             :data="project"
             :dataAnalystInterviewData="dataAnalystInterviewData"
             :selectedProject="selectedProject"

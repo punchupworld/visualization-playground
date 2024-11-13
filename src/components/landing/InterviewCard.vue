@@ -3,6 +3,7 @@ import { computed, ref, watch } from "vue";
 import { marked } from "marked";
 
 const props = defineProps({
+  activeLang: String,
   interviewData: Object,
   dataAnalystInterviewData: Object,
   closeInterviewCard: Function,
@@ -65,7 +66,9 @@ const getInterview = computed(() => {
 });
 
 const getConcepts = computed(() => {
-  return props.dataAnalystInterviewData["concept_by_project"].split(",");
+  return props.dataAnalystInterviewData[
+    `concept_by_project_${props.activeLang}`
+  ].split("/");
 });
 
 const markdownToHtml = (value) => {
@@ -159,10 +162,10 @@ const scrollToTop = () => {
                 <p
                   class="typo-b5 md:typo-b4 font-bold leading-none whitespace-nowrap"
                 >
-                  {{ interviewData.devnick_th }}
+                  {{ interviewData[`devnick_${activeLang}`] }}
                 </p>
                 <p class="typo-b5 md:typo-b4 leading-none whitespace-nowrap">
-                  {{ interviewData.devname_th }}
+                  {{ interviewData[`devname_${activeLang}`] }}
                 </p>
               </div>
               <p class="typo-b6 leading-none whitespace-nowrap">
@@ -191,11 +194,11 @@ const scrollToTop = () => {
                 <p
                   class="typo-b5 md:typo-b4 font-bold leading-none whitespace-nowrap"
                 >
-                  {{ dataAnalystInterviewData.devnick_th }}
+                  {{ dataAnalystInterviewData[`devnick_${activeLang}`] }}
                 </p>
 
                 <p class="typo-b5 md:typo-b4 whitespace-nowrap">
-                  {{ dataAnalystInterviewData.devname_th }}
+                  {{ dataAnalystInterviewData[`devname_${activeLang}`] }}
                 </p>
               </div>
 
@@ -213,7 +216,7 @@ const scrollToTop = () => {
             class="bg-[#FFFC71] px-4 py-1 w-fit rounded-[50px] border-[1px] border-dashed border-black"
           >
             <p class="typo-b3 font-bold">
-              {{ question.th }}
+              {{ question[activeLang] }}
             </p>
           </div>
 
@@ -223,8 +226,11 @@ const scrollToTop = () => {
               class="flex flex-col gap-1"
             >
               <p class="typo-b6 mb-2">
-                (เนื่องจากฟลุ๊คทำหน้าที่ Data Analysis
-                เลยให้ลองยกตัวอย่างสิ่งที่ต้องทำในแต่ละงาน)
+                {{
+                  activeLang === "th"
+                    ? "(เนื่องจากฟลุ๊คทำหน้าที่ Data Analysis เลยให้ลองยกตัวอย่างสิ่งที่ต้องทำในแต่ละงาน)"
+                    : "(Since Fluke is a Data Analyst, I asked him to give examples of what he does in each project.)"
+                }}
               </p>
               <p
                 v-for="concept in getConcepts"
@@ -234,7 +240,7 @@ const scrollToTop = () => {
               ></p>
             </div>
             <p v-else class="typo-b4">
-              {{ getInterview[`${question.id}_th`] }}
+              {{ getInterview[`${question.id}_${activeLang}`] }}
             </p>
           </div>
         </div>
