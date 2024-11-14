@@ -21,7 +21,7 @@ const selectLang = (lang) => {
     <div
       class="bg-black text-[#FFFC71] min-h-screen flex flex-col text-center justify-center items-center overflow-x-hidden"
     >
-      <div class="flex flex-col items-center pt-12">
+      <div class="flex flex-col items-center pt-12 z-10">
         <p
           class="text-[40px] md:text-[70px] xl:text-[100px] font-bold tracking-widest"
         >
