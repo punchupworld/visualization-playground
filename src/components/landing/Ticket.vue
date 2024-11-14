@@ -64,6 +64,24 @@ const closeInterviewCard = () => {
         @mouseout="unHoverTicket()"
         :class="`cursor-pointer relative w-[90%] py-3 px-8 md:w-[75%] md:py-5 md:px-10 lg:py-[30px] lg:px-[80px] transition-all duration-300 ${ticketNoOnHover === data.ID ? 'bg-[#FFFC71]' : 'bg-[#FFF8D5]'}`"
       >
+        <!-- <div
+          class="hidden md:flex absolute top-3 left-0 right-0 justify-around px-11"
+        >
+          <div
+            v-for="i in 20"
+            :key="i"
+            class="w-3 h-3 border-[1px] border-black/50 rounded-full"
+          ></div>
+        </div>
+        <div
+          class="hidden md:flex absolute bottom-3 left-0 right-0 justify-around px-11"
+        >
+          <div
+            v-for="i in 20"
+            :key="i"
+            class="w-3 h-3 border-[1px] border-black/50 rounded-full"
+          ></div>
+        </div> -->
         <div
           class="absolute z-10 top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full w-[40px] h-[40px] lg:w-[80px] lg:h-[80px] flex-none bg-black"
         />
@@ -80,37 +98,51 @@ const closeInterviewCard = () => {
         <div
           class="absolute z-10 bottom-0 right-0 translate-x-1/2 translate-y-1/2 rounded-full w-[40px] h-[40px] lg:w-[80px] lg:h-[80px] flex-none bg-black"
         />
-        <div class="w-full max-w-[650px]">
-          <img
-            class="w-full h-full object-cover"
-            :src="`/${data.devnick_en.toLowerCase()}.webp`"
-            alt=""
-          />
-          <div
-            :class="`hidden md:block transition-all duration-300 ${ticketNoOnHover === data.ID ? 'bg-[#FFF8D5]' : 'bg-[#FFFC71]'} border-dashed border-t-[1px] border-b-[1px] border-black/50 absolute z-10 w-full left-0 right-0 h-[55px]`"
-          >
-            <!-- <div
+        <div>
+          <div class="w-full max-w-[650px]">
+            <img
+              class="w-full h-full object-cover border-black border-b-0 border-dashed border-[1px] mt-2"
+              :src="`/${data.devnick_en.toLowerCase()}.webp`"
+              alt=""
+            />
+            <div
+              :class="`hidden md:block transition-all duration-300 ${ticketNoOnHover === data.ID ? 'bg-[#FFF8D5]' : 'bg-[#FFFC71]'} border-dashed border-t-[1px] border-b-[1px] border-black/50 absolute z-10 w-full left-0 right-0 h-[55px]`"
+            >
+              <!-- <div
               class="bg-[#FFFC71] border-dashed border-t-[1px] border-b-[1px] border-black/50 absolute top-1/2 -translate-y-1/2 right-0 translate-x-full w-full h-[55px]"
             ></div> -->
+            </div>
           </div>
-        </div>
-        <div class="relative z-20 py-[6px] flex items-center gap-3">
-          <p class="typo-h6 md:typo-h5 font-bold leading-none">
-            {{ data.title }}
+          <div class="relative z-20 py-[6px] flex items-center gap-3">
+            <p
+              class="typo-h6 translate-y-[1px] md:typo-h5 font-bold leading-none"
+            >
+              {{ data.title }}
+            </p>
+            <img
+              class="w-6 md:w-8"
+              src="/landing/new_tab.svg"
+              alt="New Tab Icon"
+            />
+          </div>
+          <p class="typo-b4 md:pt-3 h-fit lg:h-[170px]">
+            {{ data[`desc_${activeLang}`] }}
           </p>
-          <img
-            class="w-6 md:w-8"
-            src="/landing/new_tab.svg"
-            alt="New Tab Icon"
-          />
         </div>
-        <p class="typo-b4 md:pt-3 h-fit lg:h-[170px]">
-          {{ data[`desc_${activeLang}`] }}
-        </p>
       </div>
       <div
-        :class="`relative w-[90%] md:w-[25%] bg-white px-8 md:px-5 overflow-hidden py-3 lg:pt-[50px] lg:pb-[65px] flex flex-col justify-between ${selectedProject === data.path && 'ticket-tearing'} z-10`"
+        :class="`relative w-[90%] md:w-[25%] bg-white px-8 md:pl-8 md:pr-14 overflow-hidden py-3 lg:pt-[50px] lg:pb-[65px] flex flex-col justify-between ${selectedProject === data.path && 'ticket-tearing'} z-10`"
       >
+        <div
+          class="hidden md:flex absolute top-2 left-0 right-0 justify-around px-11"
+        >
+          <div v-for="i in 5" :key="i" class="star-shape"></div>
+        </div>
+        <div
+          class="hidden md:flex absolute bottom-2 left-0 right-0 justify-around px-11"
+        >
+          <div v-for="i in 5" :key="i" class="star-shape"></div>
+        </div>
         <div
           class="absolute z-10 top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full w-[40px] h-[40px] lg:w-[80px] lg:h-[80px] flex-none bg-black"
         />
@@ -136,18 +168,21 @@ const closeInterviewCard = () => {
         </div>
 
         <div>
-          <div
-            class="relative w-[60px] h-[60px] lg:w-[100px] lg:h-[100px] bg-white border-black border-[1px] rounded-full overflow-hidden"
-          >
-            <img
-              class="w-full h-full object-cover"
-              :src="`/${data.devnick_en.toLowerCase()}_profile.webp`"
-              alt=""
-            />
+          <div class="relative w-fit">
+            <!-- <div
+              class="star-shape absolute top-0 right-0 translate-x-[25%] -translate-y-[25%]"
+            ></div> -->
             <div
-              class="star absolute top-0 right-0 translate-x-[70%] -translate-y-[70%]"
-            ></div>
+              class="w-[60px] h-[60px] lg:w-[100px] lg:h-[100px] bg-white border-black border-[1px] rounded-full overflow-hidden"
+            >
+              <img
+                class="w-full h-full object-cover"
+                :src="`/${data.devnick_en.toLowerCase()}_profile.webp`"
+                alt=""
+              />
+            </div>
           </div>
+
           <div class="pt-3">
             <p class="typo-b3 font-bold leading-none">
               {{ data[`devnick_${activeLang}`] }}
@@ -162,7 +197,9 @@ const closeInterviewCard = () => {
             {{ activeLang === "th" ? "บทสัมภาษณ์" : "Interview" }}
           </button>
         </div>
-        <div class="flex gap-2 md:flex-col md:gap-0">
+        <div
+          class="flex gap-2 md:flex-col md:gap-0 border-black border-dashed border-[1px] px-3 py-2"
+        >
           <p
             v-for="hashtag in data.hashtags"
             :key="hashtag"
@@ -177,19 +214,6 @@ const closeInterviewCard = () => {
 </template>
 
 <style scoped>
-.star {
-  width: 35px;
-  aspect-ratio: 1;
-  background: black;
-  clip-path: polygon(
-    50% 0,
-    calc(50% * (1 + sin(0.4turn))) calc(50% * (1 - cos(0.4turn))),
-    calc(50% * (1 - sin(0.2turn))) calc(50% * (1 - cos(0.2turn))),
-    calc(50% * (1 + sin(0.2turn))) calc(50% * (1 - cos(0.2turn))),
-    calc(50% * (1 - sin(0.4turn))) calc(50% * (1 - cos(0.4turn)))
-  );
-}
-
 .ticket-tearing {
   animation: tearoff 1.5s forwards;
   transform-origin: 0 100%;
