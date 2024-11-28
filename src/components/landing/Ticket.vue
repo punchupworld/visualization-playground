@@ -198,12 +198,12 @@ const closeInterviewCard = () => {
           </button>
         </div>
         <div
-          class="flex gap-2 md:flex-col md:gap-0 border-black border-dashed border-[1px] px-3 py-2"
+          class="flex gap-2 md:flex-col md:gap-0 border-black border-dashed border-[1px] px-2 sm:px-3 py-2 flex-wrap"
         >
           <p
             v-for="hashtag in data.hashtags"
             :key="hashtag"
-            class="typo-b4 md:typo-b2 font-bold"
+            class="typo-b5 md:typo-b2 font-bold"
           >
             {{ hashtag }}
           </p>
