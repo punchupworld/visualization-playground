@@ -288,7 +288,7 @@ const AnimeIndustryComp = () => {
             </button>
           </div>
         </div>
-        <div className="absolute bg-black text-white">
+        <div className="absolute top-8 md:top-14 bg-black text-white">
           <div className="max-w-sm p-4">
             {selected.studio && (
               <>

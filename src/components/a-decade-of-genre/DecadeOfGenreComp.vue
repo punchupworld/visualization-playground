@@ -616,12 +616,12 @@ onMounted(async () => {
         class="flex flex-col-reverse lg:flex-row w-full justify-start items-start h-full"
       >
         <div
-          class="lg:w-1/2 xl:w-1/4 w-full bg-[#e7507d] flex flex-col self-end justify-ed lg:p-7 p-4 lg:h-full"
+          class="lg:w-1/2 xl:w-1/4 w-full bg-[#e7507d] flex flex-col self-end justify-ed lg:pt-16 lg:p-7 p-4 lg:h-full"
         >
           <div class="lg:border-b-[1px] lg:border-black">
             <p class="typo-b4 font-body font-semibold">Studio Animation</p>
-            <h1 class="typo-h3 font-head font-black">A DECADE of</h1>
-            <h1 class="typo-h3 font-head font-black">GENRE DIVERSITY</h1>
+            <h1 class="typo-h4 font-head font-black">A DECADE of</h1>
+            <h1 class="typo-h4 font-head font-black">GENRE DIVERSITY</h1>
             <div
               class="flex flex-col md:pb-4 pb-2 lg:pb-0 md:max-w-[70vh] md:gap-2"
             >

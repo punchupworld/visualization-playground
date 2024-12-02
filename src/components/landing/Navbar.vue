@@ -11,10 +11,14 @@ const scrollTopTop = () => {
 </script>
 
 <template>
-  <div class="fixed w-full top-0 p-3 flex justify-between z-40">
-    <div @click="scrollTopTop()" class="cursor-pointer">
+  <div class="fixed w-full top-0 p-1 md:p-2 flex justify-between z-40">
+    <div
+      @click="scrollTopTop()"
+      class="cursor-pointer border-[1px] border-black shadow-xl"
+    >
       <img class="w-[25px] md:w-[40px]" src="/landing/pu_logo.png" alt="" />
     </div>
+
     <div class="flex gap-2">
       <button
         v-for="lang in languages"
