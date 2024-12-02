@@ -115,11 +115,11 @@ const scrollToTop = () => {
       "
     >
       <div
-        class="flex flex-col items-center justify-center gap-3 bg-[#FFF8D5] px-12 pt-2 pb-12 sticky top-0 z-30 shadow-md"
+        :class="`flex flex-col items-center justify-center gap-3 bg-[#FFF8D5] px-8 md:px-12 ${showLanguageButton ? 'pt-8' : 'pt-3'} md:pt-3 pb-12 sticky top-0 z-30 shadow-md`"
       >
         <div
           v-if="showLanguageButton"
-          class="absolute top-1 left-2 flex items-center gap-2"
+          class="absolute top-1 md:top-[6px] left-2 md:left-[10px] flex items-center gap-2"
         >
           <button
             :class="`${activeLang === 'en' ? 'font-bold' : 'opacity-50'} py-[2px] rounded-[20px] cursor-pointer`"
@@ -138,10 +138,10 @@ const scrollToTop = () => {
         <button
           @click="closeInterviewCard()"
           type="button"
-          class="absolute top-3 right-3 z-10 rounded-md inline-flex items-center justify-center text-black"
+          class="absolute top-[6px] right-2 md:top-2 z-10 rounded-md inline-flex items-center justify-center text-black"
         >
           <svg
-            class="h-8 w-8"
+            class="h-6 w-6 md:h-8 md:w-8"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -191,15 +191,15 @@ const scrollToTop = () => {
               />
             </div>
             <div
-              :class="`absolute top-1/2 -translate-y-1/2 left-0 -translate-x-full flex flex-col items-end w-max px-2 md:px-4 py-1 border-dashed border-[1px] ${!showFlukeInterview ? 'bg-white rounded-[20px] border-black' : 'border-transparent'}`"
+              :class="`w-max max-w-[150px] md:max-w-[unset] text-right absolute -top-2 md:top-1/2 md:-translate-y-1/2 left-0 -translate-x-full flex flex-col items-end px-2 md:px-4 py-1 border-dashed border-[1px] ${!showFlukeInterview ? 'bg-white rounded-[20px] border-black' : 'border-transparent'}`"
             >
-              <div class="flex gap-2">
+              <div class="flex flex-col md:flex-row md:gap-2">
                 <p
                   class="typo-b5 md:typo-b4 font-bold leading-none whitespace-nowrap"
                 >
                   {{ interviewData[`devnick_${activeLang}`] }}
                 </p>
-                <p class="typo-b5 md:typo-b4 leading-none whitespace-nowrap">
+                <p class="typo-b5 md:typo-b4 leading-none md:whitespace-nowrap">
                   {{ interviewData[`devname_${activeLang}`] }}
                 </p>
               </div>
@@ -223,16 +223,16 @@ const scrollToTop = () => {
               />
             </div>
             <div
-              :class="`absolute z-10 top-1/2 -translate-y-1/2 right-0 translate-x-full flex flex-col w-max px-2 md:px-4 py-1 border-dashed border-[1px] ${showFlukeInterview ? 'bg-white rounded-[20px] border-black' : 'border-transparent'}`"
+              :class="`w-max max-w-[150px] md:max-w-[unset] absolute z-10 top-1/2 -translate-y-1/2 right-0 translate-x-full flex flex-col px-2 md:px-4 py-1 border-dashed border-[1px] ${showFlukeInterview ? 'bg-white rounded-[20px] border-black' : 'border-transparent'}`"
             >
-              <div class="flex gap-2">
+              <div class="flex flex-col md:flex-row md:gap-2">
                 <p
                   class="typo-b5 md:typo-b4 font-bold leading-none whitespace-nowrap"
                 >
                   {{ dataAnalystInterviewData[`devnick_${activeLang}`] }}
                 </p>
 
-                <p class="typo-b5 md:typo-b4 whitespace-nowrap">
+                <p class="typo-b5 md:typo-b4 md:whitespace-nowrap">
                   {{ dataAnalystInterviewData[`devname_${activeLang}`] }}
                 </p>
               </div>
@@ -250,12 +250,12 @@ const scrollToTop = () => {
           <div
             class="bg-[#FFFC71] px-4 py-1 w-fit rounded-[50px] border-[1px] border-dashed border-black"
           >
-            <p class="typo-b3 font-bold">
+            <p class="typo-b4 font-bold">
               {{ question[activeLang] }}
             </p>
           </div>
 
-          <div class="px-4 py-3 flex flex-col">
+          <div class="px-3 py-2 md:px-4 md:py-3 flex flex-col">
             <div
               v-if="question.id === 'concept' && showFlukeInterview"
               class="flex flex-col gap-1"
