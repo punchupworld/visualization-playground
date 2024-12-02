@@ -11,7 +11,7 @@ const scrollTopTop = () => {
 </script>
 
 <template>
-  <div class="fixed w-full top-0 p-3 flex justify-between z-50">
+  <div class="fixed w-full top-0 p-3 flex justify-between z-40">
     <div @click="scrollTopTop()" class="cursor-pointer">
       <img class="w-[25px] md:w-[40px]" src="/landing/pu_logo.png" alt="" />
     </div>

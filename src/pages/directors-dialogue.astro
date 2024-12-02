@@ -2,6 +2,7 @@
 import { parseCSVFromString } from "sheethuahua";
 import Layout from "../layouts/Layout.astro";
 import DirectorsAccordion from "../components/directors-dialogue/directors-accordion.svelte";
+import InterviewCardButton from "../components/landing/InterviewCardButton.vue";
 import rawDirectors from "../../scripts/subtitles/out/directors.json";
 import wordFrequencyCsv from "../../scripts/subtitles/out/word-frequency.csv?raw";
 import { wordFrequencyTable } from "../components/directors-dialogue/model";
@@ -59,6 +60,7 @@ const maxFrequency = Math.max(
   <main
     class="flex bg-neutral-900 text-neutral-100 min-h-screen h-full justify-center"
   >
+    <InterviewCardButton client:load id="4" />
     <div
       class="flex flex-col w-full max-w-screen-xl px-3 py-8 md:py-16 items-center"
     >

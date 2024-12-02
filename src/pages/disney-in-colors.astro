@@ -1,10 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Main from "../components/disney-in-colors/Main.vue";
+import InterviewCardButton from "../components/landing/InterviewCardButton.vue";
 ---
 
 <Layout title="Disney in Colors">
   <div>
     <Main client:only />
+    <InterviewCardButton client:load id="5" />
   </div>
 </Layout>

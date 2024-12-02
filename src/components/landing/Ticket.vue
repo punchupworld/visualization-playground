@@ -32,10 +32,11 @@ const closeInterviewCard = () => {
   <div class="bg-black transition-all duration-300">
     <InterviewCard
       v-if="interviewCardNo !== ''"
-      :activeLang="activeLang"
+      :activeLangMain="activeLang"
       :interviewData="data"
       :dataAnalystInterviewData="dataAnalystInterviewData"
       :closeInterviewCard="closeInterviewCard"
+      :showLanguageButton="false"
     />
 
     <div

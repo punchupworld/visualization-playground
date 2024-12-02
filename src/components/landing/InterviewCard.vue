@@ -1,13 +1,24 @@
 <script setup>
-import { computed, ref, watch } from "vue";
+import { onMounted, computed, ref, watch } from "vue";
 import { marked } from "marked";
 
 const props = defineProps({
-  activeLang: String,
+  activeLangMain: String,
   interviewData: Object,
   dataAnalystInterviewData: Object,
   closeInterviewCard: Function,
+  showLanguageButton: Boolean,
 });
+
+onMounted(() => {
+  activeLang.value = props.activeLangMain;
+});
+
+const activeLang = ref("");
+
+const selectLang = (lang) => {
+  activeLang.value = lang;
+};
 
 const questions = ref([
   {
@@ -66,8 +77,10 @@ const getInterview = computed(() => {
 });
 
 const getConcepts = computed(() => {
+  console.log("comp", props.dataAnalystInterviewData, activeLang.value);
+
   return props.dataAnalystInterviewData[
-    `concept_by_project_${props.activeLang}`
+    `concept_by_project_${activeLang.value}`
   ].split("/");
 });
 
@@ -76,7 +89,7 @@ const markdownToHtml = (value) => {
 };
 
 watch(
-  () => showFlukeInterview.value,
+  () => [showFlukeInterview.value, activeLang.value],
   () => {
     scrollToTop();
   },
@@ -89,7 +102,7 @@ const scrollToTop = () => {
 
 <template>
   <div
-    class="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 text-black"
     @click="closeInterviewCard()"
   >
     <div
@@ -104,6 +117,24 @@ const scrollToTop = () => {
       <div
         class="flex flex-col items-center justify-center gap-3 bg-[#FFF8D5] px-12 pt-2 pb-12 sticky top-0 z-30 shadow-md"
       >
+        <div
+          v-if="showLanguageButton"
+          class="absolute top-1 left-2 flex items-center gap-2"
+        >
+          <button
+            :class="`${activeLang === 'en' ? 'font-bold' : 'opacity-50'} py-[2px] rounded-[20px] cursor-pointer`"
+            @click="selectLang('en')"
+          >
+            <p class="typo-b5 md:typo-b4 translate-y-[1px]">EN</p>
+          </button>
+          <div>/</div>
+          <button
+            :class="`${activeLang === 'th' ? 'font-bold' : 'opacity-50'} py-[2px] rounded-[20px] cursor-pointer`"
+            @click="selectLang('th')"
+          >
+            <p class="typo-b5 md:typo-b4 translate-y-[1px]">TH</p>
+          </button>
+        </div>
         <button
           @click="closeInterviewCard()"
           type="button"
@@ -126,7 +157,10 @@ const scrollToTop = () => {
           </svg>
         </button>
 
-        <a :href="`/${interviewData.path}`">
+        <a
+          :href="`/${interviewData.path}`"
+          :class="`${showLanguageButton && 'pointer-events-none'}`"
+        >
           <div
             class="top-0 left-0 bg-black text-[#FFFC71] px-2 py-[2px] flex w-fit items-center gap-[6px] cursor-pointer"
           >
@@ -134,6 +168,7 @@ const scrollToTop = () => {
               {{ interviewData.title }}
             </p>
             <img
+              v-if="!showLanguageButton"
               class="w-4"
               src="/landing/yellow_new_tab.svg"
               alt="New Tab Icon"
