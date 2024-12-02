@@ -853,7 +853,7 @@ onMounted(async () => {
     </div>
 
     <div
-      class="absolute lg:text-white lg:right-4 right-0 bottom-0 lg:p-10 p-3 lg:text-3xl text-xl lg:hover:text-[#e7507d] hover:text-black duration-200"
+      class="absolute lg:text-white lg:right-6 right-9 bottom-0 lg:p-10 p-3 lg:text-3xl text-xl lg:hover:text-[#e7507d] hover:text-black duration-200"
       @click="toggleStudioFilter"
     >
       <MdiMovieCogOutline
@@ -870,7 +870,7 @@ onMounted(async () => {
     <div
       v-show="showStudioFilter"
       :class="showStudioDetail ? 'opacity-50' : ''"
-      class="bg-white rounded-md absolute bottom-10 lg:right-24 right-4 z-20 w-[280px] p-3"
+      class="bg-white rounded-md absolute bottom-10 lg:right-24 right-9 z-20 w-[280px] p-3"
     >
       <div class="flex flex- gap-1">
         <div

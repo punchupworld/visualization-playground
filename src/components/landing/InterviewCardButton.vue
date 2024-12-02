@@ -38,9 +38,13 @@ const closeInterviewCard = () => {
   <div>
     <div
       @click="openInterviewCard()"
-      class="fixed bottom-2 right-2 z-50 bg-white border-black border-[1px] shadow-xl hover:bg-[#FFFC71] p-3 rounded-full flex justify-center items-center cursor-pointer"
+      class="fixed bottom-1 right-1 md:bottom-2 md:right-2 z-50 bg-white border-black border-[1px] shadow-xl hover:bg-[#FFFC71] p-2 md:p-3 rounded-full flex justify-center items-center cursor-pointer"
     >
-      <img class="w-5" src="/landing/microphone.svg" alt="Microphone" />
+      <img
+        class="w-[15px] md:w-5"
+        src="/landing/microphone.svg"
+        alt="Microphone"
+      />
     </div>
     <InterviewCard
       v-if="interviewCardNo !== ''"
