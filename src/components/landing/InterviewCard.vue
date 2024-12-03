@@ -157,7 +157,7 @@ const scrollToTop = () => {
         </button>
 
         <a
-          :href="`/${interviewData.path}`"
+          :href="`/2024/${interviewData.path}`"
           :class="`${showLanguageButton && 'pointer-events-none'}`"
         >
           <div
