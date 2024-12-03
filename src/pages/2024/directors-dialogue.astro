@@ -1,12 +1,15 @@
 ---
 import { parseCSVFromString } from "sheethuahua";
-import Layout from "../layouts/Layout.astro";
-import DirectorsAccordion from "../components/directors-dialogue/directors-accordion.svelte";
-import InterviewCardButton from "../components/landing/InterviewCardButton.vue";
-import rawDirectors from "../../scripts/subtitles/out/directors.json";
-import wordFrequencyCsv from "../../scripts/subtitles/out/word-frequency.csv?raw";
-import { wordFrequencyTable } from "../components/directors-dialogue/model";
-import type { Director, Movie } from "../components/directors-dialogue/model";
+import Layout from "../../layouts/Layout.astro";
+import DirectorsAccordion from "../../components/directors-dialogue/directors-accordion.svelte";
+import InterviewCardButton from "../../components/landing/InterviewCardButton.vue";
+import rawDirectors from "../../../scripts/subtitles/out/directors.json";
+import wordFrequencyCsv from "../../../scripts/subtitles/out/word-frequency.csv?raw";
+import { wordFrequencyTable } from "../../components/directors-dialogue/model";
+import type {
+  Director,
+  Movie,
+} from "../../components/directors-dialogue/model";
 
 const wordFrequency = await parseCSVFromString(
   wordFrequencyCsv,

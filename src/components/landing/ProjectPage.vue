@@ -24,7 +24,7 @@ onMounted(async () => {
 const goToProject = (path) => {
   selectedProject.value = path;
   setTimeout(() => {
-    window.location.href = `/${path}`;
+    window.location.href = `/2024/${path}`;
   }, 1500);
 };
 </script>

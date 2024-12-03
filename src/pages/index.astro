@@ -1,12 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Main from "../components/landing/Main.vue";
 ---
 
-<Layout>
-  <div>
-    <Main client:only />
-  </div>
-</Layout>
+<Layout />
+<script>
+  location.replace("/2024");
+</script>
 
 <style scoped></style>
