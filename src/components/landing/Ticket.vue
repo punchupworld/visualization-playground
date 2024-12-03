@@ -40,15 +40,11 @@ const closeInterviewCard = () => {
     />
 
     <div
-      class="relative flex flex-col items-center md:items-stretch md:flex-row lg:w-[1100px] bg-black py-10 md:py-0"
+      @click="goToProject(data.path)"
+      @mouseover="hoverTicket(data)"
+      @mouseout="unHoverTicket()"
+      class="cursor-pointer relative flex flex-col items-center md:items-stretch md:flex-row lg:w-[1100px] bg-black py-10 md:py-0"
     >
-      <!-- <div
-        class="absolute z-10 top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full w-[40px] h-[40px] lg:w-[80px] lg:h-[80px] flex-none bg-black"
-      /> -->
-      <!-- <div
-        class="absolute z-10 bottom-0 left-0 -translate-x-1/2 translate-y-1/2 rounded-full w-[40px] h-[40px] lg:w-[80px] lg:h-[80px] flex-none bg-black"
-      /> -->
-
       <div
         class="hidden md:flex absolute top-0 left-0 -translate-x-1/2 z-20 flex-col justify-between h-full py-[60px]"
       >
@@ -60,29 +56,8 @@ const closeInterviewCard = () => {
       </div>
 
       <div
-        @click="goToProject(data.path)"
-        @mouseover="hoverTicket(data)"
-        @mouseout="unHoverTicket()"
-        :class="`cursor-pointer relative w-[90%] py-3 px-8 md:w-[75%] md:py-5 md:px-10 lg:py-[30px] lg:px-[80px] transition-all duration-300 ${ticketNoOnHover === data.ID ? 'bg-[#FFFC71]' : 'bg-[#FFF8D5]'}`"
+        :class="`overflow-hidden relative w-[90%] py-3 px-8 md:w-[75%] md:py-5 md:px-10 lg:py-[30px] lg:px-[80px] transition-all duration-300 ${ticketNoOnHover === data.ID ? 'bg-[#FFFC71]' : 'bg-[#FFF8D5]'}`"
       >
-        <!-- <div
-          class="hidden md:flex absolute top-3 left-0 right-0 justify-around px-11"
-        >
-          <div
-            v-for="i in 20"
-            :key="i"
-            class="w-3 h-3 border-[1px] border-black/50 rounded-full"
-          ></div>
-        </div>
-        <div
-          class="hidden md:flex absolute bottom-3 left-0 right-0 justify-around px-11"
-        >
-          <div
-            v-for="i in 20"
-            :key="i"
-            class="w-3 h-3 border-[1px] border-black/50 rounded-full"
-          ></div>
-        </div> -->
         <div
           class="absolute z-10 top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full w-[40px] h-[40px] lg:w-[80px] lg:h-[80px] flex-none bg-black"
         />
@@ -90,7 +65,10 @@ const closeInterviewCard = () => {
           class="absolute z-10 bottom-0 left-0 -translate-x-1/2 translate-y-1/2 rounded-full w-[40px] h-[40px] lg:w-[80px] lg:h-[80px] flex-none bg-black"
         />
         <div
-          class="absolute z-20 top-0 right-0 w-[10px] h-full md:border-r-[2px] border-dashed border-black"
+          class="hidden md:block absolute z-20 top-0 right-0 w-[10px] h-full md:border-r-[2px] border-dashed border-black"
+        ></div>
+        <div
+          class="block md:hidden absolute z-20 bottom-0 left-0 w-full border-b-[1px] border-dashed border-black"
         ></div>
 
         <div
@@ -132,17 +110,25 @@ const closeInterviewCard = () => {
         </div>
       </div>
       <div
-        :class="`relative w-[90%] md:w-[25%] bg-white px-8 md:pl-8 md:pr-14 overflow-hidden py-3 lg:pt-[50px] lg:pb-[65px] flex flex-col justify-between ${selectedProject === data.path && 'ticket-tearing'} z-10`"
+        :class="`relative w-[90%] md:w-[25%] bg-white px-8 md:pl-8 md:pr-14 overflow-hidden py-4 md:py-3 lg:pt-[50px] lg:pb-[65px] flex flex-col justify-between ${selectedProject === data.path && 'ticket-tearing'} z-10`"
       >
         <div
-          class="hidden md:flex absolute top-2 left-0 right-0 justify-around px-11"
+          class="md:w-full h-full md:h-fit flex flex-col md:flex-row absolute top-1/2 md:top-5 -translate-y-1/2 md:-translate-x-1/2 left-0 md:left-1/2 justify-around md:px-11 py-7 md:py-0"
         >
-          <div v-for="i in 5" :key="i" class="star-shape"></div>
+          <div
+            v-for="i in 5"
+            :key="i"
+            class="star-shape scale-50 md:scale-[unset]"
+          ></div>
         </div>
         <div
-          class="hidden md:flex absolute bottom-2 left-0 right-0 justify-around px-11"
+          class="md:w-full h-full md:h-fit flex flex-col md:flex-row absolute bottom-1/2 md:bottom-5 translate-y-1/2 md:-translate-x-1/2 right-0 md:right-[unset] md:left-1/2 justify-around md:px-11 py-7 md:py-0"
         >
-          <div v-for="i in 5" :key="i" class="star-shape"></div>
+          <div
+            v-for="i in 5"
+            :key="i"
+            class="star-shape scale-50 md:scale-[unset]"
+          ></div>
         </div>
         <div
           class="absolute z-10 top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full w-[40px] h-[40px] lg:w-[80px] lg:h-[80px] flex-none bg-black"
@@ -169,37 +155,43 @@ const closeInterviewCard = () => {
         </div>
 
         <div>
-          <div class="relative w-fit">
-            <!-- <div
-              class="star-shape absolute top-0 right-0 translate-x-[25%] -translate-y-[25%]"
-            ></div> -->
-            <div
-              class="w-[60px] h-[60px] lg:w-[100px] lg:h-[100px] bg-white border-black border-[1px] rounded-full overflow-hidden"
-            >
-              <img
-                class="w-full h-full object-cover"
-                :src="`/${data.devnick_en.toLowerCase()}_profile.webp`"
-                alt=""
-              />
+          <div
+            class="flex md:flex-col items-center md:items-start gap-5 md:gap-0"
+          >
+            <div class="relative w-fit">
+              <div
+                class="w-[60px] h-[60px] lg:w-[100px] lg:h-[100px] bg-white border-black border-[1px] rounded-full overflow-hidden"
+              >
+                <img
+                  class="w-full h-full object-cover"
+                  :src="`/${data.devnick_en.toLowerCase()}_profile.webp`"
+                  alt=""
+                />
+              </div>
             </div>
-          </div>
-
-          <div class="pt-3">
-            <p class="typo-b3 font-bold leading-none">
-              {{ data[`devnick_${activeLang}`] }}
-            </p>
-            <p class="typo-b6">{{ data[`devname_${activeLang}`] }}</p>
+            <div>
+              <div class="pt-1 md:pt-3">
+                <p class="typo-b3 font-bold leading-none">
+                  {{ data[`devnick_${activeLang}`] }}
+                </p>
+                <p class="typo-b6">{{ data[`devname_${activeLang}`] }}</p>
+              </div>
+            </div>
           </div>
           <button
             @click="openInterviewCard"
-            class="flex items-center gap-2 my-2 md:mt-4 md:mb-0 bg-[#FFF8D5] hover:bg-[#FFFC71] rounded-[20px] px-4 py-2 border-[1px] border-black"
+            class="flex items-center gap-2 my-3 md:mt-4 md:mb-0 bg-[#FFF8D5] hover:bg-[#FFFC71] rounded-[20px] px-3 md:px-4 py-[5px] md:py-2 border-[1px] border-black"
           >
-            <img class="w-5" src="/landing/microphone.svg" alt="Microphone" />
+            <img
+              class="w-4 md:w-5"
+              src="/landing/microphone.svg"
+              alt="Microphone"
+            />
             {{ activeLang === "th" ? "บทสัมภาษณ์" : "Interview" }}
           </button>
         </div>
         <div
-          class="flex gap-2 md:flex-col md:gap-0 border-black border-dashed border-[1px] px-2 sm:px-3 py-2 flex-wrap"
+          class="w-fit flex gap-2 md:flex-col md:gap-0 border-black border-dashed border-[1px] px-3 md:px-5 py-1 md:py-2 flex-wrap mt-2 md:mt-0"
         >
           <p
             v-for="hashtag in data.hashtags"
@@ -219,7 +211,8 @@ const closeInterviewCard = () => {
   animation: tearoff 1.5s forwards;
   transform-origin: 0 100%;
   @media only screen and (max-width: 600px) {
-    animation: test 1.5s forwards;
+    animation: tearoff-mb 1.5s forwards;
+    transform-origin: 0 0;
   }
 }
 
@@ -231,11 +224,27 @@ const closeInterviewCard = () => {
     transform: rotate(5deg);
   }
   75% {
-    right: -25px;
+    right: -20px;
   }
   100% {
     transform: rotate(5deg);
-    right: -25px;
+    right: -20px;
+  }
+}
+
+@keyframes tearoff-mb {
+  50% {
+    bottom: 0;
+  }
+  60% {
+    transform: rotate(3deg);
+  }
+  75% {
+    bottom: -10px;
+  }
+  100% {
+    transform: rotate(3deg);
+    bottom: -10px;
   }
 }
 </style>

@@ -23,7 +23,7 @@ const scrollTopTop = () => {
       <button
         v-for="lang in languages"
         :key="lang"
-        :class="`${activeLang === lang ? 'bg-[#FFFC71] font-bold' : 'bg-white'} px-2 md:px-3 py-[2px] rounded-[20px] border-[1px] border-black cursor-pointer`"
+        :class="`${activeLang === lang ? 'bg-[#FFFC71] font-bold' : 'bg-white'} w-9 h-7 md:w-12 md:h-9 rounded-[20px] border-[1px] border-black cursor-pointer`"
         @click="selectLang(lang)"
       >
         <p class="typo-b5 md:typo-b4 translate-y-[1px]">{{ lang }}</p>
