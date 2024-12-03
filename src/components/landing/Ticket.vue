@@ -56,7 +56,7 @@ const closeInterviewCard = () => {
         @click="goToProject(data.path)"
         @mouseover="hoverTicket(data)"
         @mouseout="unHoverTicket()"
-        :class="`cursor-pointer overflow-hidden relative w-[90%] py-3 px-8 md:w-[75%] md:py-5 md:px-10 lg:py-[30px] lg:px-[80px] transition-all duration-300 ${ticketNoOnHover === data.ID ? 'bg-[#FFFC71]' : 'bg-[#FFF8D5]'}`"
+        :class="`cursor-pointer overflow-hidden relative w-[90%] py-3 md:w-[75%] md:py-5 lg:py-[30px] transition-all duration-300 ${ticketNoOnHover === data.ID ? 'bg-[#FFFC71]' : 'bg-[#FFF8D5]'}`"
       >
         <div
           class="absolute z-10 top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full w-[40px] h-[40px] lg:w-[80px] lg:h-[80px] flex-none bg-black"
@@ -77,22 +77,17 @@ const closeInterviewCard = () => {
         <div
           class="absolute z-10 bottom-0 right-0 translate-x-1/2 translate-y-1/2 rounded-full w-[40px] h-[40px] lg:w-[80px] lg:h-[80px] flex-none bg-black"
         />
-        <div>
-          <div class="w-full max-w-[650px]">
+        <div class="relative z-10">
+          <div class="w-full max-w-[800px] px-8 md:px-10 lg:px-[80px]">
             <img
               class="w-full h-full object-cover border-black border-b-0 border-dashed border-[1px] mt-2"
               :src="`/${data.devnick_en.toLowerCase()}.webp`"
               alt=""
             />
-            <div
-              :class="`hidden md:block transition-all duration-300 ${ticketNoOnHover === data.ID ? 'bg-[#FFF8D5]' : 'bg-[#FFFC71]'} border-dashed border-t-[1px] border-b-[1px] border-black/50 absolute z-10 w-full left-0 right-0 h-[55px]`"
-            >
-              <!-- <div
-              class="bg-[#FFFC71] border-dashed border-t-[1px] border-b-[1px] border-black/50 absolute top-1/2 -translate-y-1/2 right-0 translate-x-full w-full h-[55px]"
-            ></div> -->
-            </div>
           </div>
-          <div class="relative z-20 py-[6px] flex items-center gap-3">
+          <div
+            :class="`px-8 md:px-10 lg:px-[80px] relative z-20 py-[3px] md:py-[6px] flex items-center gap-3 border-dashed border-t-[1px] border-b-[1px] border-black/50 ${ticketNoOnHover === data.ID ? 'bg-[#FFF8D5]' : 'bg-[#FFFC71]'}`"
+          >
             <p
               class="typo-h6 translate-y-[1px] md:typo-h5 font-bold leading-none"
             >
@@ -104,7 +99,9 @@ const closeInterviewCard = () => {
               alt="New Tab Icon"
             />
           </div>
-          <p class="typo-b4 md:pt-3 h-fit lg:h-[170px]">
+          <p
+            class="px-8 md:px-10 lg:px-[80px] typo-b4 md:pt-3 h-fit lg:h-[170px] pt-2"
+          >
             {{ data[`desc_${activeLang}`] }}
           </p>
         </div>
@@ -156,7 +153,7 @@ const closeInterviewCard = () => {
 
         <div>
           <div
-            class="flex md:flex-col items-center md:items-start gap-4 md:gap-0"
+            class="flex md:flex-col items-center md:items-start gap-3 md:gap-0"
           >
             <div class="relative w-fit">
               <div

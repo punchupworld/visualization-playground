@@ -19,7 +19,7 @@ const scrollTopTop = () => {
       <img class="w-[25px] md:w-[40px]" src="/landing/pu_logo.png" alt="" />
     </div>
 
-    <div class="flex gap-2">
+    <div class="flex gap-1 md:gap-2">
       <button
         v-for="lang in languages"
         :key="lang"
