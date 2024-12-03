@@ -100,14 +100,6 @@ const seperateColors = (data) => {
         ...d,
         toneName: colorTone,
         tone: colorOrder.indexOf(colorTone),
-        // tone:
-        //   colorTone === "black"
-        //     ? 1
-        //     : colorTone === "grey"
-        //       ? 2
-        //       : colorTone === "white"
-        //         ? 4
-        //         : 3,
         isBlack: colorTone === "black" ? true : false,
         isGrey: colorTone === "grey" ? true : false,
         isBrown: colorTone === "brown" ? true : false,
