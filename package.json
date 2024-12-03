@@ -36,6 +36,7 @@
     "@types/react-dom": "^18.2.19",
     "@vueuse/components": "^10.9.0",
     "@vueuse/core": "^10.9.0",
+    "@wevisdemo/ui": "^8.1.0",
     "astro": "^4.4.6",
     "d3": "^7.9.0",
     "lil-gui": "^0.19.2",

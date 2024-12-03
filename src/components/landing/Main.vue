@@ -2,6 +2,8 @@
 import { ref } from "vue";
 import Navbar from "./Navbar.vue";
 import ProjectPage from "./ProjectPage.vue";
+import "@wevisdemo/ui/styles/sharer.css";
+import WvSharer from "@wevisdemo/ui/vue/sharer";
 
 const languages = ref(["EN", "TH"]);
 const activeLang = ref(languages.value[0]);
@@ -43,17 +45,31 @@ const selectLang = (lang) => {
         <div class="w-[300px] md:w-[550px]">
           <p v-if="activeLang === 'TH'" class="typo-b4">
             ขอต้อนรับสู่ Visualization Playground! <br />
-            สถานที่ปล่อยของจากโปรเจกต์ที่นักพัฒนาแห่ง Punch Up ได้ทดลองใช้เทคนิค
-            data visualization แบบต่างๆ ผ่านธีมหลักคือภาพยนตร์และแอนิเมชัน
-            เพื่อค้นหาความเป็นไปได้ใหม่ๆ ในการทำงาน และบทเรียนจาก<span
-              class="whitespace-nowrap"
+            สถานที่ปล่อยของจากโปรเจกต์ที่นักพัฒนาแห่ง
+            <a
+              href="https://punchup.world/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="underline"
+              >Punch Up</a
+            >
+            ได้ทดลองใช้เทคนิค data visualization แบบต่างๆ
+            ผ่านธีมหลักคือภาพยนตร์และแอนิเมชัน เพื่อค้นหาความเป็นไปได้ใหม่ๆ
+            ในการทำงาน และบทเรียนจาก<span class="whitespace-nowrap"
               >ความสำเร็จ</span
             >และล้มเหลวที่ได้เจอระหว่างทางในงานของตัวเอง
           </p>
           <p v-else class="typo-b5">
             Welcome to our Visualization Playground!<br />
-            At Punch Up, we embraced a spirit of experimentation and discovery.
-            Through small, 2-3 week projects focused on movies and animation,
+            At
+            <a
+              href="https://punchup.world/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="underline"
+              >Punch Up</a
+            >, we embraced a spirit of experimentation and discovery. Through
+            small, 2-3 week projects focused on movies and animation,
             <span class="whitespace-nowrap">our team</span> of technologists
             explored new data visualization techniques, learning from our
             successes and failures along the way.
@@ -91,6 +107,21 @@ const selectLang = (lang) => {
       </div>
     </div>
     <ProjectPage :activeLang="activeLang" />
+    <div class="bg-black flex justify-center w-full py-11 md:py-16">
+      <WvSharer light url="https://punchup.world/" />
+    </div>
+    <div class="bg-black flex justify-center w-full py-6 md:py-10">
+      <p class="typo-b5 text-white">
+        Copyright {{ new Date().getFullYear() }},
+        <a
+          href="https://punchup.world/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="underline"
+          >Punch Up</a
+        >
+      </p>
+    </div>
   </div>
 </template>
 
