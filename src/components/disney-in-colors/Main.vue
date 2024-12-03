@@ -197,7 +197,7 @@ const closePopup = () => {
 
 <template>
   <div
-    class="relative pt-12 pb-6 min-h-screen"
+    class="relative pt-8 md:pt-12 pb-6 min-h-screen w-full overflow-hidden"
     style="
       background-attachment: fixed;
       background-color: white;
@@ -275,7 +275,7 @@ const closePopup = () => {
       </div>
       <div class="relative flex flex-col items-center">
         <div
-          class="bg-[#26aaf6] border-[2px] border-black rounded-full py-2 px-10 mb-7"
+          class="bg-[#26aaf6] border-[2px] border-black rounded-full py-[6px] md:py-2 px-7 md:px-10 mb-5 md:mb-7"
         >
           <h1
             class="typo-h4 font-bold text-center text-black leading-none"
@@ -311,7 +311,7 @@ const closePopup = () => {
           </h1>
         </div>
         <div
-          class="bg-white border-[2px] border-black flex justify-center px-5 py-4 rounded-[10px] w-[90%] md:w-[580px]"
+          class="bg-white border-[2px] border-black flex justify-center px-4 py-3 md:px-5 md:py-4 rounded-[10px] w-[85%] md:w-[580px]"
         >
           <p class="typo-b5 text-center">
             This project compiles visual data of Disney characters from 1937 to
@@ -323,7 +323,7 @@ const closePopup = () => {
         </div>
       </div>
       <div
-        class="relative bg-white mt-16 mb-5 md:my-10 w-[95%] max-w-[1600px] mx-auto border-[2px] border-black rounded-xl"
+        class="relative bg-white mt-16 mb-4 md:mb-5 md:my-10 w-[95%] max-w-[1600px] mx-auto border-[2px] border-black rounded-xl"
       >
         <div
           class="sticky top-0 flex gap-3 items-baseline bg-white rounded-t-xl z-20 shadow-lg shadow-[#26aaf6]/50 border-b-[2px] border-black"
@@ -350,7 +350,7 @@ const closePopup = () => {
             </div>
           </div>
         </div>
-        <div class="flex flex-col gap-1 p-5">
+        <div class="flex flex-col gap-1 p-3 md:p-5">
           <div
             v-for="year in allYears"
             :key="year"
@@ -375,7 +375,7 @@ const closePopup = () => {
               :class="`transition duration-500 ${yearFocused === year && 'scale-y-[1.6]'} ${yearFocused !== year && yearFocused !== 0 && 'scale-y-75'}`"
             />
             <div
-              class="relative w-[40px] flex-none flex text-center"
+              class="relative w-[35px] md:w-[40px] flex-none flex text-center"
               @click="
                 () => {
                   selectYear(year);
@@ -384,7 +384,7 @@ const closePopup = () => {
               "
             >
               <div
-                :class="`absolute inset-[-5px] rounded-full transition duration-300 ${yearFocused === year ? 'opacity-100 bg-black' : 'opacity-0 bg-white'}`"
+                :class="`absolute inset-[-2px] md:inset-[-5px] rounded-full transition duration-300 ${yearFocused === year ? 'opacity-100 bg-black' : 'opacity-0 bg-white'}`"
               ></div>
               <p
                 :class="`z-10 w-full ${colorsByYear[`villain_${year}`] || colorsByYear[`hero_${year}`] ? 'typo-b6' : 'text-[8px] opacity-20'} transition duration-300 ${yearFocused === year ? 'text-white' : 'text-black'} `"

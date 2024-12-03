@@ -222,7 +222,7 @@ watch(
         </svg>
       </button>
       <div
-        class="relative pt-2 pb-10 px-0 md:p-3 w-full flex flex-col items-center transition duration-300"
+        class="relative pt-2 pb-11 px-0 md:p-3 w-full flex flex-col items-center transition duration-300"
         :style="{
           background:
             colorFocused.length > 0
@@ -246,10 +246,12 @@ watch(
                 )`,
         }"
       >
-        <div class="absolute bottom-0 left-0 flex items-start gap-3 px-5">
+        <div
+          class="absolute bottom-0 left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0 flex items-start gap-3 px-3 md:px-5"
+        >
           <div
             v-if="villainsByMovie.length > 0"
-            :class="`w-[112px] text-center bg-white py-1 px-5 rounded-t-[20px] cursor-pointer transition duration-300 ${heroCategoryIsSelected && 'opacity-50 translate-y-[5px]'}`"
+            :class="`w-[90px] md:w-[112px] bg-white py-1 text-center rounded-t-[20px] cursor-pointer transition duration-300 ${heroCategoryIsSelected && 'opacity-50 translate-y-[5px]'}`"
             @click="heroCategoryIsSelected = false"
           >
             <p
@@ -260,7 +262,7 @@ watch(
           </div>
           <div
             v-if="herosByMovie.length > 0"
-            :class="`w-[112px] text-center bg-white py-1 px-5 rounded-t-[20px] cursor-pointer transition duration-300 ${!heroCategoryIsSelected && 'opacity-50 translate-y-[5px]'}`"
+            :class="`w-[90px] md:w-[112px] bg-white py-1 text-center rounded-t-[20px] cursor-pointer transition duration-300 ${!heroCategoryIsSelected && 'opacity-50 translate-y-[5px]'}`"
             @click="heroCategoryIsSelected = true"
           >
             <p
@@ -316,9 +318,9 @@ watch(
               </div>
             </div> -->
           </div>
-          <div class="relative flex flex-col gap-[1px] pb-4 md:pb-5">
+          <div class="relative flex flex-col gap-[1px] pb-3 md:pb-5">
             <div
-              class="flex w-full h-16 flex-none bg-white border-[1px] border-black"
+              class="flex flex-wrap w-full h-12 md:h-16 flex-none bg-white border-[1px] border-black"
               @click="
                 (event) => {
                   event.stopPropagation();
@@ -340,7 +342,7 @@ watch(
                   @click="selectColor(character)"
                   @mouseover="colorFocused = character.hslColor"
                   @mouseout="colorFocused = []"
-                  :class="`relative cursor-pointer h-full flex items-center transition duration-300 z-20 ${colorSelected === character.hslColor && 'scale-[150%] rotate-[2deg] z-40'}  hover:scale-[140%] hover:z-30 ${expandMovie === character.featuredFilm || expandMovie === '' ? 'opacity-100' : 'opacity-10 pointer-events-none'}`"
+                  :class="`relative cursor-pointer h-full flex items-center transition duration-300 z-20 ${colorSelected === character.hslColor && 'scale-[150%] rotate-[1.5deg] z-40'}  hover:scale-[140%] hover:z-30 ${expandMovie === character.featuredFilm || expandMovie === '' ? 'opacity-100' : 'opacity-10 pointer-events-none'}`"
                   :style="{
                     backgroundColor: character.isBlack
                       ? 'black'
@@ -348,7 +350,11 @@ watch(
                         ? 'white'
                         : character.isGrey
                           ? 'grey'
-                          : `hsl(${character.hue}, 100%, 50%)`,
+                          : character.isBrown
+                            ? '#895129'
+                            : character.isRed
+                              ? 'red'
+                              : `hsl(${character.hue}, 100%, 50%)`,
                   }"
                 >
                   <div
@@ -358,7 +364,7 @@ watch(
                     }"
                   >
                     <div
-                      class="absolute inset-[1px] border-[1px] border-white"
+                      class="absolute inset-[0.1px] md:inset-[1px] border-[0.2px] md:border-[1px] border-white"
                     ></div>
                   </div>
                 </div>
@@ -370,22 +376,19 @@ watch(
           id="scrolling_div"
           class="flex flex-1 flex-col overflow-y-auto pb-5"
         >
-          <div
-            v-for="d in getCharactersByMovie"
-            :key="d.movie"
-            @click="
-              () => {
-                if (expandMovie === d.movie) {
-                  expandMovie = '';
-                } else {
-                  expandMovie = d.movie;
-                }
-              }
-            "
-          >
+          <div v-for="d in getCharactersByMovie" :key="d.movie">
             <div class="relative">
               <div
                 class="flex items-center gap-3 pt-2 md:pt-4 pb-1 sticky top-0 bg-white cursor-pointer px-3 md:px-10 z-20"
+                @click="
+                  () => {
+                    if (expandMovie === d.movie) {
+                      expandMovie = '';
+                    } else {
+                      expandMovie = d.movie;
+                    }
+                  }
+                "
               >
                 <Clapperboard :clapperboardIsOpened="expandMovie === d.movie" />
                 <div
@@ -402,13 +405,13 @@ watch(
                 </div>
               </div>
               <div
-                :class="`h-full px-10 overflow-hidden grid grid-cols-1 md:grid-cols-4 gap-x-6 gap-y-4 ${expandMovie === d.movie ? 'max-h-[3000px] transition-all duration-500 pt-4 pb-6' : 'max-h-[0px] transition-all duration-200'}`"
+                :class="`w-fit h-full px-10 overflow-hidden grid grid-cols-1 md:grid-cols-4 gap-x-6 gap-y-4 ${expandMovie === d.movie ? 'max-h-[3000px] transition-all duration-500 pt-2 md:pt-3 pb-6' : 'max-h-[0px] transition-all duration-200'}`"
               >
                 <div
                   v-for="char in d.characters"
                   :id="char.name.toLowerCase().replace(' ', '')"
                   :key="char"
-                  :class="`flex flex-col justify-between border-[2px] ${characterSelected === char.name ? 'border-black scale-[110%]' : 'border-black/20'} rounded-[10px] p-3`"
+                  :class="`flex flex-col justify-between border-[2px] ${characterSelected === char.name ? 'border-black scale-[105%]' : 'border-black/20'} rounded-[10px] pt-2 pb-3 px-6 md:pt-2 md:p-3`"
                 >
                   <p
                     :class="`typo-b3 ${characterSelected === char.name && 'font-bold'}`"
