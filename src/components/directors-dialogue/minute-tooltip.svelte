@@ -11,15 +11,15 @@
 <TooltipContainer class="-top-1" {style}>
   <span class="font-bold">{minute}'</span>
   <table>
-    <tr>
+    <tr class="text-green-400">
       <td>Positive</td>
       <td>{positive}</td>
     </tr>
-    <tr>
+    <tr class="text-neutral-200">
       <td>Neutral</td>
       <td>{neutral}</td>
     </tr>
-    <tr>
+    <tr class="text-red-400">
       <td>Negative</td>
       <td>{negative}</td>
     </tr>
