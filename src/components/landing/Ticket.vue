@@ -40,10 +40,7 @@ const closeInterviewCard = () => {
     />
 
     <div
-      @click="goToProject(data.path)"
-      @mouseover="hoverTicket(data)"
-      @mouseout="unHoverTicket()"
-      class="cursor-pointer relative flex flex-col items-center md:items-stretch md:flex-row lg:w-[1100px] bg-black py-10 md:py-0"
+      class="relative flex flex-col items-center md:items-stretch md:flex-row lg:w-[1100px] bg-black py-10 md:py-0"
     >
       <div
         class="hidden md:flex absolute top-0 left-0 -translate-x-1/2 z-20 flex-col justify-between h-full py-[60px]"
@@ -56,7 +53,10 @@ const closeInterviewCard = () => {
       </div>
 
       <div
-        :class="`overflow-hidden relative w-[90%] py-3 px-8 md:w-[75%] md:py-5 md:px-10 lg:py-[30px] lg:px-[80px] transition-all duration-300 ${ticketNoOnHover === data.ID ? 'bg-[#FFFC71]' : 'bg-[#FFF8D5]'}`"
+        @click="goToProject(data.path)"
+        @mouseover="hoverTicket(data)"
+        @mouseout="unHoverTicket()"
+        :class="`cursor-pointer overflow-hidden relative w-[90%] py-3 px-8 md:w-[75%] md:py-5 md:px-10 lg:py-[30px] lg:px-[80px] transition-all duration-300 ${ticketNoOnHover === data.ID ? 'bg-[#FFFC71]' : 'bg-[#FFF8D5]'}`"
       >
         <div
           class="absolute z-10 top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full w-[40px] h-[40px] lg:w-[80px] lg:h-[80px] flex-none bg-black"
