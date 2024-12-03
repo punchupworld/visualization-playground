@@ -64,7 +64,7 @@ const formatData = async (data) => {
           const l = light.replace("(", "").replace(")", "");
           return [+h, +s, +l];
         })
-        .slice(2);
+        .slice(0, 3);
 
       return d;
     }),
@@ -72,6 +72,22 @@ const formatData = async (data) => {
 };
 
 const seperateColors = (data) => {
+  const colorOrder = [
+    "black",
+    "grey",
+    "brown",
+    "red",
+    "others",
+    // "red",
+    // "orange",
+    // "yellow",
+    // "green",
+    // "cyan",
+    // "blue",
+    // "purple",
+    // "magenta",
+    "white",
+  ];
   const result = [];
   data.forEach((d) => {
     d.palettes.forEach((palette) => {
@@ -82,16 +98,20 @@ const seperateColors = (data) => {
       const colorTone = checkColorTone(h, s, l);
       result.push({
         ...d,
-        tone:
-          colorTone === "black"
-            ? 1
-            : colorTone === "grey"
-              ? 2
-              : colorTone === "white"
-                ? 4
-                : 3,
+        toneName: colorTone,
+        tone: colorOrder.indexOf(colorTone),
+        // tone:
+        //   colorTone === "black"
+        //     ? 1
+        //     : colorTone === "grey"
+        //       ? 2
+        //       : colorTone === "white"
+        //         ? 4
+        //         : 3,
         isBlack: colorTone === "black" ? true : false,
         isGrey: colorTone === "grey" ? true : false,
+        isBrown: colorTone === "brown" ? true : false,
+        isRed: colorTone === "red" ? true : false,
         isWhite: colorTone === "white" ? true : false,
         hslColor: [h, s, l],
         hue: h,
@@ -112,11 +132,41 @@ const checkColorTone = (hue, sat, light) => {
   let colorTone = "";
   if ((sat > 50 && light <= 10) || (sat <= 50 && light <= 20)) {
     colorTone = "black";
-  } else if (sat === 0 && light >= 20 && light <= 90) {
+  } else if (sat <= 10 && light >= 20 && light <= 90) {
     colorTone = "grey";
   } else if (sat <= 50 && light >= 90) {
     colorTone = "white";
+  } else if (
+    ((hue >= 0 && hue <= 32) || (hue >= 340 && hue <= 360)) &&
+    sat >= 10 &&
+    sat <= 70 &&
+    light >= 10 &&
+    light <= 50
+  ) {
+    colorTone = "brown";
+  } else if (hue >= 335 && hue <= 360) {
+    colorTone = "red";
+  } else {
+    colorTone = "others";
   }
+  // else if (hue >= 0 && hue <= 15) {
+  //   colorTone = "red";
+  // } else if (hue > 15 && hue <= 45) {
+  //   colorTone = "orange";
+  // } else if (hue > 45 && hue <= 55) {
+  //   colorTone = "yellow";
+  // } else if (hue > 55 && hue <= 150) {
+  //   colorTone = "green";
+  // } else if (hue > 150 && hue <= 195) {
+  //   colorTone = "cyan";
+  // } else if (hue > 195 && hue <= 240) {
+  //   colorTone = "blue";
+  // } else if (hue > 240 && hue <= 285) {
+  //   colorTone = "purple";
+  // } else if (hue > 285 && hue <= 360) {
+  //   colorTone = "magenta";
+  // }
+
   return colorTone;
 };
 

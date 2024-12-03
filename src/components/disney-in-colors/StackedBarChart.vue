@@ -27,7 +27,11 @@ defineProps({
                   ? 'white'
                   : d.isGrey
                     ? 'grey'
-                    : `hsl(${d.hue}, 100%, 50%)`,
+                    : d.isBrown
+                      ? '#895129'
+                      : d.isRed
+                        ? 'red'
+                        : `hsl(${d.hue}, 100%, 50%)`,
           }"
         ></div>
       </div>
