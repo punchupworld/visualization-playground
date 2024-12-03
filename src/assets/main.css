@@ -135,9 +135,7 @@
 }
 
 .star-shape {
-  width: 25px;
   aspect-ratio: 1;
-  background: black;
   clip-path: polygon(
     50% 0,
     calc(50% * (1 + sin(0.4turn))) calc(50% * (1 - cos(0.4turn))),

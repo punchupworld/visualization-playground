@@ -21,7 +21,13 @@ const selectLang = (lang) => {
     <div
       class="bg-black text-[#FFFC71] min-h-screen flex flex-col text-center justify-center items-center overflow-x-hidden"
     >
-      <div class="flex flex-col items-center pt-12 z-10">
+      <div class="relative w-fit flex flex-col items-center mt-12 z-10">
+        <div
+          class="absolute top-0 -left-5 md:-left-10 star-shape w-5 md:w-10 bg-[#fffc71] -rotate-12"
+        />
+        <div
+          class="absolute bottom-0 -right-5 md:-right-10 star-shape w-5 md:w-10 bg-[#fffc71] rotate-12"
+        />
         <p
           class="text-[40px] md:text-[70px] xl:text-[100px] font-bold tracking-widest"
         >
@@ -88,4 +94,4 @@ const selectLang = (lang) => {
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style scoped></style>

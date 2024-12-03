@@ -118,7 +118,7 @@ const closeInterviewCard = () => {
           <div
             v-for="i in 5"
             :key="i"
-            class="star-shape scale-50 md:scale-[unset]"
+            class="star-shape w-[25px] scale-50 md:scale-[unset] bg-black"
           ></div>
         </div>
         <div
@@ -127,7 +127,7 @@ const closeInterviewCard = () => {
           <div
             v-for="i in 5"
             :key="i"
-            class="star-shape scale-50 md:scale-[unset]"
+            class="star-shape w-[25px] scale-50 md:scale-[unset] bg-black"
           ></div>
         </div>
         <div
@@ -156,7 +156,7 @@ const closeInterviewCard = () => {
 
         <div>
           <div
-            class="flex md:flex-col items-center md:items-start gap-5 md:gap-0"
+            class="flex md:flex-col items-center md:items-start gap-4 md:gap-0"
           >
             <div class="relative w-fit">
               <div
