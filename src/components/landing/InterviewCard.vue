@@ -69,6 +69,7 @@ const questions = ref([
 ]);
 
 const showFlukeInterview = ref(false);
+const showClickIcon = ref(true);
 
 const getInterview = computed(() => {
   return showFlukeInterview.value
@@ -77,8 +78,6 @@ const getInterview = computed(() => {
 });
 
 const getConcepts = computed(() => {
-  console.log("comp", props.dataAnalystInterviewData, activeLang.value);
-
   return props.dataAnalystInterviewData[
     `concept_by_project_${activeLang.value}`
   ].split("/");
@@ -191,7 +190,7 @@ const scrollToTop = () => {
               />
             </div>
             <div
-              :class="`w-max max-w-[150px] md:max-w-[unset] text-right absolute -top-2 md:top-1/2 md:-translate-y-1/2 left-0 -translate-x-full flex flex-col items-end px-2 md:px-4 py-1 border-dashed border-[1px] ${!showFlukeInterview ? 'bg-white rounded-[20px] border-black' : 'border-transparent'}`"
+              :class="`w-max max-w-[150px] md:max-w-[unset] text-right absolute -top-2 md:top-1/2 md:-translate-y-1/2 left-0 -translate-x-full flex flex-col items-end px-[10px] md:px-4 py-1 border-dashed border-[1px] ${!showFlukeInterview ? 'bg-white rounded-[12px] md:rounded-[20px] border-black' : 'border-transparent'}`"
             >
               <div class="flex flex-col md:flex-row md:gap-2">
                 <p
@@ -211,7 +210,12 @@ const scrollToTop = () => {
 
           <div
             :class="`absolute -right-1/2 top-[60%] ${showFlukeInterview ? 'opacity-100' : 'opacity-50'} cursor-pointer`"
-            @click="showFlukeInterview = true"
+            @click="
+              () => {
+                showClickIcon = false;
+                showFlukeInterview = true;
+              }
+            "
           >
             <div
               class="w-[40px] h-[40px] md:w-[60px] md:h-[60px] bg-white border-black border-[1px] rounded-full overflow-hidden"
@@ -223,8 +227,15 @@ const scrollToTop = () => {
               />
             </div>
             <div
-              :class="`w-max max-w-[150px] md:max-w-[unset] absolute z-10 top-1/2 -translate-y-1/2 right-0 translate-x-full flex flex-col px-2 md:px-4 py-1 border-dashed border-[1px] ${showFlukeInterview ? 'bg-white rounded-[20px] border-black' : 'border-transparent'}`"
+              :class="`w-max max-w-[150px] md:max-w-[unset] absolute z-10 top-1/2 -translate-y-1/2 right-0 translate-x-full flex flex-col px-[10px] md:px-4 py-1 border-dashed border-[1px] ${showFlukeInterview ? 'bg-white rounded-[15px] md:rounded-[20px] border-black' : 'border-transparent'}`"
             >
+              <div v-if="showClickIcon" class="absolute bottom-0 -right-1">
+                <img
+                  class="w-4 md:w-5 rotate-[-30deg]"
+                  src="/landing/hand.svg"
+                  alt=""
+                />
+              </div>
               <div class="flex flex-col md:flex-row md:gap-2">
                 <p
                   class="typo-b5 md:typo-b4 font-bold leading-none whitespace-nowrap"
