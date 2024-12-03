@@ -19,7 +19,8 @@ const heroCategoryIsSelected = ref(true);
 const characterSelected = ref("");
 const colorSelected = ref([]);
 const colorFocused = ref([]);
-// const openTutorial = ref(false);
+const openTutorial = ref(false);
+const middleColor = ref({});
 
 onMounted(() => {
   herosByMovie.value = formatDataByMovie(props.heros);
@@ -79,28 +80,33 @@ watchEffect(() => {
   numberOfcharactersByCurrentCategory.value = count;
 });
 
+watchEffect(() => {
+  const result = getColors.value;
+  const item = result[Math.ceil(result.length / 2) - 1];
+  middleColor.value = {
+    simplified: item.isBlack
+      ? "black"
+      : item.isWhite
+        ? "white"
+        : item.isGrey
+          ? "grey"
+          : item.isBrown
+            ? "#895129"
+            : item.isRed
+              ? "red"
+              : `hsl(${item.hue}, 100%, 50%)`,
+    original: `hsl(${item.hslColor[0]}, ${item.hslColor[1]}%, ${item.hslColor[2]}%)`,
+  };
+});
+
 const scrollToElement = (id) => {
-  // const myElement = document.getElementById(id);
-  // const topPos = myElement.offsetTop;
-  // let offsetTop = 30; //-75
-  // console.log("topPos + offsetTop", topPos, topPos + offsetTop);
-  // getCharactersByMovie.value.map((char, index) => {
-  //   if (char.movie === movie) {
-  //     offsetTop = offsetTop * index;
-  //     // console.log("index", index);
-  //   }
-  // });
-  // document.getElementById("scrolling_div").scrollTo({
-  //   top: topPos + offsetTop,
-  //   behavior: "smooth",
-  // });
-  // document.getElementById("scrolling_div").scrollTop = topPos;
   document
     .getElementById(id)
     .scrollIntoView({ behavior: "smooth", block: "center", inline: "start" });
 };
 
 const selectColor = (data) => {
+  openTutorial.value = false;
   characterSelected.value = data.name;
   colorSelected.value = data.hslColor;
   if (expandMovie.value === data.featuredFilm) {
@@ -192,7 +198,7 @@ watch(
     @click="closePopup()"
   >
     <div
-      class="relative flex flex-col bg-white text-black rounded-2xl w-[95%] h-[85%] md:w-[80%] md:h-[80%] max-w-[1400px] max-h-[800px] overflow-hidden border-[3px] border-black"
+      class="relative flex flex-col bg-white text-black rounded-2xl w-[95%] h-[85%] md:w-[80%] md:h-[80%] max-w-[1400px] max-h-[800px] overflow-hidden border-[2px] md:border-[3px] border-black"
       @click="
         (event) => {
           event.stopPropagation();
@@ -281,6 +287,57 @@ watch(
       </div>
 
       <div
+        @click="openTutorial = !openTutorial"
+        class="cursor-pointer absolute z-30 top-[110px] md:top-[105px] right-2 -translate-y-[5px] w-5 h-5 md:w-6 md:h-6 bg-black border-[1px] border-black rounded-full flex items-center justify-center"
+      >
+        <div class="flex flex-col gap-[2px] typo-b4 font-bold leading-none">
+          <div
+            class="absolute bottom-0 left-0 w-0 h-0 border-l-[4px] border-l-solid border-l-transparent border-r-[4px] border-r-solid border-r-transparent border-t-[8px] border-t-solid border-t-black transition rotate-[55deg] origin-top-left"
+          ></div>
+          <div
+            class="w-[2.2px] h-[2.2px] md:w-[3px] md:h-[3px] rounded-full bg-white"
+          />
+          <div
+            class="w-[2.2px] h-[6px] md:w-[3px] md:h-[8px] rounded-full bg-white"
+          />
+        </div>
+        <div
+          v-if="openTutorial"
+          class="flex absolute bottom-0 -left-2 -translate-x-full w-[155px] md:w-[185px] z-30 bg-white pt-4 p-3 border-[1px] md:border-[2px] border-black rounded-md"
+        >
+          <div class="relative">
+            <div
+              class="h-12 md:h-16 w-4 md:w-5 flex items-center"
+              :style="{ background: middleColor.simplified }"
+            >
+              <div
+                class="relative w-full h-[70%] border-[1px] border-black"
+                :style="{ background: middleColor.original }"
+              >
+                <div
+                  class="absolute inset-[0.1px] md:inset-[1px] border-[0.2px] md:border-[1px] border-white"
+                ></div>
+              </div>
+            </div>
+            <div
+              class="flex absolute top-[5px] -translate-y-1/2 right-0 translate-x-full opacity-50"
+            >
+              <img class="w-5" src="/disney-in-colors/arrow_left.svg" alt="" />
+              <p class="typo-b6 font-bold whitespace-nowrap">
+                Simplified Color
+              </p>
+            </div>
+            <div
+              class="flex absolute top-1/2 -translate-y-1/2 right-0 translate-x-full"
+            >
+              <img class="w-5" src="/disney-in-colors/arrow_left.svg" alt="" />
+              <p class="typo-b6 font-bold whitespace-nowrap">Original Color</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
         class="flex flex-col bg-white overflow-hidden"
         @click="clearColorSelected"
       >
@@ -296,27 +353,6 @@ watch(
                 numberOfcharactersByCurrentCategory > 1 ? "s" : ""
               }})</span
             >
-            <!-- <div
-              @click="openTutorial = !openTutorial"
-              class="cursor-pointer absolute bottom-0 right-2 -translate-y-[5px] w-6 h-6 bg-black border-[1px] border-black rounded-full flex items-center justify-center"
-            >
-              <div
-                class="flex flex-col gap-[2px] typo-b4 font-bold leading-none"
-              >
-                <div
-                  class="absolute bottom-0 left-0 w-0 h-0 border-l-[4px] border-l-solid border-l-transparent border-r-[4px] border-r-solid border-r-transparent border-t-[8px] border-t-solid border-t-black transition rotate-[55deg] origin-top-left"
-                ></div>
-                <div class="w-[3px] h-[3px] rounded-full bg-[white]" />
-                <div class="w-[3px] h-[8px] rounded-full bg-white" />
-              </div>
-              <div
-                v-if="openTutorial"
-                class="absolute bottom-0 -left-2 -translate-x-full w-[200px] z-20 bg-white p-3 border-[1px] border-black rounded-md"
-              >
-                <p class="typo-b6 font-bold">Simplified Color</p>
-                <p class="typo-b6 font-bold">Original Color</p>
-              </div>
-            </div> -->
           </div>
           <div class="relative flex flex-col gap-[1px] pb-3 md:pb-5">
             <div
@@ -327,12 +363,6 @@ watch(
                 }
               "
             >
-              <!-- <div class="absolute top-0 right-20 -translate-y-full">
-                <p class="typo-b6 font-bold opacity-30">Simplified Color</p>
-              </div>
-              <div class="absolute -bottom-1 right-20">
-                <p class="typo-b6 font-bold opacity-30">Original Color</p>
-              </div> -->
               <div
                 v-for="character in getColors"
                 :key="character.name"
