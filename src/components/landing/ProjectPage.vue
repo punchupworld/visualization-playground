@@ -34,7 +34,7 @@ const goToProject = (path) => {
     <div v-for="project in projects" :key="project.id">
       <div class="bg-black">
         <div
-          class="relative min-h-screen flex justify-center items-center z-10 overflow-x-hidden"
+          class="relative min-h-screen flex justify-center items-center overflow-x-hidden"
         >
           <Ticket
             :activeLang="activeLang.toLowerCase()"
