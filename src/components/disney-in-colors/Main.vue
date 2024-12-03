@@ -189,7 +189,7 @@ const closePopup = () => {
 
 <template>
   <div
-    class="relative pt-8 md:pt-12 pb-6 min-h-screen w-full overflow-hidden"
+    class="relative pt-8 md:pt-12 pb-6 min-h-screen"
     style="
       background-attachment: fixed;
       background-color: white;
@@ -315,31 +315,35 @@ const closePopup = () => {
         </div>
       </div>
       <div
-        class="relative bg-white mt-16 mb-4 md:mb-5 md:my-10 w-[95%] max-w-[1600px] mx-auto border-[2px] border-black rounded-xl"
+        class="relative bg-white mt-9 md:mt-16 mb-4 md:mb-5 md:my-10 w-[94%] max-w-[1600px] mx-auto border-[2px] border-black rounded-xl"
       >
         <div
-          class="sticky top-0 flex gap-3 items-baseline bg-white rounded-t-xl z-20 shadow-lg shadow-[#26aaf6]/50 border-b-[2px] border-black"
+          class="sticky top-0 bg-white w-full rounded-t-xl z-20 shadow-lg shadow-[#26aaf6]/50 border-b-[2px] border-black"
         >
-          <div class="flex-1 flex justify-end pt-1">
-            <p class="typo-b1 font-bold">Villain</p>
-          </div>
-          <div class="w-[40px] typo-b5 text-center opacity-50"><p>year</p></div>
-          <div class="flex-1"><p class="typo-b1 font-bold">Hero</p></div>
           <div
-            class="absolute top-0 md:top-1/2 right-0 md:right-5 -translate-y-full md:-translate-y-1/2 flex justify-end gap-3 py-1 md:py-5"
+            class="md:absolute md:top-1/2 md:right-5 md:-translate-y-1/2 flex justify-end gap-1 md:gap-3 pt-1 md:py-5 px-1 md:px-0"
           >
             <div
               @click="viewSimplifiedColor = true"
-              :class="`border-[2px] py-1 px-3 rounded-full cursor-pointer ${!viewSimplifiedColor ? 'bg-[#26aaf6]/50 border-black/0 text-black/50' : 'bg-[#26aaf6] border-black text-black'}`"
+              :class="`border-[2px] py-1 px-2 md:px-3 rounded-full cursor-pointer ${!viewSimplifiedColor ? 'bg-[#26aaf6]/50 border-black/0 text-black/50' : 'bg-[#26aaf6] border-black text-black'}`"
             >
-              <p class="typo-b5 font-bold">Simplified Color</p>
+              <p class="typo-b6 md:typo-b5 font-bold">Simplified Color</p>
             </div>
             <div
               @click="viewSimplifiedColor = false"
-              :class="`border-[2px] py-1 px-3 rounded-full cursor-pointer ${viewSimplifiedColor ? 'bg-[#26aaf6]/50 border-black/0 text-black/50' : 'bg-[#26aaf6] border-black text-black'}`"
+              :class="`border-[2px] py-1 px-2 md:px-3 rounded-full cursor-pointer ${viewSimplifiedColor ? 'bg-[#26aaf6]/50 border-black/0 text-black/50' : 'bg-[#26aaf6] border-black text-black'}`"
             >
-              <p class="typo-b5 font-bold">Original Color</p>
+              <p class="typo-b6 md:typo-b5 font-bold">Original Color</p>
             </div>
+          </div>
+          <div class="flex gap-3 items-baseline">
+            <div class="flex-1 flex justify-end pt-1">
+              <p class="typo-b1 font-bold">Villain</p>
+            </div>
+            <div class="w-[40px] typo-b5 text-center opacity-50">
+              <p>year</p>
+            </div>
+            <div class="flex-1"><p class="typo-b1 font-bold">Hero</p></div>
           </div>
         </div>
         <div class="flex flex-col gap-1 p-3 md:p-5">

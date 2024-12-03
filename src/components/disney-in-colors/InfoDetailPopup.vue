@@ -405,13 +405,13 @@ watch(
                 </div>
               </div>
               <div
-                :class="`w-fit h-full px-10 overflow-hidden grid grid-cols-1 md:grid-cols-4 gap-x-6 gap-y-4 ${expandMovie === d.movie ? 'max-h-[3000px] transition-all duration-500 pt-2 md:pt-3 pb-6' : 'max-h-[0px] transition-all duration-200'}`"
+                :class="`w-fit h-full px-4 md:px-10 overflow-hidden grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 ${expandMovie === d.movie ? 'max-h-[3000px] transition-all duration-500 pt-2 md:pt-3 pb-6' : 'max-h-[0px] transition-all duration-200'}`"
               >
                 <div
                   v-for="char in d.characters"
                   :id="char.name.toLowerCase().replace(' ', '')"
                   :key="char"
-                  :class="`flex flex-col justify-between border-[2px] ${characterSelected === char.name ? 'border-black scale-[105%]' : 'border-black/20'} rounded-[10px] pt-2 pb-3 px-6 md:pt-2 md:p-3`"
+                  :class="`flex flex-col justify-between border-[2px] ${characterSelected === char.name ? 'border-black scale-[105%]' : 'border-black/20'} rounded-[10px] pt-2 p-3`"
                 >
                   <p
                     :class="`typo-b3 ${characterSelected === char.name && 'font-bold'}`"
