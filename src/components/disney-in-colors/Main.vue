@@ -368,7 +368,7 @@ const closePopup = () => {
                   : []
               "
               :viewSimplifiedColor="viewSimplifiedColor"
-              :class="`transition duration-500 ${yearFocused === year && 'scale-y-[1.6]'} ${yearFocused !== year && yearFocused !== 0 && 'scale-y-75'}`"
+              :class="`${!colorsByYear[`villain_${year}`] && 'pointer-events-none'} transition duration-500 ${yearFocused === year && 'scale-y-[1.6]'} ${yearFocused !== year && yearFocused !== 0 && 'scale-y-75'}`"
             />
             <div
               class="relative w-[35px] md:w-[40px] flex-none flex text-center"
