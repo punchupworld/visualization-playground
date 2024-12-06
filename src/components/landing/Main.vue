@@ -23,27 +23,16 @@ const selectLang = (lang) => {
     <div
       class="bg-black text-[#FFFC71] min-h-screen flex flex-col text-center justify-center items-center overflow-x-hidden"
     >
-      <div class="relative w-fit flex flex-col items-center mt-12 z-10">
-        <div
-          class="absolute top-0 -left-5 md:-left-10 star-shape w-5 md:w-10 bg-[#fffc71] -rotate-12"
-        />
-        <div
-          class="absolute bottom-0 -right-5 md:-right-10 star-shape w-5 md:w-10 bg-[#fffc71] rotate-12"
-        />
-        <p
-          class="text-[40px] md:text-[70px] xl:text-[100px] font-bold tracking-widest"
-        >
-          Visualization
-        </p>
-        <p
-          class="text-[40px] md:text-[70px] xl:text-[100px] font-bold leading-none tracking-widest"
-        >
-          PLAYGROUND
-        </p>
+      <div
+        class="relative w-fit flex flex-col items-center mt-14 md:mt-16 z-10"
+      >
+        <div class="w-[95%] lg:w-[1000px]">
+          <img class="w-full h-full" src="/landing/title.svg" alt="" />
+        </div>
       </div>
-      <div class="py-14 flex flex-col items-center gap-10">
+      <div class="py-8 md:py-[50px] flex flex-col items-center gap-6 md:gap-9">
         <div class="w-[300px] md:w-[550px]">
-          <p v-if="activeLang === 'TH'" class="typo-b4">
+          <p v-if="activeLang === 'TH'" class="typo-b5">
             ขอต้อนรับสู่ Visualization Playground! <br />
             สถานที่ปล่อยของจากโปรเจกต์ที่นักพัฒนาแห่ง
             <a
@@ -53,9 +42,14 @@ const selectLang = (lang) => {
               class="underline"
               >Punch Up</a
             >
-            ได้ทดลองใช้เทคนิค data visualization แบบต่างๆ
-            ผ่านธีมหลักคือภาพยนตร์และแอนิเมชัน เพื่อค้นหาความเป็นไปได้ใหม่ๆ
-            ในการทำงาน และบทเรียนจาก<span class="whitespace-nowrap"
+            ได้ทดลองใช้เทคนิค
+            <span class="whitespace-nowrap">data visualization</span> แบบต่างๆ
+            ผ่านธีมหลักคือภาพยนตร์และแอนิเมชัน เพื่อค้นหา<span
+              class="whitespace-nowrap"
+              >ความเป็นไปได้ใหม่ๆ</span
+            >
+            ในการทำงาน <span class="whitespace-nowrap">และบทเรียน</span>จาก<span
+              class="whitespace-nowrap"
               >ความสำเร็จ</span
             >และล้มเหลวที่ได้เจอระหว่างทางในงานของตัวเอง
           </p>
@@ -69,7 +63,7 @@ const selectLang = (lang) => {
               class="underline"
               >Punch Up</a
             >, we embraced a spirit of experimentation and discovery. Through
-            small, 2-3 week projects focused on movies and animation,
+            small, 2-3 week projects focused on movies and animations,
             <span class="whitespace-nowrap">our team</span> of technologists
             explored new data visualization techniques, learning from our
             successes and failures along the way.
