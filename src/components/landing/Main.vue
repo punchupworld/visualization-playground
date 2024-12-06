@@ -102,7 +102,7 @@ const selectLang = (lang) => {
     </div>
     <ProjectPage :activeLang="activeLang" />
     <div class="bg-black flex justify-center w-full py-11 md:py-16">
-      <WvSharer light url="https://visplayground.punchup.world/2024/" />
+      <WvSharer light url="https://visplayground.punchup.world/" />
     </div>
     <div class="bg-black flex justify-center w-full py-6 md:py-10">
       <p class="typo-b5 text-white">
