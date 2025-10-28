@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/no-use-v-if-with-v-for -->
 <script setup>
-import { ref, onMounted } from "vue";
+import { onMounted } from "vue";
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
@@ -165,7 +165,7 @@ onMounted(async () => {
         radius: 5,
         fill: "#D7707E",
         fillOpacity: 1,
-        tooltipHTML: `<div class='flex gap-2 text-[14px] overflow-hidden min-w-[350px]'>     
+        tooltipHTML: `<div class='flex gap-2 text-[14px] overflow-hidden min-w-[350px]'>
                 <img src="{img}" class="w-20"/>
                 <div>
                   <div class="flex flex-col">

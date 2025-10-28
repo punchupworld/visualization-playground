@@ -1,13 +1,8 @@
 {
   "name": "visualization-playground",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro check && astro build",
-    "preview": "astro preview",
-    "astro": "astro",
     "prepare": "husky && husky install",
     "lint-staged": "lint-staged",
     "commitlint": "commitlint --edit"
@@ -20,61 +15,22 @@
       "prettier --write  --ignore-unknown"
     ]
   },
-  "dependencies": {
-    "@amcharts/amcharts5": "^5.10.1",
-    "@astrojs/check": "^0.5.6",
-    "@astrojs/react": "^3.0.10",
-    "@astrojs/svelte": "^5.7.1",
-    "@astrojs/tailwind": "^5.1.0",
-    "@astrojs/vue": "^4.0.8",
-    "@floating-ui/vue": "^1.0.6",
-    "@fontsource/kanit": "^5.0.21",
-    "@headlessui/react": "^2.1.5",
-    "@types/d3": "^7.4.3",
-    "@types/dat.gui": "^0.7.13",
-    "@types/react": "^18.2.60",
-    "@types/react-dom": "^18.2.19",
-    "@vueuse/components": "^10.9.0",
-    "@vueuse/core": "^10.9.0",
-    "@wevisdemo/ui": "^8.1.0",
-    "astro": "^4.4.6",
-    "d3": "^7.9.0",
-    "lil-gui": "^0.19.2",
-    "marked": "^15.0.0",
-    "radash": "^12.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "sheethuahua": "^2.1.0",
-    "svelte": "^4.2.19",
-    "tailwindcss": "^3.4.1",
-    "three": "^0.168.0",
-    "typescript": "^5.6.2",
-    "vue": "^3.4.21"
-  },
   "devDependencies": {
     "@commitlint/cli": "^19.0.3",
     "@commitlint/config-conventional": "^19.0.3",
-    "@melt-ui/pp": "^0.3.2",
-    "@melt-ui/svelte": "^0.83.0",
-    "@types/bun": "^1.1.10",
-    "@types/d3-dsv": "^3.0.7",
-    "@types/node": "^20.11.25",
-    "@types/three": "^0.168.0",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
-    "d3-dsv": "^3.0.1",
-    "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-astro": "^0.31.4",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-vue": "^9.22.0",
-    "git-format-staged": "^3.1.1",
     "husky": "^8.0.3",
     "lint-staged": "^15.2.2",
-    "p-limit": "^5.0.0",
     "prettier": "^3.2.5",
-    "prettier-plugin-astro": "^0.13.0",
-    "tsx": "^4.7.1"
-  }
+    "prettier-plugin-astro": "^0.13.0"
+  },
+  "workspaces": [
+    "2024"
+  ]
 }

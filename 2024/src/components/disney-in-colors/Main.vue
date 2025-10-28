@@ -194,7 +194,8 @@ const closePopup = () => {
       background-attachment: fixed;
       background-color: white;
       opacity: 1;
-      background-image: linear-gradient(
+      background-image:
+        linear-gradient(
           #26aaf6 1.2000000000000002px,
           transparent 1.2000000000000002px
         ),
