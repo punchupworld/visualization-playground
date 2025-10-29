@@ -54,7 +54,7 @@ const colorList = [
 
     <p class="sm:hidden typo-b5 text-white mt-5 text-center font-bold">
       Scroll horizontally to explore
-      <img src="/horizontal-scroll.png" alt="" class="inline-block w-6" />
+      <img src="/2024/horizontal-scroll.png" alt="" class="inline-block w-6" />
     </p>
 
     <div class="flex z-20 flex-col absolute -left-20 xl:-left-12 top-0 h-full">
@@ -80,7 +80,7 @@ const colorList = [
               <h1 class="text-center font-bold typo-h8 sm:ml-12 text-white">
                 Japan
               </h1>
-              <img src="/japan.png" alt="" class="inline-block w-6" />
+              <img src="/2024/japan.png" alt="" class="inline-block w-6" />
             </div>
 
             <p class="text-center typo-b6 sm:ml-12 text-white">
@@ -101,7 +101,7 @@ const colorList = [
               <h1 class="text-center font-bold typo-h8 sm:ml-12 text-white">
                 Other Countries
               </h1>
-              <img src="/global.png" alt="" class="inline-block w-6" />
+              <img src="/2024/global.png" alt="" class="inline-block w-6" />
             </div>
 
             <p class="text-center typo-b6 sm:ml-12 text-white">

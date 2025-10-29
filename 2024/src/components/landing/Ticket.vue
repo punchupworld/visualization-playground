@@ -81,7 +81,7 @@ const closeInterviewCard = () => {
           <div class="w-full max-w-[800px] px-8 md:px-10 lg:px-[80px]">
             <img
               class="w-full h-full object-cover border-black border-b-0 border-dashed border-[1px] mt-2"
-              :src="`/${data.devnick_en.toLowerCase()}.webp`"
+              :src="`/2024/${data.devnick_en.toLowerCase()}.webp`"
               alt=""
             />
           </div>
@@ -95,7 +95,7 @@ const closeInterviewCard = () => {
             </p>
             <img
               class="w-6 md:w-8"
-              src="/landing/new_tab.svg"
+              src="/2024/landing/new_tab.svg"
               alt="New Tab Icon"
             />
           </div>
@@ -161,7 +161,7 @@ const closeInterviewCard = () => {
               >
                 <img
                   class="w-full h-full object-cover"
-                  :src="`/${data.devnick_en.toLowerCase()}_profile.webp`"
+                  :src="`/2024/${data.devnick_en.toLowerCase()}_profile.webp`"
                   alt=""
                 />
               </div>
@@ -181,7 +181,7 @@ const closeInterviewCard = () => {
           >
             <img
               class="w-4 md:w-5"
-              src="/landing/microphone.svg"
+              src="/2024/landing/microphone.svg"
               alt="Microphone"
             />
             {{ activeLang === "th" ? "บทสัมภาษณ์" : "Interview" }}

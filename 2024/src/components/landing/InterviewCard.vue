@@ -3,6 +3,7 @@ import { onMounted, computed, ref, watch } from "vue";
 import { marked } from "marked";
 
 const props = defineProps({
+  base: String,
   activeLangMain: String,
   interviewData: Object,
   dataAnalystInterviewData: Object,
@@ -169,7 +170,7 @@ const scrollToTop = () => {
             <img
               v-if="!showLanguageButton"
               class="w-4"
-              src="/landing/yellow_new_tab.svg"
+              src="/2024/landing/yellow_new_tab.svg"
               alt="New Tab Icon"
             />
           </div>
@@ -185,7 +186,7 @@ const scrollToTop = () => {
             >
               <img
                 class="w-full h-full object-cover"
-                :src="`/${interviewData.devnick_en.toLowerCase()}_profile.webp`"
+                :src="`/2024/${interviewData.devnick_en.toLowerCase()}_profile.webp`"
                 alt=""
               />
             </div>
@@ -222,7 +223,7 @@ const scrollToTop = () => {
             >
               <img
                 class="w-full h-full object-cover"
-                :src="`/${dataAnalystInterviewData.devnick_en.toLowerCase()}_profile.webp`"
+                :src="`/2024/${dataAnalystInterviewData.devnick_en.toLowerCase()}_profile.webp`"
                 alt=""
               />
             </div>
@@ -232,7 +233,7 @@ const scrollToTop = () => {
               <div v-if="showClickIcon" class="absolute bottom-0 -right-1">
                 <img
                   class="w-4 md:w-5 rotate-[-30deg]"
-                  src="/landing/hand.svg"
+                  src="/2024/landing/hand.svg"
                   alt=""
                 />
               </div>

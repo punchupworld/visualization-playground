@@ -15,7 +15,7 @@
 
 <div
   class="flex flex-row items-start text-left w-full md:w-72 py-3 pl-1 bg-contain bg-no-repeat bg-right"
-  style="background-image: url(/directors-dialogue/directors/{name
+  style="background-image: url(/2024/directors-dialogue/directors/{name
     .toLowerCase()
     .replaceAll(' ', '-')}.webp);"
 >

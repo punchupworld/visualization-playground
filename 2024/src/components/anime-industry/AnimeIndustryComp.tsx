@@ -74,18 +74,20 @@ const AnimeIndustryComp = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
     const loadData = async () => {
-      await json<RawAnimeData[]>("/anime-industry/data.json").then((res) => {
-        if (res) {
-          const { cleanData, studioList, yearSeasonList } = cleanUpData(res);
-          setSummary((prev) => ({
-            ...prev,
-            cleanData,
-            studioList,
-            yearSeasonList,
-          }));
-          setSelected((prev) => ({ ...prev, studio: studioList[0] }));
-        }
-      });
+      await json<RawAnimeData[]>("/2024/anime-industry/data.json").then(
+        (res) => {
+          if (res) {
+            const { cleanData, studioList, yearSeasonList } = cleanUpData(res);
+            setSummary((prev) => ({
+              ...prev,
+              cleanData,
+              studioList,
+              yearSeasonList,
+            }));
+            setSelected((prev) => ({ ...prev, studio: studioList[0] }));
+          }
+        },
+      );
     };
 
     loadData();
@@ -168,7 +170,7 @@ const AnimeIndustryComp = () => {
           mesh.castShadow = true; //default is false
           mesh.receiveShadow = true;
 
-          fontLoader.load("/anime-industry/Kanit.json", (font) => {
+          fontLoader.load("/2024/anime-industry/Kanit.json", (font) => {
             const textGeometry = new TextGeometry(
               allData[i].genre.toUpperCase(),
               {
@@ -201,7 +203,7 @@ const AnimeIndustryComp = () => {
           .range([0, meshBb.max.x]);
 
         for (let i = 0; i < summary.yearSeasonList.length; i++) {
-          fontLoader.load("/anime-industry/Kanit.json", (font) => {
+          fontLoader.load("/2024/anime-industry/Kanit.json", (font) => {
             const xTick = summary.yearSeasonList[i];
 
             const textGeometry = new TextGeometry(xTick.toString(), {

@@ -12,7 +12,7 @@ const dataAnalystInterviewData = ref();
 const selectedProject = ref("");
 
 onMounted(async () => {
-  const rawProjects = await d3.csv("/projects.csv");
+  const rawProjects = await d3.csv("/2024/projects.csv");
   dataAnalystInterviewData.value = rawProjects[0];
 
   projects.value = rawProjects.slice(1).map((p) => {

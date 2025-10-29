@@ -106,7 +106,7 @@ const sortDataDescending = (data) => {
 };
 
 const setData = async () => {
-  animations.value = await d3.csv("/movies_with_genres.csv");
+  animations.value = await d3.csv("/2024/movies_with_genres.csv");
 
   animations.value.forEach((animation) => {
     animation.genres = animation.genres.split(",").map((genre) => genre.trim());

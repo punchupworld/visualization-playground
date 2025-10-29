@@ -5,6 +5,7 @@ import InterviewCard from "./InterviewCard.vue";
 
 const props = defineProps({
   id: String,
+  base: String,
 });
 
 const interviewCardNo = ref("");
@@ -13,7 +14,7 @@ const projects = ref();
 const dataAnalystInterviewData = ref();
 
 onMounted(async () => {
-  const rawProjects = await d3.csv("/projects.csv");
+  const rawProjects = await d3.csv("/2024/projects.csv");
   dataAnalystInterviewData.value = rawProjects[0];
 
   projects.value = rawProjects.slice(1).map((p) => {
@@ -42,7 +43,7 @@ const closeInterviewCard = () => {
     >
       <img
         class="w-[15px] md:w-5"
-        src="/landing/microphone.svg"
+        src="/2024/landing/microphone.svg"
         alt="Microphone"
       />
     </div>

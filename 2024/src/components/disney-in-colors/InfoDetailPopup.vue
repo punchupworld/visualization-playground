@@ -454,7 +454,7 @@ watch(
                     >
                       <img
                         class="w-full h-full object-cover"
-                        :src="`/disney-in-colors/images/${char.fileName}`"
+                        :src="`/2024/disney-in-colors/images/${char.fileName}`"
                         alt=""
                         referrerpolicy="no-referrer"
                       />

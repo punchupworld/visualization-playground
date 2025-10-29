@@ -27,7 +27,7 @@ const selectLang = (lang) => {
         class="relative w-fit flex flex-col items-center mt-14 md:mt-16 z-10"
       >
         <div class="w-[95%] lg:w-[1000px]">
-          <img class="w-full h-full" src="/landing/title.svg" alt="" />
+          <img class="w-full h-full" src="/2024/landing/title.svg" alt="" />
         </div>
       </div>
       <div class="py-8 md:py-[50px] flex flex-col items-center gap-6 md:gap-9">
@@ -102,7 +102,7 @@ const selectLang = (lang) => {
     </div>
     <ProjectPage :activeLang="activeLang" />
     <div class="bg-black flex justify-center w-full py-11 md:py-16">
-      <WvSharer light url="https://visplayground.punchup.world/" />
+      <WvSharer light url="https://visplayground.punchup.world/2024" />
     </div>
     <div class="bg-black flex justify-center w-full py-6 md:py-10">
       <p class="typo-b5 text-white">

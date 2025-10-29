@@ -302,7 +302,7 @@ export default {
 
     // Generate random data
     var data = [];
-    const dataList = (await d3.csv("/filtered_animation_data.csv")).filter(
+    const dataList = (await d3.csv("/2024/filtered_animation_data.csv")).filter(
       (x) => x.original_language != "ja",
     );
 

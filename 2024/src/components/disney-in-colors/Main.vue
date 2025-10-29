@@ -16,7 +16,7 @@ const viewSimplifiedColor = ref(true);
 
 onMounted(async () => {
   const charactersRawData = await d3.csv(
-    "/disney-in-colors/disney_characters.csv",
+    "/2024/disney-in-colors/disney_characters.csv",
   );
 
   const groupByYear = d3.groups(

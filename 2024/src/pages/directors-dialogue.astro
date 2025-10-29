@@ -1,15 +1,12 @@
 ---
 import { parseCSVFromString } from "sheethuahua";
-import Layout from "../../layouts/Layout.astro";
-import DirectorsAccordion from "../../components/directors-dialogue/directors-accordion.svelte";
-import InterviewCardButton from "../../components/landing/InterviewCardButton.vue";
-import rawDirectors from "../../../scripts/subtitles/out/directors.json";
-import wordFrequencyCsv from "../../../scripts/subtitles/out/word-frequency.csv?raw";
-import { wordFrequencyTable } from "../../components/directors-dialogue/model";
-import type {
-  Director,
-  Movie,
-} from "../../components/directors-dialogue/model";
+import Layout from "../layouts/Layout.astro";
+import DirectorsAccordion from "../components/directors-dialogue/directors-accordion.svelte";
+import InterviewCardButton from "../components/landing/InterviewCardButton.vue";
+import rawDirectors from "../../scripts/subtitles/out/directors.json";
+import wordFrequencyCsv from "../../scripts/subtitles/out/word-frequency.csv?raw";
+import { wordFrequencyTable } from "../components/directors-dialogue/model";
+import type { Director, Movie } from "../components/directors-dialogue/model";
 
 const wordFrequency = await parseCSVFromString(
   wordFrequencyCsv,
@@ -21,7 +18,7 @@ const directors = rawDirectors
     const movies = director.movies
       .map((movie) => ({
         ...movie,
-        image: `/directors-dialogue/posters/${movie.image.split("/").at(-1)?.replace(".jpg", ".webp")}`,
+        image: `/2024/directors-dialogue/posters/${movie.image.split("/").at(-1)?.replace(".jpg", ".webp")}`,
         wordsPerMinute: Math.round(movie.wordsPerMinute * 10) / 10,
         wordFrequency: wordFrequency.reduce<Movie["wordFrequency"]>(
           (arr, { movieId, ...rest }) => {
@@ -63,11 +60,15 @@ const maxFrequency = Math.max(
   <main
     class="flex bg-neutral-900 text-neutral-100 min-h-screen h-full justify-center"
   >
-    <a href="/">
+    <a href="/2024">
       <div
         class="cursor-pointer fixed top-1 left-1 md:top-2 md:left-2 z-20 border-[1px] border-black shadow-xl"
       >
-        <img class="w-[25px] md:w-[40px]" src="/landing/pu_logo.png" alt="" />
+        <img
+          class="w-[25px] md:w-[40px]"
+          src={import.meta.env.BASE_URL + "/landing/pu_logo.png"}
+          alt=""
+        />
       </div>
     </a>
     <InterviewCardButton client:load id="4" />

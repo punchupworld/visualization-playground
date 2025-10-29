@@ -1,5 +1,6 @@
 <script setup>
 defineProps({
+  base: String,
   languages: Array,
   activeLang: String,
   selectLang: Function,
@@ -16,7 +17,11 @@ const scrollTopTop = () => {
       @click="scrollTopTop()"
       class="cursor-pointer border-[1px] border-black shadow-xl"
     >
-      <img class="w-[25px] md:w-[40px]" src="/landing/pu_logo.png" alt="" />
+      <img
+        class="w-[25px] md:w-[40px]"
+        src="/2024/landing/pu_logo.png"
+        alt=""
+      />
     </div>
 
     <div class="flex gap-1 md:gap-2">

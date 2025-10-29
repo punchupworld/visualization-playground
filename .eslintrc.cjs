@@ -14,10 +14,13 @@ module.exports = {
       },
     },
     {
-      files: ["*.ts", "*.tsx"],
+      files: ["*.ts", "*.tsx", "*.d.ts"],
       extends: ["plugin:@typescript-eslint/recommended", "eslint:recommended"],
       parser: "@typescript-eslint/parser",
       plugins: ["@typescript-eslint"],
+      rules: {
+        "@typescript-eslint/triple-slash-reference": "off",
+      },
     },
   ],
 };
