@@ -6,7 +6,12 @@ interface Props {
 }
 
 const { title } = Astro.props;
-const mainTitle = "Punch Up: Visualization Playground";
+
+const mainTitle = "Visualization Playground 2024";
+const displayTitle = title
+  ? `${title} | ${mainTitle}`
+  : `${mainTitle} - Movies & Animations`;
+
 const description =
   "Join our team of developers as they step out of their comfort zone and embrace the role of storyteller and designer. Explore their experimental data visualization projects, where tech meets art.";
 const url = "https://visplayground.punchup.world/2024";
@@ -24,10 +29,8 @@ const url = "https://visplayground.punchup.world/2024";
       href="https://punchup.world/wp-content/uploads/2019/07/cropped-symbol-mint-e1710229142879-32x32.png"
     />
     <meta name="generator" content="{Astro.generator}" />
-    <title>
-      {title ? `${title} - Visualization Playground` : mainTitle}
-    </title>
-    <meta property="og:title" content={mainTitle} />
+    <title>{displayTitle}</title>
+    <meta property="og:title" content={displayTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={url} />
