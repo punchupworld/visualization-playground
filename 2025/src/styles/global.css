@@ -1,1 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&family=IBM+Plex+Sans+Thai:wght@400;700&display=swap");
 @import "tailwindcss";
+
+@theme {
+  --color-green-1: #00d5c4;
+  --color-green-2: #dcffe3;
+  --color-red: #ff0000;
+  --color-purple-1: #b3c8ff;
+  --color-purple-2: #8898ff;
+  --color-black: #373845;
+  --color-white: #ffffff;
+  --color-gray: #888996;
+  --color-peach: #ffa98a;
+  --color-pink: #ffcdff;
+
+  --font-heading: "Comic Relief", system-ui;
+  --font-body: "IBM Plex Sans Thai", sans-serif;
+
+  --text-h1: 72px;
+  --text-h1--line-height: 1;
+  --text-h2: 36px;
+  --text-h2--line-height: 1.25;
+  --text-h3: 24px;
+  --text-h3--line-height: 1.25;
+  --text-b1: 18px;
+  --text-b1--line-height: 1.25;
+  --text-b2: 16px;
+  --text-b2--line-height: 1.25;
+  --text-b3: 14px;
+  --text-b3--line-height: 1.25;
+}
+
+@layer base {
+  body {
+    @apply font-body text-b1;
+  }
+
+  h1 {
+    @apply font-heading text-h1;
+  }
+
+  h2 {
+    @apply font-heading text-h2;
+  }
+
+  h3 {
+    @apply font-heading text-h3;
+  }
+}
