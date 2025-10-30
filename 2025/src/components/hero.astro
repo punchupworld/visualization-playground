@@ -1,0 +1,54 @@
+---
+import { Image } from "astro:assets";
+import punchup from "../images/punchup.png";
+import wevis from "../images/wevis.png";
+import logo from "../images/logo.png";
+---
+
+<section
+  class="bg-green-2 flex flex-col items-center bg-cover bg-no-repeat gap-4 md:gap-6 p-3 md:p-6 md:pt-16"
+  style={`background-image: url(${import.meta.env.BASE_URL}/images/decoration.webp)`}
+>
+  <div class="max-w-7xl w-full flex flex-col gap-2 md:gap-4">
+    <div
+      class="flex flex-col-reverse md:flex-row md:items-center justify-between gap-2"
+    >
+      <h1 class="text-red">VISUALIZATION</h1>
+      <div class="flex flex-row gap-2">
+        <Image src={punchup} alt="Punch Up" class="size-10 md:size-16" />
+        <Image src={wevis} alt="WeVis" class="size-10 md:size-16" />
+      </div>
+    </div>
+
+    <Image src={logo} alt="Playground" />
+
+    <div class="flex flex-row items-center justify-between">
+      <h1 class="text-purple-1">SS/2</h1>
+      <h1 class="text-red">2025</h1>
+    </div>
+  </div>
+
+  <p class="max-w-4xl text-center">
+    Last year, the developer team at Punch Up took on the role of
+    storytellers-meets-designers, creating works under the theme <span
+      class="font-bold">Movies & Animations</span
+    > (<a href="/2024" class="underline">see here</a>) to explore new
+    possibilities in how we work.
+  </p>
+
+  <p class="max-w-4xl text-center">
+    This year, we came back — bigger than ever — by getting the entire office to
+    take five days off from regular work(!) to create whatever we’re passionate
+    about, <span class="text-red font-bold">under 3 conditions:</span>
+  </p>
+
+  <ol
+    class="border-red border text-red text-center grid md:grid-cols-3 [&>li]:p-3 [&>li]:border [&>li]:border-red [&>li]:md:p-6 w-full max-w-7xl"
+  >
+    <li>1.<br />Never done in usual work</li>
+    <li>2.<br />Data plays a key role</li>
+    <li>3.<br />Finish within 5 days</li>
+  </ol>
+
+  <p>And here are the results...</p>
+</section>

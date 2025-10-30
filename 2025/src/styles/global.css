@@ -32,11 +32,11 @@
 
 @layer base {
   body {
-    @apply font-body text-b1;
+    @apply font-body text-b1 text-pretty;
   }
 
   h1 {
-    @apply font-heading text-h1;
+    @apply font-heading text-h2 md:text-h1;
   }
 
   h2 {
