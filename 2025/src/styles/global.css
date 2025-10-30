@@ -46,4 +46,12 @@
   h3 {
     @apply font-heading text-h3;
   }
+
+  section {
+    @apply flex flex-col items-center p-3 md:p-6;
+  }
+
+  section > div {
+    @apply max-w-7xl w-full;
+  }
 }

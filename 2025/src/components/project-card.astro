@@ -1,0 +1,79 @@
+---
+import { Image } from "astro:assets";
+
+const {
+  projectName,
+  projectImage,
+  projectUrl,
+  outputType,
+  description,
+  creatorName,
+  creatorImage,
+  creatorPosition,
+} = Astro.props;
+---
+
+<div class="flex flex-col shadow">
+  <a
+    href={projectUrl}
+    class="p-3 md:p-5 gap-5 bg-white hover:bg-green-2 flex flex-col"
+  >
+    <Image
+      src={projectImage}
+      width={320}
+      height={320}
+      class="h-64 w-full object-cover"
+      alt=""
+    />
+    <div>
+      <div class="flex flex-row justify-between">
+        <h4 class="font-bold">{projectName}</h4>
+        <svg class="size-8" viewBox="0 0 30 30">
+          <path
+            d="M23.4616 15H24.9997V25H5V5.00003H14.9998V6.53812H6.5381V23.4606H23.4603V14.9987L23.4616 15ZM17.8417 5.00003V6.53812H22.3266L14.1383 14.4459L15.2064 15.5531L23.4619 7.58062V12.1581H25V5L17.8417 5.00003Z"
+            fill="currentColor"></path>
+        </svg>
+      </div>
+      <p class="text-b3 text-gray leading-none">{outputType}</p>
+      <p class="text-b2 mt-2">{description}</p>
+    </div>
+  </a>
+  <details name="project-card">
+    <summary class="flex flex-row text-b3">
+      <div
+        class="flex-1 bg-green-1 flex flex-row items-center p-3 md:p-5 gap-3"
+      >
+        <Image
+          src={creatorImage}
+          width={60}
+          height={60}
+          alt=""
+          class="size-10 rounded-full"
+        />
+        <div>
+          <p class="font-bold">{creatorName}</p><p>{creatorPosition}</p>
+        </div>
+      </div>
+      <div
+        class="bg-purple-1 hover:bg-purple-2 md:p-2 relative flex justify-center items-center cursor-pointer"
+      >
+        <div class="-rotate-45 select-none">Reflection</div>
+        <svg class="size-6 absolute bottom-2 right-2" viewBox="0 0 24 24">
+          <path d="M12 4.80005L12 19.2" stroke="currentColor" stroke-width="2"
+          ></path>
+          <path d="M19.2 12L4.8 12" stroke="black" stroke-width="2"></path>
+        </svg>
+      </div>
+    </summary>
+
+    <div class="bg-purple-1 p-3 md:p-5 flex flex-col gap-2 text-b2">
+      <slot />
+    </div>
+  </details>
+</div>
+
+<style>
+  details:open svg path:first-child {
+    display: none;
+  }
+</style>
