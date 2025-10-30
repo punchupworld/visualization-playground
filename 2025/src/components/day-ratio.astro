@@ -1,0 +1,22 @@
+---
+interface Props {
+  items: [string, number][];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="border border-red relative h-16 md:h-24">
+  <div class="w-full h-full">
+    {
+      items.map(([className, height]) => (
+        <div class={className} style={`height: ${height}%`} />
+      ))
+    }
+  </div>
+  <div
+    class="absolute inset-0 flex items-center justify-center md:text-h3 font-heading text-white font-bold"
+  >
+    <slot />
+  </div>
+</div>

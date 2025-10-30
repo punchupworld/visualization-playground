@@ -1,0 +1,52 @@
+---
+import DayRatio from "./day-ratio.astro";
+---
+
+<section class="bg-green-2">
+  <div
+    class="justify-center items-center flex flex-col py-4 md:py-8 gap-4 md:gap-8"
+  >
+    <h2 class="text-h2 font-bold text-center">BEHIDE THE SCENE</h2>
+    <p class="font-bold">Activities:</p>
+
+    <div class="grid grid-cols-5 w-full border border-red">
+      <DayRatio
+        items={[
+          ["bg-black", 30],
+          ["bg-gray", 30],
+          ["bg-green-1", 30],
+          ["bg-purple-1", 10],
+        ]}>Day 1</DayRatio
+      >
+      <DayRatio
+        items={[
+          ["bg-peach", 10],
+          ["bg-green-1", 80],
+          ["bg-purple-1", 10],
+        ]}>Day 2</DayRatio
+      >
+      <DayRatio
+        items={[
+          ["bg-peach", 10],
+          ["bg-green-1", 80],
+          ["bg-purple-1", 10],
+        ]}>Day 3</DayRatio
+      >
+      <DayRatio
+        items={[
+          ["bg-peach", 10],
+          ["bg-green-1", 80],
+          ["bg-purple-1", 10],
+        ]}>Day 4</DayRatio
+      >
+      <DayRatio
+        items={[
+          ["bg-peach", 10],
+          ["bg-green-1", 40],
+          ["bg-pink", 40],
+          ["bg-purple-1", 10],
+        ]}>Day 5</DayRatio
+      >
+    </div>
+  </div>
+</section>
