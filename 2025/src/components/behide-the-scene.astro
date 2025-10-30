@@ -1,5 +1,7 @@
 ---
 import DayRatio from "./day-ratio.astro";
+import TabButton from "./tab-button.astro";
+import TabContent from "./tab-content.astro";
 ---
 
 <section class="bg-green-2">
@@ -49,4 +51,35 @@ import DayRatio from "./day-ratio.astro";
       >
     </div>
   </div>
+
+  <div class="flex flex-col items-center gap-4">
+    <div class="flex flex-row flex-wrap gap-1 justify-center">
+      <TabButton class="bg-black" title="Idea Pitching" />
+      <TabButton class="bg-gray" title="Tasks Planning" />
+      <TabButton class="bg-green-1" title="Project Development" />
+      <TabButton class="bg-peach" title="1-1 Standup Meeting" />
+      <TabButton class="bg-purple-2" title="Reflection" />
+      <TabButton class="bg-pink" title="Presentations" />
+    </div>
+    <div class="tab-folder w-full max-w-4xl">
+      <TabContent title="Tasks Planning" />
+      <TabContent title="Project Development" />
+      <TabContent title="1-1 Standup Meeting" />
+      <TabContent title="Reflection" />
+      <TabContent title="Presentations" />
+      <!-- default tab must be last -->
+      <TabContent title="Idea Pitching" />
+    </div>
+  </div>
 </section>
+
+<style is:global>
+  .tab-folder > div:target ~ div:last-child,
+  .tab-folder > div {
+    display: none;
+  }
+  .tab-folder > :last-child,
+  .tab-folder > div:target {
+    display: block;
+  }
+</style>
