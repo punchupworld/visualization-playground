@@ -1,5 +1,27 @@
 ---
 import ProjectCard from "./project-card.astro";
+import { asString, Column, Object, Spreadsheet } from "sheethuahua";
+
+const schema = Object({
+  creatorName: Column("Name", asString().optional("")),
+  creatorRole: Column("Role", asString().optional("")),
+  projectName: Column("Project Name", asString().optional("")),
+  outputType: Column("Output Type", asString().optional("")),
+  description: Column("Project Description", asString().optional("")),
+  projectUrl: Column("URL", asString().optional()),
+  q1: Column("ทำไมเลือกทำเรื่องนี้", asString().optional("-")),
+  q2: Column(
+    "อะไรในงานนี้ที่ตัวเองไม่เคยทำมาก่อนในชีวิตการทำงานปกติ",
+    asString().optional("-"),
+  ),
+  q3: Column("ได้ลองแล้วรู้สึกยังไง", asString().optional("-")),
+});
+
+const projects = await Spreadsheet(
+  "1A2O_Tz8pZPfJ_QqsPFX0DbosoXcSEGAahPAj-EM5fjc",
+).get("Sheet1", schema);
+
+const maxProjectPerColumn = Math.ceil(projects.length / 2);
 ---
 
 <section class="bg-black">
@@ -8,191 +30,31 @@ import ProjectCard from "./project-card.astro";
 
     <div class="grid md:grid-cols-2 gap-3">
       <div class="flex flex-col gap-3">
-        <ProjectCard
-          projectName="Project Name"
-          projectImage="https://placehold.co/800x400"
-          projectUrl="#"
-          outputType="Output type"
-          description="[Description] Lorem ipsum dolor sit amet consectetur. Id leo malesuada quis bibendum quam pharetra. Massa odio scelerisque volutpat aliquet ac ultrices at tincidunt aliquam."
-          creatorName="Name Surname (Nickname)"
-          creatorImage="https://placehold.co/100x100"
-          creatorPosition="Position"
-        >
-          <h5>Why this topic?</h5>
-          <p>
-            “[Why this topic] Lorem ipsum dolor sit amet consectetur. Interdum
-            eu porta posuere non bibendum risus sapien. Orci dui faucibus
-            aliquet senectus volutpat eget bibendum. Tincidunt sagittis laoreet
-            pulvinar id tellus sed pellentesque convallis. Enim nullam sed
-            sapien hendrerit molestie est sit dolor. Ac tincidunt vestibulum
-            porta elit nunc lobortis elit commodo scelerisque. Dictum facilisi
-            ut diam quis dignissim justo commodo. Mattis massa tortor nec id
-            gravida mauris ac vestibulum.”
-          </p>
-          <h5>Things you’ve never done in your usual work</h5>
-          <p>
-            “Lorem ipsum dolor sit amet consectetur. Interdum eu porta posuere
-            non bibendum risus sapien. Orci dui faucibus aliquet senectus
-            volutpat eget bibendum. Tincidunt sagittis laoreet pulvinar id
-            tellus sed pellentesque convallis. Enim nullam sed sapien hendrerit
-            molestie est sit dolor. Ac tincidunt vestibulum porta elit nunc
-            lobortis elit commodo scelerisque. Dictum facilisi ut diam quis
-            dignissim justo commodo. Mattis massa tortor nec id gravida mauris
-            ac vestibulum.”
-          </p>
-          <h5>How did you feel after trying it?</h5>
-          <p>
-            “Lorem ipsum dolor sit amet consectetur. Interdum eu porta posuere
-            non bibendum risus sapien. Orci dui faucibus aliquet senectus
-            volutpat eget bibendum. Tincidunt sagittis laoreet pulvinar id
-            tellus sed pellentesque convallis. Enim nullam sed sapien hendrerit
-            molestie est sit dolor. Ac tincidunt vestibulum porta elit nunc
-            lobortis elit commodo scelerisque. Dictum facilisi ut diam quis
-            dignissim justo commodo. Mattis massa tortor nec id gravida mauris
-            ac vestibulum.”
-          </p>
-        </ProjectCard>
-        <ProjectCard
-          projectName="Project Name"
-          projectImage="https://placehold.co/800x400"
-          projectUrl="#"
-          outputType="Output type"
-          description="[Description] Lorem ipsum dolor sit amet consectetur. Id leo malesuada quis bibendum quam pharetra. Massa odio scelerisque volutpat aliquet ac ultrices at tincidunt aliquam."
-          creatorName="Name Surname (Nickname)"
-          creatorImage="https://placehold.co/100x100"
-          creatorPosition="Position"
-        >
-          <h5>Why this topic?</h5>
-          <p>
-            “[Why this topic] Lorem ipsum dolor sit amet consectetur. Interdum
-            eu porta posuere non bibendum risus sapien. Orci dui faucibus
-            aliquet senectus volutpat eget bibendum. Tincidunt sagittis laoreet
-            pulvinar id tellus sed pellentesque convallis. Enim nullam sed
-            sapien hendrerit molestie est sit dolor. Ac tincidunt vestibulum
-            porta elit nunc lobortis elit commodo scelerisque. Dictum facilisi
-            ut diam quis dignissim justo commodo. Mattis massa tortor nec id
-            gravida mauris ac vestibulum.”
-          </p>
-          <h5>Things you’ve never done in your usual work</h5>
-          <p>
-            “Lorem ipsum dolor sit amet consectetur. Interdum eu porta posuere
-            non bibendum risus sapien. Orci dui faucibus aliquet senectus
-            volutpat eget bibendum. Tincidunt sagittis laoreet pulvinar id
-            tellus sed pellentesque convallis. Enim nullam sed sapien hendrerit
-            molestie est sit dolor. Ac tincidunt vestibulum porta elit nunc
-            lobortis elit commodo scelerisque. Dictum facilisi ut diam quis
-            dignissim justo commodo. Mattis massa tortor nec id gravida mauris
-            ac vestibulum.”
-          </p>
-          <h5>How did you feel after trying it?</h5>
-          <p>
-            “Lorem ipsum dolor sit amet consectetur. Interdum eu porta posuere
-            non bibendum risus sapien. Orci dui faucibus aliquet senectus
-            volutpat eget bibendum. Tincidunt sagittis laoreet pulvinar id
-            tellus sed pellentesque convallis. Enim nullam sed sapien hendrerit
-            molestie est sit dolor. Ac tincidunt vestibulum porta elit nunc
-            lobortis elit commodo scelerisque. Dictum facilisi ut diam quis
-            dignissim justo commodo. Mattis massa tortor nec id gravida mauris
-            ac vestibulum.”
-          </p>
-        </ProjectCard>
+        {
+          projects
+            .slice(0, maxProjectPerColumn)
+            .map((project) => (
+              <ProjectCard
+                {...project}
+                projectImage="https://placehold.co/800x400"
+                creatorImage="https://placehold.co/100x100"
+              />
+            ))
+        }
       </div>
       <div class="flex flex-col gap-3">
-        <ProjectCard
-          projectName="Project Name"
-          projectImage="https://placehold.co/800x400"
-          projectUrl="#"
-          outputType="Output type"
-          description="[Description] Lorem ipsum dolor sit amet consectetur. I"
-          creatorName="Name Surname (Nickname)"
-          creatorImage="https://placehold.co/100x100"
-          creatorPosition="Position"
-        >
-          <h5>Why this topic?</h5>
-          <p>
-            “[Why this topic] Lorem ipsum dolor sit amet consectetur. Interdum
-            eu porta posuere non bibendum risus sapien. Orci dui faucibus
-            aliquet senectus volutpat eget bibendum. Tincidunt sagittis laoreet
-            pulvinar id tellus sed pellentesque convallis. Enim nullam sed
-            sapien hendrerit molestie est sit dolor. Ac tincidunt vestibulum
-            porta elit nunc lobortis elit commodo scelerisque. Dictum facilisi
-            ut diam quis dignissim justo commodo. Mattis massa tortor nec id
-            gravida mauris ac vestibulum.”
-          </p>
-          <h5>Things you’ve never done in your usual work</h5>
-          <p>
-            “Lorem ipsum dolor sit amet consectetur. Interdum eu porta posuere
-            non bibendum risus sapien. Orci dui faucibus aliquet senectus
-            volutpat eget bibendum. Tincidunt sagittis laoreet pulvinar id
-            tellus sed pellentesque convallis. Enim nullam sed sapien hendrerit
-            molestie est sit dolor. Ac tincidunt vestibulum porta elit nunc
-            lobortis elit commodo scelerisque. Dictum facilisi ut diam quis
-            dignissim justo commodo. Mattis massa tortor nec id gravida mauris
-            ac vestibulum.”
-          </p>
-          <h5>How did you feel after trying it?</h5>
-          <p>
-            “Lorem ipsum dolor sit amet consectetur. Interdum eu porta posuere
-            non bibendum risus sapien. Orci dui faucibus aliquet senectus
-            volutpat eget bibendum. Tincidunt sagittis laoreet pulvinar id
-            tellus sed pellentesque convallis. Enim nullam sed sapien hendrerit
-            molestie est sit dolor. Ac tincidunt vestibulum porta elit nunc
-            lobortis elit commodo scelerisque. Dictum facilisi ut diam quis
-            dignissim justo commodo. Mattis massa tortor nec id gravida mauris
-            ac vestibulum.”
-          </p>
-        </ProjectCard>
-        <ProjectCard
-          projectName="Project Name"
-          projectImage="https://placehold.co/800x400"
-          projectUrl="#"
-          outputType="Output type"
-          description="[Description] Lorem ipsum dolor sit amet consectetur. Id leo malesuada quis bibendum quam pharetra. Massa odio scelerisque volutpat aliquet ac ultrices at tincidunt aliquam."
-          creatorName="Name Surname (Nickname)"
-          creatorImage="https://placehold.co/100x100"
-          creatorPosition="Position"
-        >
-          <h5>Why this topic?</h5>
-          <p>
-            “[Why this topic] Lorem ipsum dolor sit amet consectetur. Interdum
-            eu porta posuere non bibendum risus sapien. Orci dui faucibus
-            aliquet senectus volutpat eget bibendum. Tincidunt sagittis laoreet
-            pulvinar id tellus sed pellentesque convallis. Enim nullam sed
-            sapien hendrerit molestie est sit dolor. Ac tincidunt vestibulum
-            porta elit nunc lobortis elit commodo scelerisque. Dictum facilisi
-            ut diam quis dignissim justo commodo. Mattis massa tortor nec id
-            gravida mauris ac vestibulum.”
-          </p>
-          <h5>Things you’ve never done in your usual work</h5>
-          <p>
-            “Lorem ipsum dolor sit amet consectetur. Interdum eu porta posuere
-            non bibendum risus sapien. Orci dui faucibus aliquet senectus
-            volutpat eget bibendum. Tincidunt sagittis laoreet pulvinar id
-            tellus sed pellentesque convallis. Enim nullam sed sapien hendrerit
-            molestie est sit dolor. Ac tincidunt vestibulum porta elit nunc
-            lobortis elit commodo scelerisque. Dictum facilisi ut diam quis
-            dignissim justo commodo. Mattis massa tortor nec id gravida mauris
-            ac vestibulum.”
-          </p>
-          <h5>How did you feel after trying it?</h5>
-          <p>
-            “Lorem ipsum dolor sit amet consectetur. Interdum eu porta posuere
-            non bibendum risus sapien. Orci dui faucibus aliquet senectus
-            volutpat eget bibendum. Tincidunt sagittis laoreet pulvinar id
-            tellus sed pellentesque convallis. Enim nullam sed sapien hendrerit
-            molestie est sit dolor. Ac tincidunt vestibulum porta elit nunc
-            lobortis elit commodo scelerisque. Dictum facilisi ut diam quis
-            dignissim justo commodo. Mattis massa tortor nec id gravida mauris
-            ac vestibulum.”
-          </p>
-        </ProjectCard>
+        {
+          projects
+            .slice(maxProjectPerColumn)
+            .map((project) => (
+              <ProjectCard
+                {...project}
+                projectImage="https://placehold.co/800x400"
+                creatorImage="https://placehold.co/100x100"
+              />
+            ))
+        }
       </div>
     </div>
   </div>
 </section>
-
-<style>
-  h5 {
-    font-weight: bold;
-  }
-</style>

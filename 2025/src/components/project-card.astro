@@ -10,12 +10,16 @@ const {
   creatorName,
   creatorImage,
   creatorPosition,
+  q1,
+  q2,
+  q3,
 } = Astro.props;
 ---
 
 <div class="flex flex-col shadow">
   <a
     href={projectUrl}
+    target="_blank"
     class="p-3 md:p-5 gap-5 bg-white hover:bg-green-2 flex flex-col"
   >
     <Image
@@ -67,7 +71,12 @@ const {
     </summary>
 
     <div class="bg-purple-1 p-3 md:p-5 flex flex-col gap-2 text-b2">
-      <slot />
+      <h5>Why this topic?</h5>
+      <p>{q1}</p>
+      <h5>Things you’ve never done in your usual work</h5>
+      <p>{q2}</p>
+      <h5>How did you feel after trying it?</h5>
+      <p>{q3}</p>
     </div>
   </details>
 </div>
@@ -75,5 +84,13 @@ const {
 <style>
   details:open svg path:first-child {
     display: none;
+  }
+
+  h5 {
+    font-weight: bold;
+  }
+
+  p {
+    white-space: pre-line;
   }
 </style>
