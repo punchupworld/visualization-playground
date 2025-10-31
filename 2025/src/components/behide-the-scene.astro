@@ -1,7 +1,12 @@
 ---
 import DayRatio from "./day-ratio.astro";
 import TabButton from "./tab-button.astro";
-import TabContent from "./tab-content.astro";
+import Content1Idea from "./content-1-idea.astro";
+import Content2Task from "./content-2-task.astro";
+import Content3Development from "./content-3-development.astro";
+import Content4Standup from "./content-4-standup.astro";
+import Content5Reflection from "./content-5-reflection.astro";
+import Content6Presentation from "./content-6-presentation.astro";
 ---
 
 <section class="bg-green-2">
@@ -52,23 +57,26 @@ import TabContent from "./tab-content.astro";
     </div>
   </div>
 
-  <div class="flex flex-col items-center gap-4">
-    <div class="flex flex-row flex-wrap gap-1 justify-center">
-      <TabButton class="bg-black" title="Idea Pitching" />
-      <TabButton class="bg-gray" title="Tasks Planning" />
-      <TabButton class="bg-green-1" title="Project Development" />
-      <TabButton class="bg-peach" title="1-1 Standup Meeting" />
-      <TabButton class="bg-purple-2" title="Reflection" />
-      <TabButton class="bg-pink" title="Presentations" />
-    </div>
+  <div class="flex flex-row flex-wrap gap-1 justify-center">
+    <TabButton class="bg-black" title="Idea Pitching" />
+    <TabButton class="bg-gray" title="Tasks Planning" />
+    <TabButton class="bg-green-1" title="Project Development" />
+    <TabButton class="bg-peach" title="1-1 Standup Meeting" />
+    <TabButton class="bg-purple-2" title="Reflection" />
+    <TabButton class="bg-pink" title="Presentations" />
+  </div>
+</section>
+
+<section class="bg-white">
+  <div class="flex flex-col items-center gap-8">
     <div class="tab-folder w-full max-w-4xl">
-      <TabContent title="Tasks Planning" />
-      <TabContent title="Project Development" />
-      <TabContent title="1-1 Standup Meeting" />
-      <TabContent title="Reflection" />
-      <TabContent title="Presentations" />
+      <Content2Task />
+      <Content3Development />
+      <Content4Standup />
+      <Content5Reflection />
+      <Content6Presentation />
       <!-- default tab must be last -->
-      <TabContent title="Idea Pitching" />
+      <Content1Idea />
     </div>
   </div>
 </section>

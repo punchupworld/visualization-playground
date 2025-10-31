@@ -1,0 +1,32 @@
+---
+import TabContent from "./tab-content.astro";
+import { Image } from "astro:assets";
+import img41 from "../images/4-1.png";
+import img42 from "../images/4-2.png";
+import img43 from "../images/4-3.png";
+import img44 from "../images/4-4.png";
+import img45 from "../images/4-5.png";
+import img46 from "../images/4-6.png";
+---
+
+<TabContent title="1-1 Standup Meeting">
+  <p class="text-center">
+    At the beginning of each day, everyone would book a 10-minute session with
+    Lookkid and Jug to discuss yesterday’s achievements (that’s when the red
+    stickers appeared on the task planning board) and today’s plans. This
+    ensured that if anyone fell behind schedule, they would receive support in
+    time.
+  </p>
+
+  <div class="grid grid-cols-2 gap-2 md:gap-4 mt-6">
+    <Image src={img41} width={512} alt="" />
+    <Image src={img42} width={512} alt="" />
+  </div>
+
+  <div class="grid grid-cols-3 md:grid-cols-5 gap-2 mt-2 md:mt-4">
+    <Image src={img43} width={200} alt="" />
+    <Image src={img44} width={200} alt="" />
+    <Image src={img45} width={200} alt="" />
+    <Image src={img46} width={200} alt="" />
+  </div>
+</TabContent>
