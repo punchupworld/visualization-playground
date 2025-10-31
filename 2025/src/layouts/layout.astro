@@ -1,5 +1,10 @@
 ---
 import "../styles/global.css";
+
+const title = "Visualization Playground 2025 - Stupid Hackathon";
+const description =
+  "We came back — bigger than ever — by getting the entire office to take five days off from regular work(!) to create whatever we’re passionate about";
+const url = "https://visplayground.punchup.world/2025";
 ---
 
 <html lang="en">
@@ -12,7 +17,17 @@ import "../styles/global.css";
     />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Visualization Playground 2025 - Stupid Hackathon</title>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={url} />
+    <meta property="og:image" content={url + "/og.jpg"} />
+    <script
+      defer
+      data-domain="visplayground.punchup.world"
+      src="https://analytics.punchup.world/js/script.js"></script>
   </head>
   <body>
     <slot />
