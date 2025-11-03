@@ -1,8 +1,8 @@
 ---
 import ProjectCard from "./project-card.astro";
-import { asString, Column, Object, Spreadsheet } from "sheethuahua";
+import { asString, Column, Object as Obj, Spreadsheet } from "sheethuahua";
 
-const schema = Object({
+const schema = Obj({
   creatorName: Column("Name", asString().optional("")),
   creatorRole: Column("Role", asString().optional("")),
   projectName: Column("Project Name", asString().optional("")),
@@ -26,35 +26,30 @@ const maxProjectPerColumn = Math.ceil(projects.length / 2);
 
 <section class="bg-black">
   <div class="justify-center flex flex-col py-4 md:py-8 gap-4 md:gap-8">
-    <h2 class="text-h2 text-center text-green-2 font-bold">8 PROJECTS</h2>
+    <h2 class="text-h2 text-center text-green-2 font-bold">
+      {projects.length} PROJECTS
+    </h2>
 
     <div class="grid md:grid-cols-2 gap-3">
-      <div class="flex flex-col gap-3">
-        {
-          projects
-            .slice(0, maxProjectPerColumn)
-            .map((project) => (
-              <ProjectCard
-                {...project}
-                projectImage="https://placehold.co/800x400"
-                creatorImage="https://placehold.co/100x100"
-              />
-            ))
-        }
-      </div>
-      <div class="flex flex-col gap-3">
-        {
-          projects
-            .slice(maxProjectPerColumn)
-            .map((project) => (
-              <ProjectCard
-                {...project}
-                projectImage="https://placehold.co/800x400"
-                creatorImage="https://placehold.co/100x100"
-              />
-            ))
-        }
-      </div>
+      {
+        [
+          [0, maxProjectPerColumn],
+          [maxProjectPerColumn, projects.length],
+        ].map(([from, to]) => (
+          <div class="flex flex-col gap-3">
+            {projects.slice(from, to).map((project, i) => {
+              const fileName = from + i + 2;
+              return (
+                <ProjectCard
+                  {...project}
+                  projectImage={`${import.meta.env.BASE_URL}/images/projects/${fileName}.webp`}
+                  creatorImage={`${import.meta.env.BASE_URL}/images/creators/${fileName}.webp`}
+                />
+              );
+            })}
+          </div>
+        ))
+      }
     </div>
   </div>
 </section>
