@@ -1,0 +1,61 @@
+---
+const tabs = [
+  { class: "bg-black", title: "Idea Pitching" },
+  { class: "bg-gray", title: "Tasks Planning" },
+  { class: "bg-green-1", title: "Project Development" },
+  { class: "bg-peach", title: "1-1 Standup Meeting" },
+  { class: "bg-purple-2", title: "Reflection" },
+  { class: "bg-pink", title: "Presentations" },
+].map((tab) => ({
+  id: tab.title.toLocaleLowerCase().replaceAll(" ", "-"),
+  ...tab,
+}));
+---
+
+<script>
+  const BUTTON_ID_ATTRIBUTE = "data-tab-button";
+  const CONTENT_ID_ATTRIBUTE = "data-tab-content";
+
+  const tabButtons = document.querySelectorAll(`[${BUTTON_ID_ATTRIBUTE}]`);
+
+  tabButtons.forEach((button) =>
+    button.addEventListener("click", () => {
+      setActive(button);
+    }),
+  );
+
+  setActive(tabButtons[0]);
+
+  function setActive(selectedButton) {
+    const selectedId = selectedButton.getAttribute(BUTTON_ID_ATTRIBUTE);
+
+    tabButtons.forEach((button) => {
+      const id = button.getAttribute(BUTTON_ID_ATTRIBUTE);
+      const tabContent = document.querySelector(
+        `[${CONTENT_ID_ATTRIBUTE}="${id}"]`,
+      );
+
+      if (id === selectedId) {
+        button.classList.replace("hover:bg-white/50", "bg-white");
+        tabContent?.classList.replace("hidden", "flex");
+      } else {
+        button.classList.replace("bg-white", "hover:bg-white/50");
+        tabContent?.classList.replace("flex", "hidden");
+      }
+    });
+  }
+</script>
+
+<div class="flex flex-row flex-wrap gap-1 justify-center" data-tabs={tabs}>
+  {
+    tabs.map((tab) => (
+      <button
+        data-tab-button={tab.id}
+        class="rounded-full p-4 flex flex-row items-center gap-2 text-b1 cursor-pointer hover:bg-white/50"
+      >
+        <div class={`size-2.5 ${tab.class}`} />
+        <span class="leading-0">{tab.title}</span>
+      </button>
+    ))
+  }
+</div>
