@@ -1,5 +1,11 @@
 ---
 import { Image } from "astro:assets";
+import type { Project } from "../models/project";
+
+interface Props extends Project {
+  projectImage: string;
+  creatorImage: string;
+}
 
 const {
   projectName,

@@ -1,25 +1,11 @@
 ---
+import { projectSchema } from "../models/project";
 import ProjectCard from "./project-card.astro";
-import { asString, Column, Object as Obj, Spreadsheet } from "sheethuahua";
-
-const schema = Obj({
-  creatorName: Column("Name", asString().optional("")),
-  creatorRole: Column("Role", asString().optional("")),
-  projectName: Column("Project Name", asString().optional("")),
-  outputType: Column("Output Type", asString().optional("")),
-  description: Column("Project Description", asString().optional("")),
-  projectUrl: Column("URL", asString().optional()),
-  q1: Column("ทำไมเลือกทำเรื่องนี้", asString().optional("-")),
-  q2: Column(
-    "อะไรในงานนี้ที่ตัวเองไม่เคยทำมาก่อนในชีวิตการทำงานปกติ",
-    asString().optional("-"),
-  ),
-  q3: Column("ได้ลองแล้วรู้สึกยังไง", asString().optional("-")),
-});
+import { Spreadsheet } from "sheethuahua";
 
 const projects = await Spreadsheet(
   "1A2O_Tz8pZPfJ_QqsPFX0DbosoXcSEGAahPAj-EM5fjc",
-).get("Sheet1", schema);
+).get("Sheet1", projectSchema);
 
 const maxProjectPerColumn = Math.ceil(projects.length / 2);
 ---
