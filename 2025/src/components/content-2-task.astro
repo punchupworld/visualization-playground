@@ -2,11 +2,23 @@
 import TabContent from "./tab-content.astro";
 import { Image } from "astro:assets";
 import img21 from "../images/2-1.jpg";
+import img22 from "../images/2-2.jpg";
+import img23 from "../images/2-3.jpg";
+import img24 from "../images/2-4.jpg";
+import img25 from "../images/2-5.jpg";
+import img26 from "../images/2-6.jpg";
+import img27 from "../images/2-7.jpg";
+import img28 from "../images/2-8.jpg";
+import img29 from "../images/2-9.jpg";
+import img210 from "../images/2-10.jpg";
 ---
 
 <TabContent title="Tasks Planning">
-  <Image src={img21} width={375} alt="" class="mx-auto" />
-  <p class="mt-6">
+  <div class="flex flex-col md:flex-row gap-2 md:gap-4">
+    <Image src={img21} height={512} alt="" class="md:w-1/3" />
+    <Image src={img22} height={512} alt="" class="md:w-2/3" />
+  </div>
+  <p>
     To make sure every project was feasible within a five-day workload (four
     full days, to be exact), everyone had to create a task planning board, where
     they thought realistically about what they wanted to achieve each day.
@@ -15,4 +27,12 @@ import img21 from "../images/2-1.jpg";
     tasks were not completed as planned. The peach triangle sticker placed at
     the top corner indicates unexpected tasks that were added along the process.
   </p>
+  <Image src={img23} height={1024} alt="" />
+  <Image src={img24} height={1024} alt="" />
+  <Image src={img25} height={1024} alt="" />
+  <Image src={img26} height={1024} alt="" />
+  <Image src={img27} height={1024} alt="" />
+  <Image src={img28} height={1024} alt="" />
+  <Image src={img29} height={1024} alt="" />
+  <Image src={img210} height={1024} alt="" />
 </TabContent>

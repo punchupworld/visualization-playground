@@ -48,7 +48,7 @@
   }
 
   section {
-    @apply flex flex-col items-center p-3 md:p-6;
+    @apply flex flex-col items-center px-3 py-4 md:p-6;
   }
 
   section > div {

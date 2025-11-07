@@ -1,10 +1,16 @@
 ---
 import TabContent from "./tab-content.astro";
+import VideoBlock from "./video-block.astro";
 ---
 
 <TabContent title="Presentations">
-  <p class="text-center">
+  <p>
     This was the first time our bosses got to see what the hell was going on
     during these five days.
   </p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-2 md:gap-4">
+    <VideoBlock src="/videos/6-1.mp4" />
+    <VideoBlock src="/videos/6-2.mp4" />
+  </div>
 </TabContent>

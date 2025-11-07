@@ -1,5 +1,10 @@
 ---
 import TabContent from "./tab-content.astro";
+import { Image } from "astro:assets";
+import img51 from "../images/5-1.png";
+import img52 from "../images/5-2.png";
+import img54 from "../images/5-4.png";
+import VideoBlock from "./video-block.astro";
 ---
 
 <TabContent title="Reflection">
@@ -7,4 +12,12 @@ import TabContent from "./tab-content.astro";
     At the end of each day, everyone came together to see whose mental state was
     breaking down that day.
   </p>
+  <Image src={img51} width={1280} alt="" />
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 items-center gap-2 md:gap-4 bg-[#000] py-2 md:p-4"
+  >
+    <Image src={img52} width={512} alt="" />
+    <VideoBlock src="/videos/5-3.mp4" />
+  </div>
+  <Image src={img54} width={1280} alt="" />
 </TabContent>
